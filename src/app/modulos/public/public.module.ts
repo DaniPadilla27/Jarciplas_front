@@ -11,13 +11,16 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ApiService } from '../../services/api.service';
 import { LoginComponent } from './pages/login/login.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 
 
 @NgModule({
   declarations: [
     PublicComponent ,// Importa el componente standalone
-   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent // Declara solo componentes no standalone
+   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent
+   
+   // Declara solo componentes no standalone
   ],
   imports: [
     CommonModule,

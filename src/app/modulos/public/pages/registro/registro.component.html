@@ -1,69 +1,45 @@
 <div class="flex h-screen bg-[#f3f9f7]">
-    <!-- Panel Izquierdo -->
-    <div class="w-1/3 flex items-center justify-center bg-[#dff5eb]">
-      <div class="text-center">
-        <img
-          src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg"
-          alt="Jarciplas"
-          class="w-2/3 mx-auto mb-4"
-        />
-        <h1 class="text-3xl font-bold text-[#2aac62]">JARCIPLAS</h1>
-      </div>
-    </div>
-  
-    <!-- Panel Derecho -->
-    <div class="w-2/3 flex flex-col justify-center items-center p-8">
-      <h1 class="text-4xl font-bold text-[#357563] mb-6">Sign Up</h1>
-      <form class="w-full max-w-sm space-y-4">
-        <div class="relative">
-          <input
-            type="text"
-            placeholder="Username"
-            class="w-full border border-[#c5e0dd] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
-          />
-          <span class="absolute right-3 top-2 text-[#648c9c]">
-            <i class="fas fa-user"></i>
-          </span>
-        </div>
-        <div class="relative">
-          <input
-            type="email"
-            placeholder="Email"
-            class="w-full border border-[#c5e0dd] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
-          />
-          <span class="absolute right-3 top-2 text-[#648c9c]">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </div>
-        <div class="relative">
-          <input
-            type="password"
-            placeholder="Password"
-            class="w-full border border-[#c5e0dd] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
-          />
-          <span class="absolute right-3 top-2 text-[#648c9c]">
-            <i class="fas fa-lock"></i>
-          </span>
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-[#2aac62] text-white rounded-lg py-2 font-bold hover:bg-[#357563] transition"
-        >
-          Sign Up
-        </button>
-      </form>
-      <p class="mt-4 text-sm text-[#8ca094]">
-        Already have an account?
-        <a href="#" class="text-[#357563] font-bold">Log In</a>
-      </p>
-      <div class="mt-6 flex space-x-4">
-        <a href="#" class="text-[#648c9c] hover:text-[#357563]">
-          <i class="fab fa-facebook"></i>
-        </a>
-        <a href="#" class="text-[#648c9c] hover:text-[#357563]">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </div>
+  <!-- Panel Izquierdo -->
+  <div class="w-1/3 flex items-center justify-center bg-[#dff5eb]">
+    <div class="text-center">
+      <img
+        src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg"
+        alt="Jarciplas"
+        class="w-2/3 mx-auto mb-4"
+      />
+      <h1 class="text-3xl font-bold text-[#2aac62]">JARCIPLAS</h1>
     </div>
   </div>
-  
+
+  <!-- Panel Derecho -->
+  <div class="w-2/3 flex flex-col justify-center items-center p-8">
+    <h1 class="text-4xl font-bold text-[#357563] mb-6">Sign Up</h1>
+    
+    <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()" class="w-full max-w-sm space-y-4">
+      <input type="text" formControlName="Nombre" placeholder="Nombre" class="input-field" />
+      <input type="text" formControlName="Apellido_Paterno" placeholder="Apellido Paterno" class="input-field" />
+      <input type="text" formControlName="Apellido_Materno" placeholder="Apellido Materno" class="input-field" />
+      <input type="number" formControlName="Edad" placeholder="Edad" class="input-field" />
+      
+      <select formControlName="Genero" class="input-field">
+        <option value="" disabled selected>Seleccione su género</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Otro">Otro</option>
+      </select>
+      
+      <input type="email" formControlName="Correo" placeholder="Correo Electrónico" class="input-field" />
+      <input type="text" formControlName="Telefono" placeholder="Teléfono" class="input-field" />
+      <input type="password" formControlName="Contraseña" placeholder="Contraseña" class="input-field" />
+
+      <button type="submit" class="w-full bg-[#2aac62] text-white rounded-lg py-2 font-bold hover:bg-[#357563] transition">
+        Sign Up
+      </button>
+    </form>
+
+    <p class="mt-4 text-sm text-[#8ca094]">
+      ¿Ya tienes una cuenta?
+      <a href="#" class="text-[#357563] font-bold">Iniciar sesión</a>
+    </p>
+  </div>
+</div>

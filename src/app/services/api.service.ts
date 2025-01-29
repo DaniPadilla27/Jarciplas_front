@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import environment from '../variables/environment';
+import  environment  from '../variables/environment'; // Ajustar la ruta si es necesario
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,29 @@ import environment from '../variables/environment';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  // Cambiar la firma del método para aceptar un solo objeto con las propiedades necesarias
-  login(Correo: string, Contraseña: string ): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
+  }
 
+  registrarUsuario(
+    Nombre: string,
+    Apellido_Paterno: string,
+    Apellido_Materno: string,
+    Edad: number,
+    Genero: string,
+    Correo: string,
+    Telefono: string,
+    Contraseña: string
+  ): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}usuarios`, {
+      Nombre,
+      Apellido_Paterno,
+      Apellido_Materno,
+      Edad,
+      Genero,
+      Correo,
+      Telefono,
+      Contraseña
+    });
   }
 }
-
