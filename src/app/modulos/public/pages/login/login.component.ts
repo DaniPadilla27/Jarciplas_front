@@ -36,13 +36,22 @@ export class LoginComponent {
     // Llamar al servicio con las claves correctas
     this.apiService.login(correo, contraseña).subscribe(
       (response: any) => {
-        if (response && response.tipo_usuario) {
-          if (response.tipo_usuario === 2) {
-            this.router.navigate(['/adm/productos']); // Redirige a admin
-          } else if (response.tipo_usuario === 1) {
-            this.router.navigate(['/adm/productos']); // Redirige a trabajador
-          } else {
-            console.error('Tipo de usuario no reconocido');
+        if (response && response.tipo_usuario !== undefined) {
+          switch (response.tipo_usuario) {
+            case 1:
+              this.router.navigate(['/adm/']); // Redirige a administrador
+              break;
+            case 2:
+              this.router.navigate(['/public/']); // Redirige a administrador
+              break;
+            case 3:
+              this.router.navigate(['/trabajador/']); // Redirige a trabajador
+              break;
+            case 4:
+              this.router.navigate(['/cliente/']); // Redirige a cliente
+              break;
+            default:
+              console.error('Tipo de usuario no reconocido');
           }
         } else {
           console.error('Error en la autenticación');
@@ -52,5 +61,6 @@ export class LoginComponent {
         console.error('Error al iniciar sesión:', error);
       }
     );
+    
   }
 }

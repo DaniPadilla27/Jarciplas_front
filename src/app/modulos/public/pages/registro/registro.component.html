@@ -13,33 +13,77 @@
 
   <!-- Panel Derecho -->
   <div class="w-2/3 flex flex-col justify-center items-center p-8">
-    <h1 class="text-4xl font-bold text-[#357563] mb-6">Sign Up</h1>
+    <h1 class="text-4xl font-bold text-[#357563] mb-8">Registrate</h1>
     
-    <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()" class="w-full max-w-sm space-y-4">
-      <input type="text" formControlName="Nombre" placeholder="Nombre" class="input-field" />
-      <input type="text" formControlName="Apellido_Paterno" placeholder="Apellido Paterno" class="input-field" />
-      <input type="text" formControlName="Apellido_Materno" placeholder="Apellido Materno" class="input-field" />
-      <input type="number" formControlName="Edad" placeholder="Edad" class="input-field" />
-      
-      <select formControlName="Genero" class="input-field">
-        <option value="" disabled selected>Seleccione su género</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Femenino">Femenino</option>
-        <option value="Otro">Otro</option>
-      </select>
-      
-      <input type="email" formControlName="Correo" placeholder="Correo Electrónico" class="input-field" />
-      <input type="text" formControlName="Telefono" placeholder="Teléfono" class="input-field" />
-      <input type="password" formControlName="Contraseña" placeholder="Contraseña" class="input-field" />
+    <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()" class="w-full max-w-md space-y-6">
+      <!-- Campos del formulario -->
+      <div class="space-y-4">
+        <input
+          type="text"
+          formControlName="Nombre"
+          placeholder="Nombre"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+        <input
+          type="text"
+          formControlName="Apellido_Paterno"
+          placeholder="Apellido Paterno"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+        <input
+          type="text"
+          formControlName="Apellido_Materno"
+          placeholder="Apellido Materno"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+        <input
+          type="number"
+          formControlName="Edad"
+          placeholder="Edad"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+        <select
+          formControlName="Genero"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        >
+          <option value="" disabled selected>Seleccione su género</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <input
+          type="email"
+          formControlName="Correo"
+          placeholder="Correo Electrónico"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+        <input
+          type="text"
+          formControlName="Telefono"
+          placeholder="Teléfono"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+        <input
+          type="password"
+          formControlName="Contraseña"
+          placeholder="Contraseña"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
+        />
+      </div>
 
-      <button type="submit" class="w-full bg-[#2aac62] text-white rounded-lg py-2 font-bold hover:bg-[#357563] transition">
+      <!-- Botón de registro -->
+      <button
+        type="submit"
+        class="w-full bg-[#2aac62] text-white rounded-lg py-3 font-bold hover:bg-[#357563] transition"
+      >
         Sign Up
       </button>
     </form>
 
-    <p class="mt-4 text-sm text-[#8ca094]">
+    <!-- Enlace para iniciar sesión -->
+    <p class="mt-6 text-sm text-[#8ca094]">
       ¿Ya tienes una cuenta?
-      <a href="#" class="text-[#357563] font-bold">Iniciar sesión</a>
+      <a href="#" class="text-[#357563] font-bold hover:underline">Iniciar sesión</a>
     </p>
   </div>
 </div>

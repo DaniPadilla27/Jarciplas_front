@@ -14,7 +14,7 @@ export class ApiService {
   }
 
   registrarUsuario(
-    Nombre: string,
+    Nombre: string,  
     Apellido_Paterno: string,
     Apellido_Materno: string,
     Edad: number,

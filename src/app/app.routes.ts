@@ -18,7 +18,12 @@ import path from 'path';
     {
       path: 'trabajador',
       loadChildren: () => import('./modulos/trabajador/trabajador.module').then(m => m.TrabajadorModule)
-    }
+    },
+    {
+      path: 'cliente',
+      loadChildren: () => import('./modulos/cliente/cliente.module').then(m => m.ClienteModule)
+    },
+    
 
 
 
