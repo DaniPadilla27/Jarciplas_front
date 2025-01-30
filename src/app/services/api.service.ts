@@ -9,6 +9,11 @@ import environment from '../variables/environment'; // Ajustar la ruta si es nec
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+
+  obtenerProductos(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}mostrar`);
+  }
+
   login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
   }
