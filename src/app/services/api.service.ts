@@ -13,6 +13,9 @@ export class ApiService {
   obtenerProductos(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}mostrar`);
   }
+  obtenerPoliticas(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}politicas`);
+  }
 
   login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
@@ -58,6 +61,26 @@ export class ApiService {
       console.log(pair[0], pair[1]);
     }
 
+  
+
     return this.http.post<any>(`${environment.apiUrl}cambios`, formData); // Asegurar que la ruta sea la correcta
   }
+
+
+  crearPolitica(
+    titulo: string,
+    contenido: string
+  ): Observable<any> {
+    const body = {
+      titulo,
+      contenido
+    };
+  
+    // Debug: Verificar que el cuerpo de la solicitud tiene los datos correctos
+    console.log('Datos enviados para crear política:', body);
+  
+    return this.http.post<any>(`${environment.apiUrl}politicas`, body); // Asegúrate de que la ruta sea la correcta
+  }
+
+
 }

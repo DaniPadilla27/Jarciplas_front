@@ -7,7 +7,8 @@ import { AdmComponent } from './adm.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductosComponent } from './pages/productos/productos.component';
-import { ApiService } from '../../services/api.service';  // <-- Importar ApiService (ajusta la ruta si es necesario)
+import { ApiService } from '../../services/api.service';
+import { PoliticasComponent } from './pages/politicas/politicas.component';  // <-- Importar ApiService (ajusta la ruta si es necesario)
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ApiService } from '../../services/api.service';  // <-- Importar ApiSer
     AdmComponent,
     FooterComponent,
     ProductosComponent,
+    PoliticasComponent,
   ],
   imports: [
     CommonModule,

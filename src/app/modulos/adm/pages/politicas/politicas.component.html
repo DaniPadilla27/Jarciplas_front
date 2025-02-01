@@ -1,0 +1,63 @@
+<div class="h-screen flex items-center justify-center bg-[#f3f9f7]">
+    <div class="bg-white rounded-lg shadow-lg flex w-full max-w-4xl overflow-hidden">
+      <!-- Columna Izquierda: Formulario -->
+      <div class="w-full md:w-1/2 p-8">
+        <h2 class="text-[#357563] text-lg font-semibold uppercase mb-2">
+          Add New Policy
+        </h2>
+        <h1 class="text-2xl font-bold text-[#2aac62] mb-6">Policy Details</h1>
+        <form [formGroup]="politicaForm" (ngSubmit)="crearPolitica()">
+          <!-- Campo Título -->
+          <div class="mb-4">
+            <label for="titulo" class="block text-sm font-medium text-[#648c9c] mb-2">
+              Título
+            </label>
+            <input
+              type="text"
+              id="titulo"
+              placeholder="Policy Title"
+              formControlName="titulo"
+              class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+            />
+            <!-- Mensaje de error -->
+            <div *ngIf="politicaForm.get('titulo')?.invalid && politicaForm.get('titulo')?.touched" class="text-red-500 text-sm mt-1">
+              El título es obligatorio.
+            </div>
+          </div>
+          <!-- Campo Contenido -->
+          <div class="mb-4">
+            <label for="contenido" class="block text-sm font-medium text-[#648c9c] mb-2">
+              Contenido
+            </label>
+            <textarea
+              id="contenido"
+              placeholder="Policy Content"
+              formControlName="contenido"
+              rows="6"
+              class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+            ></textarea>
+            <!-- Mensaje de error -->
+            <div *ngIf="politicaForm.get('contenido')?.invalid && politicaForm.get('contenido')?.touched" class="text-red-500 text-sm mt-1">
+              El contenido es obligatorio.
+            </div>
+          </div>
+          <!-- Botón de Enviar -->
+          <button
+            type="submit"
+            class="bg-[#2aac62] text-white py-2 px-4 rounded-md hover:bg-[#357563] transition"
+            [disabled]="politicaForm.invalid"
+          >
+            Crear Política
+          </button>
+        </form>
+      </div>
+      <!-- Columna Derecha: Imagen -->
+      <div class="hidden md:block md:w-1/2">
+        <img
+          src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg"
+          alt="Background Image"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
