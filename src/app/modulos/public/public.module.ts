@@ -12,13 +12,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ApiService } from '../../services/api.service';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
+import { PoliticasComponent } from './pages/politicas/politicas.component';
+import { ContactanosComponent } from './pages/contactanos/contactanos.component';
+
 
 
 
 @NgModule({
   declarations: [
     PublicComponent ,// Importa el componente standalone
-   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent
+   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent, PoliticasComponent, ContactanosComponent, 
    
    // Declara solo componentes no standalone
   ],

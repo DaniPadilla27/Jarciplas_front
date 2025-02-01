@@ -18,5 +18,6 @@ export class HeaderComponent {
     this.router.navigate(['/public/registro']); // Asegúrate de usar '/public/Login'
   }
   
+  
 
 }

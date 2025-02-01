@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importación correcta
 import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
+import { PoliticasComponent } from './pages/politicas/politicas.component';
+import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
       {
         path: 'registro',
         component: RegistroComponent, // Ruta registro
+      },
+      {
+        path: 'politicas',
+        component: PoliticasComponent, // Ruta registro
+      },
+      {
+        path: 'contactanos',
+        component: ContactanosComponent, // Ruta registro
       },
     ],
   },
