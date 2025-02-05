@@ -16,6 +16,9 @@ export class ApiService {
   obtenerPoliticas(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}politicas`);
   }
+  obtenerTrabajadores(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}trabajadores`);
+  }
 
   login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
@@ -47,12 +50,14 @@ export class ApiService {
     nombre_producto: string,
     precio: number,
     categoria: string,
+    descripcion:string,
     imagen: File
   ): Observable<any> {
     const formData = new FormData();
     formData.append('nombre_producto', nombre_producto);
     formData.append('precio', precio.toString());
     formData.append('categoria', categoria);
+    formData.append('descripcion',descripcion);
     formData.append('imagen', imagen, imagen.name); // Asegurar que el archivo tiene un nombre
 
     // Debug: Verificar que FormData tiene los datos correctos

@@ -23,6 +23,7 @@ export class ProductosComponent {
       nombre_producto: ['', [Validators.required]],
       precio: ['', [Validators.required, Validators.min(0)]],
       categoria: ['', [Validators.required]],
+      descripcion: ['', [Validators.required]],
     });
   }
 
@@ -41,10 +42,10 @@ export class ProductosComponent {
       return;
     }
 
-    const { nombre_producto, precio, categoria } = this.productoForm.value;
+    const { nombre_producto, precio, categoria, descripcion } = this.productoForm.value;
 
     // Llamar al servicio para crear el producto
-    this.apiService.crearProducto(nombre_producto, precio, categoria, this.imagen).subscribe(
+    this.apiService.crearProducto(nombre_producto, precio, categoria, descripcion,this.imagen).subscribe(
       (response) => {
         console.log('Producto agregado:', response);
         alert('Producto agregado exitosamente');

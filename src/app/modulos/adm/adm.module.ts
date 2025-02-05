@@ -9,6 +9,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { ApiService } from '../../services/api.service';
 import { PoliticasComponent } from './pages/politicas/politicas.component';  // <-- Importar ApiService (ajusta la ruta si es necesario)
+import { TrabajadorComponent } from '../trabajador/trabajador.component';
+import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { PoliticasComponent } from './pages/politicas/politicas.component';  // 
     FooterComponent,
     ProductosComponent,
     PoliticasComponent,
+    TrabajadoresComponent
   ],
   imports: [
     CommonModule,
