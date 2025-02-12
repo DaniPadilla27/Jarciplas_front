@@ -26,25 +26,16 @@ export class ApiService {
 
   registrarUsuario(
     Nombre: string,
-    Apellido_Paterno: string,
-    Apellido_Materno: string,
-    Edad: number,
-    Genero: string,
     Correo: string,
-    Telefono: string,
     Contraseña: string
   ): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios`, {
       Nombre,
-      Apellido_Paterno,
-      Apellido_Materno,
-      Edad,
-      Genero,
       Correo,
-      Telefono,
-      Contraseña,
+      Contraseña
     });
   }
+  
 
   crearProducto(
     nombre_producto: string,
@@ -70,6 +61,26 @@ export class ApiService {
 
     return this.http.post<any>(`${environment.apiUrl}cambios`, formData); // Asegurar que la ruta sea la correcta
   }
+
+  
+  crearContacto(
+    nombre: string,
+    informacion: string
+  ): Observable<any> {
+    const body = {
+      nombre,
+      informacion
+    };
+  
+    // Debug: Verificar que el cuerpo de la solicitud tiene los datos correctos
+    console.log('Datos enviados para crear Contacto:', body);
+  
+    return this.http.post<any>(`${environment.apiUrl}contacto`, body); // Asegúrate de que la ruta sea la correcta
+  }
+
+
+  
+  
 
 
   crearPolitica(

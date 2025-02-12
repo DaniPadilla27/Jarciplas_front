@@ -19,12 +19,7 @@ export class RegistroComponent {
   ) {
     this.registroForm = this.fb.group({
       Nombre: ['', Validators.required],
-      Apellido_Paterno: ['', Validators.required],
-      Apellido_Materno: ['', Validators.required],
-      Edad: ['', [Validators.required, Validators.min(1)]],
-      Genero: ['', Validators.required],
       Correo: ['', [Validators.required, Validators.email]],
-      Telefono: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       Contraseña: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -35,26 +30,12 @@ export class RegistroComponent {
       return;
     }
 
-    // Extraer valores del formulario manualmente
+    // Extraer valores del formulario
     const nombre = this.registroForm.get('Nombre')?.value;
-    const apellidoPaterno = this.registroForm.get('Apellido_Paterno')?.value;
-    const apellidoMaterno = this.registroForm.get('Apellido_Materno')?.value;
-    const edad = this.registroForm.get('Edad')?.value;
-    const genero = this.registroForm.get('Genero')?.value;
     const correo = this.registroForm.get('Correo')?.value;
-    const telefono = this.registroForm.get('Telefono')?.value;
     const contraseña = this.registroForm.get('Contraseña')?.value;
 
-    this.apiService.registrarUsuario(
-      nombre,
-      apellidoPaterno,
-      apellidoMaterno,
-      edad,
-      genero,
-      correo,
-      telefono,
-      contraseña
-    ).subscribe({
+    this.apiService.registrarUsuario(nombre, correo, contraseña).subscribe({
       next: () => {
         alert('Usuario registrado exitosamente');
         this.registroForm.reset();

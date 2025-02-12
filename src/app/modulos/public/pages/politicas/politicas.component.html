@@ -1,29 +1,23 @@
-<div class="h-screen flex items-center justify-center bg-gradient-to-b from-green-100 to-green-50 p-6">
-    <div class="bg-white shadow-lg rounded-3xl w-full max-w-4xl p-10 space-y-8">
-        <!-- Título -->
-        <h2 class="text-green-700 text-3xl font-bold uppercase text-center tracking-wide">
-            Politicas 
-        </h2>
+<div class="min-h-screen flex items-center justify-center bg-white p-8">
+    <div class="w-full max-w-4xl">
+        <!-- Encabezado -->
+        <div class="text-center mb-10">
+            <h2 class="text-gray-800 text-4xl font-bold uppercase tracking-tight">Políticas de Empresa</h2>
+            <p class="text-gray-500 mt-2 text-lg">Conoce nuestras normativas y regulaciones</p>
+        </div>
 
-        <!-- Contenedor con scroll -->
-        <div class="max-h-[500px] overflow-y-auto space-y-4 px-2">
-            <div *ngIf="politicas.length === 0" class="text-center text-gray-500">
-                <p class="text-lg">No hay políticas disponibles.</p>
+        <!-- Contenedor de políticas -->
+        <div class="space-y-8">
+            <!-- Mensaje si no hay políticas -->
+            <div *ngIf="politicas.length === 0" class="text-center py-8">
+                <p class="text-gray-500 text-lg">No hay políticas disponibles en este momento.</p>
             </div>
 
-            <ul class="space-y-4">
-                <li
-                    *ngFor="let politica of politicas"
-                    class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg hover:scale-105 transition-all duration-300"
-                >
-                    <h3 class="text-green-600 text-xl font-semibold mb-2">
-                        {{ politica.titulo }}
-                    </h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        {{ politica.contenido }}
-                    </p>
-                </li>
-            </ul>
+            <!-- Lista de políticas -->
+            <div *ngFor="let politica of politicas" class="border-b border-gray-200 pb-6">
+                <h3 class="text-gray-800 text-xl font-semibold mb-3">{{ politica.titulo }}</h3>
+                <p class="text-gray-600 text-base leading-relaxed">{{ politica.contenido }}</p>
+            </div>
         </div>
     </div>
 </div>

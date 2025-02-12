@@ -1,27 +1,30 @@
-<header class="bg-[#f3f9f7] shadow-md">
+<header class="bg-white shadow-sm">
   <div class="container mx-auto px-6 py-4 flex justify-between items-center">
     <!-- Logo -->
-    <div class="text-[#2aac62] text-xl font-bold">Jarciplas</div>
+    <div class="text-[#2aac62] text-2xl font-bold flex items-center">
+      <img src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg" 
+           alt="Logo Jarciplas" 
+           class="w-24 h-24 mr-2 rounded-full"> <!-- Aumentado el tamaño del logo -->
+      Jarciplas
+    </div>
 
-    <!-- Navigation -->
-    <nav class="space-x-8 text-[#357563] font-medium">
-      <a href="#" class="hover:text-[#2aac62]">Inicio</a>
-      <a href="/public/politicas" class="hover:text-[#2aac62]">Politicas</a>
-      <a href="/public/empleos" class="hover:text-[#2aac62]">Empleos</a>
-      <!-- <a href="/public/contactanos" class="hover:text-[#2aac62]">Contactanos</a> -->
-      
-      <!-- <a href="#" class="hover:text-[#2aac62]">Ofertas</a> -->
+    <!-- Navegación -->
+    <nav class="hidden md:flex space-x-8 text-[#357563] font-medium">
+      <a href="#" class="hover:text-[#2aac62] transition-colors duration-300">Inicio</a>
+      <a href="/public/politicas" class="hover:text-[#2aac62] transition-colors duration-300">Políticas</a>
+      <a href="/public/empleos" class="hover:text-[#2aac62] transition-colors duration-300">Empleos</a>
     </nav>
     
-    <!-- Buttons -->
-    <div class="space-x-4">
-      <button (click)="redirectToLogin()" class="text-[#648c9c] hover:text-[#2aac62]">
+    <!-- Botones -->
+    <div class="flex items-center space-x-4">
+      <button (click)="redirectToLogin()" 
+              class="text-[#648c9c] hover:text-[#2aac62] transition-colors duration-300">
         Iniciar sesión
       </button>
-      <button (click)="redirectToRegistro()" class="bg-[#2aac62] text-white px-4 py-2 rounded-lg hover:bg-[#357563]">
+      <button (click)="redirectToRegistro()" 
+              class="bg-[#2aac62] text-white px-4 py-2 rounded-lg hover:bg-[#357563] transition-colors duration-300">
         Registrarme
       </button>
-      
     </div>
   </div>
 </header>
