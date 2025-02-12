@@ -6,6 +6,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { AdmComponent } from './adm.component';
 import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.component';
 import { PoliticasComponent } from './pages/politicas/politicas.component';
+import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 const routes: Routes = [
     
 
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: 'politicas',
         component: PoliticasComponent,
+      },
+      {
+        path: 'contactanos',
+        component: ContactanosComponent,
       },
     ],
 },

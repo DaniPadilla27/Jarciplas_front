@@ -11,6 +11,7 @@ import { ApiService } from '../../services/api.service';
 import { PoliticasComponent } from './pages/politicas/politicas.component';  // <-- Importar ApiService (ajusta la ruta si es necesario)
 import { TrabajadorComponent } from '../trabajador/trabajador.component';
 import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.component';
+import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.compone
     FooterComponent,
     ProductosComponent,
     PoliticasComponent,
-    TrabajadoresComponent
+    TrabajadoresComponent,
+    ContactanosComponent
   ],
-  imports: [
+  imports: [  
     CommonModule,
     AdmRoutingModule,
     ReactiveFormsModule,

@@ -14,6 +14,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { PoliticasComponent } from './pages/politicas/politicas.component';
 import { ContactanosComponent } from './pages/contactanos/contactanos.component';
+import { EmpleoComponent } from './pages/empleo/empleo.component';
 
 
 
@@ -21,7 +22,7 @@ import { ContactanosComponent } from './pages/contactanos/contactanos.component'
 @NgModule({
   declarations: [
     PublicComponent ,// Importa el componente standalone
-   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent, PoliticasComponent, ContactanosComponent, 
+   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent, PoliticasComponent, ContactanosComponent, EmpleoComponent, 
    
    // Declara solo componentes no standalone
   ],
