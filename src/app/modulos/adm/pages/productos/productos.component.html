@@ -3,9 +3,9 @@
     <!-- Columna Izquierda: Formulario -->
     <div class="w-full md:w-1/2 p-8">
       <h2 class="text-[#357563] text-lg font-semibold uppercase mb-2">
-        Add Your Product
+        Agrega Tu Producto
       </h2>
-      <h1 class="text-2xl font-bold text-[#2aac62] mb-6">Product Details</h1>
+      <h1 class="text-2xl font-bold text-[#2aac62] mb-6">Detalles del Producto</h1>
 
       <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
         <!-- Campo Nombre del Producto -->
@@ -13,7 +13,7 @@
           <label for="nombre_producto" class="block text-sm font-medium text-[#648c9c] mb-2">
             Nombre del Producto
           </label>
-          <input type="text" id="nombre_producto" placeholder="Product Name" formControlName="nombre_producto"
+          <input type="text" id="nombre_producto" placeholder="Nombre del Producto" formControlName="nombre_producto"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none" />
           <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('nombre_producto')?.invalid && productoForm.get('nombre_producto')?.touched"
@@ -27,7 +27,7 @@
           <label for="precio" class="block text-sm font-medium text-[#648c9c] mb-2">
             Precio
           </label>
-          <input type="number" id="precio" placeholder="Product Price" formControlName="precio"
+          <input type="number" id="precio" placeholder="Precio del Producto" formControlName="precio"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none" />
           <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched"
@@ -41,7 +41,7 @@
           <label for="categoria" class="block text-sm font-medium text-[#648c9c] mb-2">
             Categoría
           </label>
-          <input type="text" id="categoria" placeholder="Product Category" formControlName="categoria"
+          <input type="text" id="categoria" placeholder="Categoría del Producto" formControlName="categoria"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none" />
           <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
@@ -49,12 +49,13 @@
             La categoría es obligatoria.
           </div>
         </div>
+
         <!-- Campo Descripción -->
         <div class="mb-4">
           <label for="descripcion" class="block text-sm font-medium text-[#648c9c] mb-2">
             Descripción
           </label>
-          <textarea id="descripcion" placeholder="Product Description" formControlName="descripcion"
+          <textarea id="descripcion" placeholder="Descripción del Producto" formControlName="descripcion"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"></textarea>
           <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
@@ -62,17 +63,6 @@
             La descripción es obligatoria.
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- Campo Imagen -->
         <div class="mb-4">
@@ -87,14 +77,6 @@
           </div>
         </div>
 
-
-
-
-
-
-
-
-
         <!-- Botón de Enviar -->
         <button type="submit" class="bg-[#2aac62] text-white py-2 px-4 rounded-md hover:bg-[#357563] transition"
           [disabled]="productoForm.invalid || !imagen">
@@ -106,7 +88,7 @@
     <!-- Columna Derecha: Imagen -->
     <div class="hidden md:block md:w-1/2">
       <img src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg"
-        alt="Background Image" class="w-full h-full object-cover" />
+        alt="Imagen de Fondo" class="w-full h-full object-cover" />
     </div>
   </div>
 </div>
