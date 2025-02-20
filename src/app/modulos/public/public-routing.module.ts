@@ -8,6 +8,7 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { PoliticasComponent } from './pages/politicas/politicas.component';
 import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 import { EmpleoComponent } from './pages/empleo/empleo.component';
+import { ProductosComponent } from './pages/productos/productos.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'empleos',
         component: EmpleoComponent, // Ruta registro
+      },
+      {
+        path: 'productos',
+        component: ProductosComponent, // Ruta registro
       },
     ],
   },
