@@ -13,16 +13,26 @@ export class ProductosComponent {
   productoForm: FormGroup;
   imagen: File | null = null;
 
+  // 🔹 Lista de categorías disponibles
+  categorias: string[] = [
+    'Líquidos de Limpieza',
+    'Productos Plásticos',
+    'Artículos de Limpieza',
+    'Ambientadores',
+    'Productos Ecológicos',
+    'Ofertas Especiales'
+  ];
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router
   ) {
-    // Inicializar el FormGroup
+    // Inicializar el FormGroup con validaciones
     this.productoForm = this.fb.group({
       nombre_producto: ['', [Validators.required]],
       precio: ['', [Validators.required, Validators.min(0)]],
-      categoria: ['', [Validators.required]],
+      categoria: ['', [Validators.required]], // Ahora es un select
       descripcion: ['', [Validators.required]],
     });
   }
@@ -45,7 +55,7 @@ export class ProductosComponent {
     const { nombre_producto, precio, categoria, descripcion } = this.productoForm.value;
 
     // Llamar al servicio para crear el producto
-    this.apiService.crearProducto(nombre_producto, precio, categoria, descripcion,this.imagen).subscribe(
+    this.apiService.crearProducto(nombre_producto, precio, categoria, descripcion, this.imagen).subscribe(
       (response) => {
         console.log('Producto agregado:', response);
         alert('Producto agregado exitosamente');

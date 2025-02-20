@@ -15,7 +15,6 @@
           </label>
           <input type="text" id="nombre_producto" placeholder="Nombre del Producto" formControlName="nombre_producto"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none" />
-          <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('nombre_producto')?.invalid && productoForm.get('nombre_producto')?.touched"
             class="text-red-500 text-sm mt-1">
             El nombre del producto es obligatorio.
@@ -29,21 +28,22 @@
           </label>
           <input type="number" id="precio" placeholder="Precio del Producto" formControlName="precio"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none" />
-          <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched"
             class="text-red-500 text-sm mt-1">
             El precio es obligatorio y debe ser mayor o igual a 0.
           </div>
         </div>
 
-        <!-- Campo Categoría -->
+        <!-- Campo Categoría (Dropdown) -->
         <div class="mb-4">
           <label for="categoria" class="block text-sm font-medium text-[#648c9c] mb-2">
             Categoría
           </label>
-          <input type="text" id="categoria" placeholder="Categoría del Producto" formControlName="categoria"
-            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none" />
-          <!-- Mensaje de error -->
+          <select id="categoria" formControlName="categoria"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none">
+            <option value="" disabled selected>Selecciona una categoría</option>
+            <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+          </select>
           <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
             class="text-red-500 text-sm mt-1">
             La categoría es obligatoria.
@@ -57,7 +57,6 @@
           </label>
           <textarea id="descripcion" placeholder="Descripción del Producto" formControlName="descripcion"
             class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"></textarea>
-          <!-- Mensaje de error -->
           <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
             class="text-red-500 text-sm mt-1">
             La descripción es obligatoria.
@@ -71,7 +70,6 @@
           </label>
           <input type="file" id="imagen" (change)="onFileChange($event)"
             class="w-full border border-[#c4c4c4] rounded-md focus:outline-none" />
-          <!-- Mensaje de error -->
           <div *ngIf="!imagen && productoForm.touched" class="text-red-500 text-sm mt-1">
             La imagen es obligatoria.
           </div>
