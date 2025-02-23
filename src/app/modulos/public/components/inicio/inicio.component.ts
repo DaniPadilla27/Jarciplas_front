@@ -1,10 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service'; // Servicio para obtener los productos
 
 @Component({
   selector: 'app-inicio',
-  standalone:false,
+  standalone: false,
   templateUrl: './inicio.component.html',
   styles: ``
 })
@@ -18,16 +17,22 @@ export class InicioComponent implements OnInit {
   }
 
   obtenerProductos(): void {
-    this.apiService.obtenerProductos().subscribe(
-      (data) => {
-        this.productos = data.productos; // Ahora se asigna correctamente
-        console.log('Productos cargados:', this.productos); // Verificar en consola
+    this.apiService.obtenerProductosPorCategoria().subscribe(
+      (response) => {
+        this.productos = response.productos; // Asigna los productos desde la respuesta
+        console.log('Productos cargados:', this.productos);
+
+        // Verificar si la imagen está correctamente formateada
+        this.productos.forEach((producto, index) => {
+          console.log(`Producto ${index + 1}:`, {
+            nombre: producto.nombre_producto,
+            imagen: producto.imagen ? 'Imagen presente' : 'Sin imagen'
+          });
+        });
       },
       (error) => {
         console.error('Error al obtener productos:', error);
       }
     );
   }
-  
 }
-

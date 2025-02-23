@@ -19,6 +19,9 @@ export class ApiService {
   obtenerTrabajadores(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}trabajadores`);
   }
+  obtenerProductosPorCategoria(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}productos-por-categoria`);
+  }
 
   login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
