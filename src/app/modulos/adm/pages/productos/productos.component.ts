@@ -36,12 +36,15 @@ export class ProductosComponent {
       descripcion: ['', [Validators.required]],
     });
   }
-
+  imagenPreview: string | ArrayBuffer | null = null;
   // Manejar el cambio de archivo (imagen)
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.imagen = file;
+      const reader = new FileReader();
+      reader.onload = () => this.imagenPreview = reader.result;
+      reader.readAsDataURL(file);
     }
   }
 
@@ -67,4 +70,7 @@ export class ProductosComponent {
       }
     );
   }
+
+  
+  
 }

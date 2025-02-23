@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
+    private authService: AuthService,
     private router: Router
   ) {
-    // Inicializar el FormGroup
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -25,42 +26,43 @@ export class LoginComponent {
   }
 
   login() {
-    const correo = this.loginForm.get('correo')?.value;
-    const contraseña = this.loginForm.get('password')?.value; // Usar minúscula para la variable local
-
-    if (!correo || !contraseña) {
-      console.error('Correo o contraseña no proporcionados');
+    if (this.loginForm.invalid) {
       return;
     }
 
-    // Llamar al servicio con las claves correctas
-    this.apiService.login(correo, contraseña).subscribe(
-      (response: any) => {
-        if (response && response.tipo_usuario !== undefined) {
+    const { correo, password } = this.loginForm.value;
+
+    this.apiService.login(correo, password).subscribe({
+      next: (response: any) => {
+        if (response?.tipo_usuario !== undefined) {
+          this.authService.login(); // Actualizar estado de autenticación
+          
           switch (response.tipo_usuario) {
             case 1:
-              this.router.navigate(['/adm/']); // Redirige a administrador
+              this.router.navigate(['/adm']);
               break;
             case 2:
-              this.router.navigate(['/public/']); // Redirige a administrador
+              this.router.navigate(['/public']);
               break;
             case 3:
-              this.router.navigate(['/trabajador/']); // Redirige a trabajador
+              this.router.navigate(['/trabajador']);
               break;
             case 4:
-              this.router.navigate(['/cliente/']); // Redirige a cliente
+              this.router.navigate(['/cliente']);
               break;
             default:
               console.error('Tipo de usuario no reconocido');
+              this.authService.logout(); // Limpiar autenticación en caso de error
           }
         } else {
           console.error('Error en la autenticación');
+          this.authService.logout();
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al iniciar sesión:', error);
+        this.authService.logout();
       }
-    );
-    
+    });
   }
 }

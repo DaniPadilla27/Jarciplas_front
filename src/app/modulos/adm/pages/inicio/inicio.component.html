@@ -1,27 +1,80 @@
-<div class="bg-gray-100 min-h-screen flex items-center justify-center">
-  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl flex items-center">
-      <div class="w-1/2">
-          <h1 class="text-4xl font-bold text-gray-800 mb-4">
-              Bienvenido a la <span class="text-teal-500">Sección de Administración</span>
-          </h1>
-          <p class="text-gray-600 mb-6">
-              Administra usuarios, visualiza estadísticas y realiza tareas administrativas con facilidad.
-          </p>
-          <button class="bg-teal-500 text-white px-6 py-3 rounded-lg hover:bg-teal-600">
-              Acceder al Panel de Administración
-          </button>
-          <p class="mt-4 text-gray-500">Desplázate hacia abajo para explorar más opciones</p>
-      </div>
-      <div class="w-1/2 relative">
-          <img src="/path/to/admin-dashboard-image.png" alt="Panel de Administración" class="w-full">
-          <div class="absolute top-6 left-12 bg-white shadow-md rounded-full p-2 flex items-center">
-              <img src="/path/to/admin-profile1.jpg" alt="Perfil de Admin 1" class="w-8 h-8 rounded-full">
-              <p class="ml-2 text-sm">Administrar Usuarios</p>
-          </div>
-          <div class="absolute top-20 right-12 bg-white shadow-md rounded-full p-2 flex items-center">
-              <img src="/path/to/admin-profile2.jpg" alt="Perfil de Admin 2" class="w-8 h-8 rounded-full">
-              <p class="ml-2 text-sm">Ver Informes</p>
-          </div>
-      </div>
+<div class="bg-gradient-to-br from-gray-50 to-teal-50 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-6xl flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-12">
+        <!-- Sección Izquierda - Contenido Principal -->
+        <div class="w-full md:w-1/2 space-y-6">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">
+                Gestión Integral 
+                <span class="text-teal-600 block mt-2">Panel Administrativo</span>
+            </h1>
+            
+            <p class="text-lg text-gray-600 mb-6">
+                Control centralizado para la gestión de recursos empresariales
+            </p>
+  
+            <!-- Tarjetas de Funcionalidades -->
+            <div class="grid gap-4 mb-8">
+                <div class="flex items-center p-4 bg-teal-50 rounded-xl transition-transform hover:scale-[1.02]">
+                    <div class="bg-teal-600 p-3 rounded-lg mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-teal-800">Alta de Productos</h3>
+                        <p class="text-gray-600">Gestión completa del catálogo de productos</p>
+                    </div>
+                </div>
+  
+                <div class="flex items-center p-4 bg-blue-50 rounded-xl transition-transform hover:scale-[1.02]">
+                    <div class="bg-blue-600 p-3 rounded-lg mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-800">Gestión Legal</h3>
+                        <p class="text-gray-600">Administración de políticas y documentos legales</p>
+                    </div>
+                </div>
+  
+                <div class="flex items-center p-4 bg-purple-50 rounded-xl transition-transform hover:scale-[1.02]">
+                    <div class="bg-purple-600 p-3 rounded-lg mr-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-purple-800">Trabajadores</h3>
+                        <p class="text-gray-600">Administración del personal y equipos de trabajo</p>
+                    </div>
+                </div>
+            </div>
+  
+            <button class="w-full bg-teal-600 text-white px-8 py-4 rounded-xl hover:bg-teal-700 transition-all font-semibold shadow-lg hover:shadow-xl">
+                Explorar Funcionalidades
+            </button>
+        </div>
+  
+        <!-- Sección Derecha - Imagen Ilustrativa -->
+        <div class="w-full md:w-1/2 relative">
+            <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" 
+                 alt="Dashboard Administrativo" 
+                 class="w-full h-auto animate-float">
+            
+            <div class="absolute -bottom-6 left-0 right-0 flex justify-center space-x-4">
+                <div class="bg-white p-3 rounded-xl shadow-lg flex items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1534/1534959.png" 
+                         class="w-10 h-10 mr-2" 
+                         alt="Gestión de Productos">
+                    <span class="text-sm font-medium text-gray-700">+500 Productos</span>
+                </div>
+                <div class="bg-white p-3 rounded-xl shadow-lg flex items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2092/2092655.png" 
+                         class="w-10 h-10 mr-2" 
+                         alt="Gestión Legal">
+                    <span class="text-sm font-medium text-gray-700">Documentos Legales</span>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
