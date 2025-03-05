@@ -12,6 +12,7 @@ import { AuthService } from '../../../../services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  mostrarContrasena: boolean = false; // Variable para mostrar/ocultar la contraseña
 
   constructor(
     private fb: FormBuilder,

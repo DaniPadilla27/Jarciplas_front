@@ -10,6 +10,7 @@ import { ApiService } from '../../../../services/api.service';
 export class ProductosComponent implements OnInit {
   productos: any[] = []; // Lista de productos obtenidos del backend
   searchTerm: string = ''; // Variable para almacenar la búsqueda
+  currentIndex: number = 0; // Índice actual del carrusel
 
   constructor(private apiService: ApiService) {}
 
@@ -35,5 +36,17 @@ export class ProductosComponent implements OnInit {
       producto.nombre_producto.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       producto.categoria.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  // Método para navegar al producto anterior en el carrusel
+  anteriorProducto(): void {
+    const productosFiltrados = this.filtrarProductos();
+    this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : productosFiltrados.length - 1;
+  }
+
+  // Método para navegar al siguiente producto en el carrusel
+  siguienteProducto(): void {
+    const productosFiltrados = this.filtrarProductos();
+    this.currentIndex = (this.currentIndex < productosFiltrados.length - 1) ? this.currentIndex + 1 : 0;
   }
 }

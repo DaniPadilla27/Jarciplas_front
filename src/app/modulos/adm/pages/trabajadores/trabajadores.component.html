@@ -1,33 +1,41 @@
-<div class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
-  <h1 class="text-3xl font-bold text-gray-800 mb-4">
-    Lista de Trabajadores
-  </h1>
-  <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-4xl">
-    <table class="w-full border-collapse border border-gray-300">
-      <thead>
-        <tr class="bg-teal-500 text-white">
-          <th class="border border-gray-300 px-4 py-2">ID</th>
-          <th class="border border-gray-300 px-4 py-2">Nombre</th>
-          <th class="border border-gray-300 px-4 py-2">Apellido Paterno</th>
-          <th class="border border-gray-300 px-4 py-2">Apellido Materno</th>
-          <th class="border border-gray-300 px-4 py-2">Correo</th>
-          <th class="border border-gray-300 px-4 py-2">Teléfono</th>
-          <th class="border border-gray-300 px-4 py-2">Edad</th>
-          <th class="border border-gray-300 px-4 py-2">Género</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let trabajador of trabajadores">
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.id_trabajador }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Nombre }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Apellido_Paterno }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Apellido_Materno }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Correo }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Telefono }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Edad }}</td>
-          <td class="border border-gray-300 px-4 py-2">{{ trabajador.Genero }}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="bg-[#f3f9f7] min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden transform transition-all hover:shadow-3xl">
+    <div class="p-10">
+      <div class="mb-8 text-center">
+        <h2 class="text-[#357563] text-xl font-semibold uppercase tracking-wide mb-2">
+          Lista de Trabajadores
+        </h2>
+        <h1 class="text-3xl font-bold text-[#2aac62]">Gestión de Trabajadores</h1>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="bg-gradient-to-r from-[#2aac62] to-[#1f8f50] text-white">
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">ID</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Nombre</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Apellido Paterno</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Apellido Materno</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Correo</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Teléfono</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Edad</th>
+              <th class="px-4 py-3 text-left text-sm font-semibold uppercase">Género</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trabajador of trabajadores" class="hover:bg-[#2aac62]/10 transition-colors">
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.id_trabajador }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Nombre }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Apellido_Paterno }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Apellido_Materno }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Correo }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Telefono }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Edad }}</td>
+              <td class="px-4 py-3 border-b border-[#e2e8f0] text-[#648c9c]">{{ trabajador.Genero }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
