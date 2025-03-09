@@ -10,6 +10,11 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
 
+  solicitarRecuperacionContrasena(email: string): Observable<any> {
+    const body = { email }; // El cuerpo de la solicitud debe coincidir con lo que espera el backend
+    return this.http.post<any>(`${environment.apiUrl}solicitarR`, body);
+  }
+
   obtenerProductos(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}mostrar`);
   }
@@ -30,7 +35,7 @@ export class ApiService {
   registrarUsuario(
     Nombre: string,
     Correo: string,
-    Contraseña: string
+    Contraseña: string  
   ): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios`, {
       Nombre,

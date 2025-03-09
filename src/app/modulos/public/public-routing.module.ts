@@ -9,7 +9,8 @@ import { PoliticasComponent } from './pages/politicas/politicas.component';
 import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 import { EmpleoComponent } from './pages/empleo/empleo.component';
 import { ProductosComponent } from './pages/productos/productos.component';
-
+import { OlvidecontraComponent } from './pages/olvidecontra/olvidecontra.component';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 const routes: Routes = [
   {
     path: '',
@@ -48,6 +49,15 @@ const routes: Routes = [
         path: 'productos',
         component: ProductosComponent, // Ruta registro
       },
+      {
+        path: 'olvidecontra',
+        component: OlvidecontraComponent, // Ruta registro
+      },
+      {
+        path: 'recuperar',
+        component: RecuperarComponent, // Ruta registro
+      },
+
     ],
   },
 ];

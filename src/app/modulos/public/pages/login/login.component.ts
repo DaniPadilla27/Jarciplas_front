@@ -26,6 +26,11 @@ export class LoginComponent {
     });
   }
 
+
+  recuperarContra() {
+    this.router.navigate(['/public/olvidecontra']); // Ajusta la ruta según la configuración de tu aplicación
+  }
+  
   login() {
     if (this.loginForm.invalid) {
       return;
