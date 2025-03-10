@@ -10,6 +10,7 @@ import { ApiService } from '../../../../services/api.service';
 })
 export class OlvidecontraComponent implements OnInit {
   recuperarForm: FormGroup; // Formulario para recuperar contraseña
+  frmVerfiCode: FormGroup; // Formulario para recuperar contraseña
   mensajeExito: string = ''; // Mensaje de éxito al enviar el código
   mensajeError: string = ''; // Mensaje de error en caso de fallo
   mostrarCampoCodigo: boolean = false; // Controla si se muestra el campo de código
@@ -17,6 +18,10 @@ export class OlvidecontraComponent implements OnInit {
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.recuperarForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]], // Validación de correo
+      // codigo: [''] // Campo para el código de verificación
+    });
+    this.frmVerfiCode = this.fb.group({
+      // correo: ['', [Validators.required, Validators.email]], // Validación de correo
       codigo: [''] // Campo para el código de verificación
     });
   }
@@ -49,5 +54,31 @@ export class OlvidecontraComponent implements OnInit {
         this.mostrarCampoCodigo = false; // Ocultar el campo de código
       }
     );
+
   }
+  verificarCodigo(): void {
+    const codigo = this.frmVerfiCode.value.codigo;
+    const correo = this.recuperarForm.value.correo;
+
+    if (!codigo || !correo) {
+      this.mensajeError = 'Por favor, ingresa el código de verificación.';
+      return;
+    }
+
+    // Llama al servicio para verificar el código
+    this.apiService.verificarCodigo(codigo, correo).subscribe(
+      (response) => {
+        console.log('Código verificado correctamente:', response);
+        this.mensajeExito = 'Código verificado correctamente.';
+        this.mensajeError = ''; // Limpiar mensaje de error
+        // Aquí puedes redirigir al usuario a la página de cambio de contraseña
+      },
+      (error) => {
+        console.error('Error al verificar el código:', error);
+        this.mensajeError = 'Código incorrecto o expirado. Intenta de nuevo.';
+        this.mensajeExito = ''; // Limpiar mensaje de éxito
+      }
+    );
+  }
+
 }

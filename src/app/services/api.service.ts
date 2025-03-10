@@ -14,6 +14,10 @@ export class ApiService {
     const body = { email }; // El cuerpo de la solicitud debe coincidir con lo que espera el backend
     return this.http.post<any>(`${environment.apiUrl}solicitarR`, body);
   }
+  verificarCodigo(codigo: string, email: string): Observable<any> {
+    const body = { codigo, email }; // El cuerpo de la solicitud debe coincidir con lo que espera el backend
+    return this.http.post<any>(`${environment.apiUrl}verificarCodigo`, body);
+  }
 
   obtenerProductos(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}mostrar`);
