@@ -42,7 +42,7 @@ export class OlvidecontraComponent implements OnInit {
     const correo= this.recuperarForm.get('correo')?.value;
     if(correo){
       this.correoUsuario= correo;
-      alert('Correo actualizado 1: ' + correo);
+      // alert('Correo actualizado 1: ' + correo);
 
   }
 
@@ -101,7 +101,7 @@ export class OlvidecontraComponent implements OnInit {
     }
     if(correo){
       this.correoUsuario= correo;
-      alert('Correo actualizado 1: ' + correo);
+      // alert('Correo actualizado 1: ' + correo);
 
   }
 

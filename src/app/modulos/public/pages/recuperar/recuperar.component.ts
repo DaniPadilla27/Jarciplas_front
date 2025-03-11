@@ -27,7 +27,7 @@ export class RecuperarComponent implements OnInit,OnChanges{
   }
 
   ngOnInit(): void {
-    alert(this.correoUsuario)
+    // alert(this.correoUsuario)
   }
   // Método para detectar cambios en las propiedades de entrada (@Input)
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,7 +40,7 @@ export class RecuperarComponent implements OnInit,OnChanges{
 
       // Aquí puedes realizar acciones cuando el correo cambie
       if (nuevoCorreo) {
-        alert('Correo actualizado 2: ' + nuevoCorreo);
+        // alert('Correo actualizado 2: ' + nuevoCorreo);
       }
     }
   }
@@ -61,10 +61,7 @@ export class RecuperarComponent implements OnInit,OnChanges{
     const nuevaContrasena = this.nuevaContrasenaForm.value.nuevaContrasena;
     const correo = this.correoUsuario; // Obtén el correo del localStorage
   
-    if (!correo) {
-      this.mensajeError = 'No se encontró el correo electrónico. Intenta de nuevo.';
-      return;
-    }
+    
   
     // Llama al servicio para actualizar la contraseña
     this.apiService.actualizarContrasena(correo, nuevaContrasena).subscribe(
