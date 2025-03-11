@@ -19,6 +19,11 @@ export class ApiService {
     return this.http.post<any>(`${environment.apiUrl}verificarCodigo`, body);
   }
 
+  actualizarContrasena(correo: string, nuevaContrasena: string): Observable<any> {
+    const body = { correo, nuevaContrasena }; // Cuerpo de la solicitud
+    return this.http.put<any>(`${environment.apiUrl}actualizarcon`, body);
+  }
+
   obtenerProductos(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}mostrar`);
   }

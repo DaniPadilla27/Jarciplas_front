@@ -1,10 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../../../services/api.service'; 
+import { ApiService } from '../../../../services/api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-olvidecontra',
   standalone: false,
-  
+
   templateUrl: './olvidecontra.component.html',
   styles: ``
 })
@@ -12,10 +13,12 @@ export class OlvidecontraComponent implements OnInit {
   recuperarForm: FormGroup; // Formulario para recuperar contraseña
   frmVerfiCode: FormGroup; // Formulario para recuperar contraseña
   mensajeExito: string = ''; // Mensaje de éxito al enviar el código
+  correoUsuario: string = ''; // Mensaje de éxito al enviar el código
   mensajeError: string = ''; // Mensaje de error en caso de fallo
   mostrarCampoCodigo: boolean = false; // Controla si se muestra el campo de código
+  mostrar: boolean = false; // Controla si se muestra el campo de código
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.recuperarForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]], // Validación de correo
       // codigo: [''] // Campo para el código de verificación
@@ -36,9 +39,14 @@ export class OlvidecontraComponent implements OnInit {
       this.mensajeError = 'Por favor, ingresa un correo electrónico válido.';
       return;
     }
+    const correo= this.recuperarForm.get('correo')?.value;
+    if(correo){
+      this.correoUsuario= correo;
+      alert('Correo actualizado 1: ' + correo);
 
-    const correo = this.recuperarForm.value.correo;
+  }
 
+    // this.correoUsuario = correo;
     // Llama al servicio para enviar el código de recuperación
     this.apiService.solicitarRecuperacionContrasena(correo).subscribe(
       (response) => {
@@ -56,14 +64,46 @@ export class OlvidecontraComponent implements OnInit {
     );
 
   }
+  // verificarCodigo(): void {
+  //   const codigo = this.frmVerfiCode.value.codigo;
+  //   const correo = this.recuperarForm.value.correo;
+
+  //   if (!codigo || !correo) {
+  //     this.mensajeError = 'Por favor, ingresa el código de verificación.';
+  //     return;
+  //   }
+
+  //   // Llama al servicio para verificar el código
+  //   this.apiService.verificarCodigo(codigo, correo).subscribe(
+  //     (response) => {
+  //       console.log('Código verificado correctamente:', response);
+  //       this.mensajeExito = 'Código verificado correctamente.';
+  //       this.mensajeError = ''; // Limpiar mensaje de error
+  //       this.router.navigate(['/public/cambiarcontra']);
+  //       // Aquí puedes redirigir al usuario a la página de cambio de contraseña
+  //     },
+  //     (error) => {
+  //       console.error('Error al verificar el código:', error);
+  //       this.mensajeError = 'Código incorrecto o expirado. Intenta de nuevo.';
+  //       this.mensajeExito = ''; // Limpiar mensaje de éxito
+  //     }
+  //   );
+  // }
+
+  // En el método verificarCodigo del primer formulario
   verificarCodigo(): void {
     const codigo = this.frmVerfiCode.value.codigo;
-    const correo = this.recuperarForm.value.correo;
-
+    const correo= this.recuperarForm.get('correo')?.value;
+    // this.correoUsuario = correo;
     if (!codigo || !correo) {
       this.mensajeError = 'Por favor, ingresa el código de verificación.';
       return;
     }
+    if(correo){
+      this.correoUsuario= correo;
+      alert('Correo actualizado 1: ' + correo);
+
+  }
 
     // Llama al servicio para verificar el código
     this.apiService.verificarCodigo(codigo, correo).subscribe(
@@ -71,14 +111,22 @@ export class OlvidecontraComponent implements OnInit {
         console.log('Código verificado correctamente:', response);
         this.mensajeExito = 'Código verificado correctamente.';
         this.mensajeError = ''; // Limpiar mensaje de error
-        // Aquí puedes redirigir al usuario a la página de cambio de contraseña
+
+        // Guardar el correo en localStorage
+        localStorage.setItem('correoRecuperacion', correo);
+        // Actualiza el correo en el componente padre
+      this.mostrar=true;
       },
       (error) => {
+      this.mostrar=false;
+
         console.error('Error al verificar el código:', error);
         this.mensajeError = 'Código incorrecto o expirado. Intenta de nuevo.';
         this.mensajeExito = ''; // Limpiar mensaje de éxito
       }
     );
   }
+
+
 
 }

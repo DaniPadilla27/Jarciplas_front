@@ -54,9 +54,10 @@ const routes: Routes = [
         component: OlvidecontraComponent, // Ruta registro
       },
       {
-        path: 'recuperar',
+        path: 'cambiarcontra',
         component: RecuperarComponent, // Ruta registro
       },
+      
 
     ],
   },
