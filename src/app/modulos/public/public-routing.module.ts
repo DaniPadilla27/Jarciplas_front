@@ -11,6 +11,7 @@ import { EmpleoComponent } from './pages/empleo/empleo.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { OlvidecontraComponent } from './pages/olvidecontra/olvidecontra.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
 const routes: Routes = [
   {
     path: '',
@@ -56,6 +57,10 @@ const routes: Routes = [
       {
         path: 'cambiarcontra',
         component: RecuperarComponent, // Ruta registro
+      },
+      {
+        path: 'ofertas',
+        component: OfertasComponent, // Ruta registro
       },
       
 

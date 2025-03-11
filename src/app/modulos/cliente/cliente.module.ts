@@ -11,6 +11,10 @@ import { ClienteComponent } from './cliente.component';
 import { ApiService } from '../../services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+import { HistorialComponent } from './pages/historial/historial.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -18,6 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     InicioComponent,
     CatalogoComponent,
     ClienteComponent,
+    OfertasComponent,
+    PerfilComponent,
+    NotificacionesComponent,
+    HistorialComponent,
     
     
   ],

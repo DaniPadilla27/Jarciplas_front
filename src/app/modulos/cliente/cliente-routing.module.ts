@@ -4,6 +4,10 @@ import path from 'path';
 import { ClienteComponent } from './cliente.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { OfertasComponent } from './pages/ofertas/ofertas.component';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { HistorialComponent } from './pages/historial/historial.component';
 
 const routes: Routes = [
 
@@ -26,6 +30,23 @@ const routes: Routes = [
         path: 'catalogo',
         component:CatalogoComponent,
       },
+      {
+        path: 'ofertas',
+        component:OfertasComponent,
+      },
+      {
+        path: 'notificaciones',
+        component:NotificacionesComponent,
+      },
+      {
+        path: 'perfil',
+        component:PerfilComponent,
+      },
+      {
+        path: 'historial',
+        component:HistorialComponent,
+      },
+
 
 
 
