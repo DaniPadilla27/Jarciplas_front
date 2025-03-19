@@ -12,6 +12,8 @@ import { PoliticasComponent } from './pages/politicas/politicas.component';  // 
 import { TrabajadorComponent } from '../trabajador/trabajador.component';
 import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.component';
 import { ContactanosComponent } from './pages/contactanos/contactanos.component';
+import { PronosticoComponent } from './pages/pronostico/pronostico.component';
+import { DatallesComponent } from './pages/datalles/datalles.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ContactanosComponent } from './pages/contactanos/contactanos.component'
     ProductosComponent,
     PoliticasComponent,
     TrabajadoresComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    PronosticoComponent,
+    DatallesComponent
   ],
   imports: [  
     CommonModule,

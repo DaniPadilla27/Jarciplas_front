@@ -23,9 +23,29 @@ export class ApiService {
     const body = { correo, nuevaContrasena }; // Cuerpo de la solicitud
     return this.http.put<any>(`${environment.apiUrl}actualizarcon`, body);
   }
-
+  actualizarProducto(id: number, nombre_producto: string, precio: string, categoria: string, descripcion: string, imagen: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('nombre_producto', nombre_producto);
+    formData.append('precio', precio);
+    formData.append('categoria', categoria);
+    formData.append('descripcion', descripcion);
+  
+    if (imagen) {
+      formData.append('imagen', imagen);
+    }
+  
+    return this.http.put<any>(`${environment.apiUrl}productos/${id}`, formData);
+  }
+  
   obtenerProductos(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}mostrar`);
+  }
+  editarProducto(id: number, producto: any): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}editar/${id}`, producto);
+  }
+  
+  eliminarProducto(id: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}eliminar/${id}`);
   }
   obtenerPoliticas(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}politicas`);
@@ -33,6 +53,7 @@ export class ApiService {
   obtenerTrabajadores(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}trabajadores`);
   }
+  
   obtenerProductosPorCategoria(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}productos-por-categoria`);
   }
