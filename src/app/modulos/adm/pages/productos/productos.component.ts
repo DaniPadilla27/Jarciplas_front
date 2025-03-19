@@ -37,16 +37,29 @@ export class ProductosComponent {
     });
   }
   imagenPreview: string | ArrayBuffer | null = null;
-  // Manejar el cambio de archivo (imagen)
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.imagen = file;
-      const reader = new FileReader();
-      reader.onload = () => this.imagenPreview = reader.result;
-      reader.readAsDataURL(file);
+// Manejar el cambio de archivo (imagen)
+onFileChange(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    // 🔹 Verificar el tamaño del archivo (Máximo 2MB)
+    if (file.size > 2 * 1024 * 1024) { 
+      alert('El archivo es demasiado grande (máximo 2MB)');
+      return;
     }
+
+    // 🔹 Verificar el tipo de archivo (Solo imágenes)
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      alert('Formato de imagen no permitido. Usa JPG, PNG o WEBP.');
+      return;
+    }
+
+    this.imagen = file;
+    const reader = new FileReader();
+    reader.onload = () => this.imagenPreview = reader.result;
+    reader.readAsDataURL(file);
   }
+}
 
   // Crear producto
   agregarProducto() {

@@ -3,7 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
 import { AuthService } from '../../../../services/auth.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+/**
+ * Componente para manejar el proceso de autenticación de usuarios
+ * @remarks
+ * Valida credenciales y redirige según tipo de usuario
+ */
 @Component({
   selector: 'app-login',
   standalone: false,
@@ -18,17 +24,30 @@ export class LoginComponent {
     private fb: FormBuilder,
     private apiService: ApiService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
+    
   ) {
     this.loginForm = this.fb.group({
-      correo: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      correo: [
+        '',
+        [Validators.required, Validators.email, Validators.pattern(/^\S+@\S+\.\S+$/)]
+      ],
+      password: [
+        '',
+        [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/)]
+      ]
     });
   }
 
+<<<<<<< HEAD
 
   recuperarContra() {
     this.router.navigate(['/public/olvidecontra']); // Ajusta la ruta según la configuración de tu aplicación
+=======
+  sanitizeHtml(input: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(input);
+>>>>>>> c675287 (padillaaa)
   }
   
   login() {
@@ -41,7 +60,7 @@ export class LoginComponent {
     this.apiService.login(correo, password).subscribe({
       next: (response: any) => {
         if (response?.tipo_usuario !== undefined) {
-          this.authService.login(); // Actualizar estado de autenticación
+          this.authService.login();
           
           switch (response.tipo_usuario) {
             case 1:
@@ -58,7 +77,7 @@ export class LoginComponent {
               break;
             default:
               console.error('Tipo de usuario no reconocido');
-              this.authService.logout(); // Limpiar autenticación en caso de error
+              this.authService.logout();
           }
         } else {
           console.error('Error en la autenticación');
@@ -71,4 +90,14 @@ export class LoginComponent {
       }
     });
   }
+<<<<<<< HEAD
+=======
+
+  logout() {
+    this.authService.logout();
+    localStorage.removeItem('authToken');
+    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    this.router.navigate(['/login']);
+  }
+>>>>>>> c675287 (padillaaa)
 }

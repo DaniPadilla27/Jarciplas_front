@@ -21,14 +21,20 @@ export class ProductosComponent implements OnInit {
   obtenerProductos(): void {
     this.apiService.obtenerProductos().subscribe(
       (data) => {
-        this.productos = data.productos; // Carga los productos desde la API
-        console.log('Productos cargados:', this.productos); // Verificar en consola
+        if (data && Array.isArray(data.productos)) {
+          this.productos = data.productos; // Solo asigna si es un array válido
+          console.log('[INFO] Productos cargados:', this.productos);
+        } else {
+          console.warn('[WARNING] Datos inesperados recibidos:', data);
+          this.productos = []; // Evita asignaciones erróneas
+        }
       },
       (error) => {
-        console.error('Error al obtener productos:', error);
+        console.error('[ERROR] No se pudieron obtener los productos:', error);
       }
     );
   }
+  
 
   // 🔍 Método para filtrar productos en tiempo real
   filtrarProductos(): any[] {
