@@ -40,14 +40,12 @@ export class LoginComponent {
     });
   }
 
-<<<<<<< HEAD
-
   recuperarContra() {
-    this.router.navigate(['/public/olvidecontra']); // Ajusta la ruta según la configuración de tu aplicación
-=======
+    this.router.navigate(['/public/olvidecontra']);
+    }
+
   sanitizeHtml(input: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(input);
->>>>>>> c675287 (padillaaa)
   }
   
   login() {
@@ -90,8 +88,6 @@ export class LoginComponent {
       }
     });
   }
-<<<<<<< HEAD
-=======
 
   logout() {
     this.authService.logout();
@@ -99,5 +95,4 @@ export class LoginComponent {
     document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     this.router.navigate(['/login']);
   }
->>>>>>> c675287 (padillaaa)
 }
