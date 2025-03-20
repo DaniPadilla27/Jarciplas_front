@@ -19,6 +19,7 @@ import { ProductosComponent } from './pages/productos/productos.component';
 import { OlvidecontraComponent } from './pages/olvidecontra/olvidecontra.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
+import { PreguntasecretaComponent } from './pages/preguntasecreta/preguntasecreta.component';
 
 
 
@@ -26,7 +27,7 @@ import { OfertasComponent } from './pages/ofertas/ofertas.component';
 @NgModule({
   declarations: [
     PublicComponent ,// Importa el componente standalone
-   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent, PoliticasComponent, ContactanosComponent, EmpleoComponent, ProductosComponent, OlvidecontraComponent, RecuperarComponent, OfertasComponent, 
+   LoginComponent ,InicioComponent, HeaderComponent, FooterComponent,RegistroComponent, PoliticasComponent, ContactanosComponent, EmpleoComponent, ProductosComponent, OlvidecontraComponent, RecuperarComponent, OfertasComponent, PreguntasecretaComponent, 
    
    // Declara solo componentes no standalone
   ],

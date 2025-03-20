@@ -70,16 +70,42 @@ export class ApiService {
   registrarUsuario(
     Nombre: string,
     Correo: string,
-    Contraseña: string  
+    Contraseña: string,
+    Telefono: string,
+    pregunta_secreta: string, // Corregido para coincidir con el backend
+    respuesta_secreta: string // Corregido para coincidir con el backend
+     // Agregado porque el backend lo espera
   ): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios`, {
       Nombre,
       Correo,
-      Contraseña
+      Contraseña,
+      Telefono,
+      pregunta_secreta, // Ahora coincide con el backend
+      respuesta_secreta // Ahora coincide con el backend
+     // Enviado correctamente
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+
+  recuperarConPreguntaSecreta(
+    Telefono: string,
+    pregunta_secreta?: string,
+    respuesta_secreta?: string,
+    nuevaContraseña?: string
+  ): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}preguntasecreta`, {
+      Telefono,
+      pregunta_secreta,
+      respuesta_secreta,
+      nuevaContraseña
+    }, {
+      headers: { 'Content-Type': 'application/json' }
     });
   }
   
-
   crearProducto(
     nombre_producto: string,
     precio: number,

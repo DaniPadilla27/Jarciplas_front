@@ -79,4 +79,6 @@ export class RecuperarComponent implements OnInit,OnChanges{
       }
     );
   }
+  // Método para redirigir a otro módulo
+
 }

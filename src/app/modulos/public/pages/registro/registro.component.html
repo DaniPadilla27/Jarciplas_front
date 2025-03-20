@@ -1,54 +1,138 @@
-<div class="flex h-screen bg-[#f3f9f7]">
-  <!-- Panel Izquierdo -->
-  <div class="w-1/3 flex items-center justify-center bg-[#dff5eb] p-4">
-    <div class="text-center">
+<div class="h-screen flex items-center justify-center bg-[#f3f9f7]">
+  <div class="bg-white rounded-lg shadow-lg flex w-full max-w-4xl overflow-hidden">
+    <!-- Columna Izquierda: Formulario de Registro -->
+    <div class="w-full md:w-1/2 p-8">
+      <h1 class="text-2xl font-bold text-[#2aac62] mb-6">Registro</h1>
+
+      <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()">
+        <!-- Campo Nombre -->
+        <div class="mb-4">
+          <label for="nombre" class="block text-sm font-medium text-[#648c9c] mb-2">
+            Nombre
+          </label>
+          <input
+            type="text"
+            id="nombre"
+            placeholder="Tu Nombre"
+            formControlName="Nombre"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+          />
+          <div *ngIf="registroForm.get('Nombre')?.invalid && registroForm.get('Nombre')?.touched" class="text-red-500 text-sm mt-1">
+            El nombre es requerido
+          </div>
+        </div>
+
+        <!-- Campo Correo -->
+        <div class="mb-4">
+          <label for="correo" class="block text-sm font-medium text-[#648c9c] mb-2">
+            Correo Electrónico
+          </label>
+          <input
+            type="email"
+            id="correo"
+            placeholder="Tu Correo Electrónico"
+            formControlName="Correo"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+          />
+          <div *ngIf="registroForm.get('Correo')?.invalid && registroForm.get('Correo')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="registroForm.get('Correo')?.errors?.['required']">El correo es requerido</span>
+            <span *ngIf="registroForm.get('Correo')?.errors?.['email']">Formato de correo inválido</span>
+          </div>
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-[#648c9c] mb-2">
+            Contraseña
+          </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Tu Contraseña"
+            formControlName="Contraseña"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+          />
+          <div *ngIf="registroForm.get('Contraseña')?.invalid && registroForm.get('Contraseña')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="registroForm.get('Contraseña')?.errors?.['required']">La contraseña es requerida</span>
+            <span *ngIf="registroForm.get('Contraseña')?.errors?.['minlength']">Mínimo 6 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Campo Teléfono -->
+        <div class="mb-4">
+          <label for="telefono" class="block text-sm font-medium text-[#648c9c] mb-2">
+            Número de Teléfono
+          </label>
+          <input
+            type="tel"
+            id="telefono"
+            placeholder="Tu Número de Teléfono"
+            formControlName="Telefono"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+          />
+          <div *ngIf="registroForm.get('Telefono')?.invalid && registroForm.get('Telefono')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="registroForm.get('Telefono')?.errors?.['required']">El teléfono es requerido</span>
+            <span *ngIf="registroForm.get('Telefono')?.errors?.['pattern']">Debe tener 10 dígitos</span>
+          </div>
+        </div>
+
+        <!-- Campo Pregunta Secreta -->
+        <div class="mb-4">
+          <label for="preguntaSecreta" class="block text-sm font-medium text-[#648c9c] mb-2">
+            Pregunta Secreta
+          </label>
+          <select
+            id="preguntaSecreta"
+            formControlName="PreguntaSecreta"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+          >
+            <option value="">Selecciona una pregunta secreta</option>
+            <option value="1">¿Cuál es el nombre de tu primera mascota?</option>
+            <option value="2">¿Cuál es el nombre de tu ciudad de nacimiento?</option>
+            <option value="3">¿Cuál es tu comida favorita?</option>
+          </select>
+          <div *ngIf="registroForm.get('PreguntaSecreta')?.invalid && registroForm.get('PreguntaSecreta')?.touched" class="text-red-500 text-sm mt-1">
+            Debes seleccionar una pregunta secreta
+          </div>
+        </div>
+
+        <!-- Campo Respuesta Secreta (NUEVO) -->
+        <div class="mb-4">
+          <label for="respuestaSecreta" class="block text-sm font-medium text-[#648c9c] mb-2">
+            Respuesta Secreta
+          </label>
+          <input
+            type="text"
+            id="respuestaSecreta"
+            placeholder="Tu Respuesta Secreta"
+            formControlName="RespuestaSecreta"
+            class="w-full px-4 py-2 border border-[#c4c4c4] rounded-md focus:ring focus:ring-[#2aac62] focus:outline-none"
+          />
+          <div *ngIf="registroForm.get('RespuestaSecreta')?.invalid && registroForm.get('RespuestaSecreta')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="registroForm.get('RespuestaSecreta')?.errors?.['required']">La respuesta secreta es requerida</span>
+          </div>
+        </div>
+
+        <!-- Botón Registrar -->
+        <div class="flex items-center justify-between mb-4">
+          <button
+            type="submit"
+            [disabled]="registroForm.invalid"
+            class="w-full bg-[#2aac62] text-white py-2 px-4 rounded-md hover:bg-[#357563] transition disabled:opacity-50"
+          >
+            Registrarse
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Columna Derecha: Imagen -->
+    <div class="hidden md:block md:w-1/2">
       <img
         src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg"
         alt="Jarciplas"
-        class="w-1/2 mx-auto mb-3"
+        class="w-full h-full object-cover"
       />
-      <h1 class="text-2xl font-bold text-[#2aac62]">JARCIPLAS</h1>
     </div>
-  </div>
-
-  <!-- Panel Derecho -->
-  <div class="w-2/3 flex flex-col justify-center items-center p-6">
-    <h1 class="text-3xl font-bold text-[#357563] mb-6">Regístrate</h1>
-
-    <form [formGroup]="registroForm" (ngSubmit)="registrarUsuario()" class="w-full max-w-md grid grid-cols-2 gap-4">
-      <!-- Campos del formulario -->
-      <input
-        type="text"
-        formControlName="Nombre"
-        placeholder="Nombre"
-        class="col-span-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
-      />
-      <input
-        type="email"
-        formControlName="Correo"
-        placeholder="Correo Electrónico"
-        class="col-span-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
-      />
-      <input
-        type="password"
-        formControlName="Contraseña"
-        placeholder="Contraseña"
-        class="col-span-2 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2aac62]"
-      />
-
-      <!-- Botón de registro -->
-      <button
-        type="submit"
-        class="col-span-2 w-full bg-[#2aac62] text-white rounded-lg py-3 font-bold hover:bg-[#357563] transition"
-      >
-        Sign Up
-      </button>
-    </form>
-
-    <!-- Enlace para iniciar sesión -->
-    <p class="mt-4 text-sm text-[#8ca094]">
-      ¿Ya tienes una cuenta?
-      <a href="#" class="text-[#357563] font-bold hover:underline">Iniciar sesión</a>
-    </p>
   </div>
 </div>

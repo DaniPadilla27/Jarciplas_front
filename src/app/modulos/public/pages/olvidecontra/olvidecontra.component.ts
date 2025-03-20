@@ -128,5 +128,9 @@ export class OlvidecontraComponent implements OnInit {
   }
 
 
+// Método para redirigir a otro módulo
+probarOtroMetodo(): void {
+  this.router.navigate(['/public/preguntasecreta']); // Cambia 'otro-metodo' por la ruta correcta
+}
 
 }

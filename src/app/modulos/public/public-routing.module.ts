@@ -12,6 +12,7 @@ import { ProductosComponent } from './pages/productos/productos.component';
 import { OlvidecontraComponent } from './pages/olvidecontra/olvidecontra.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
+import { PreguntasecretaComponent } from './pages/preguntasecreta/preguntasecreta.component';
 const routes: Routes = [
   {
     path: '',
@@ -62,7 +63,10 @@ const routes: Routes = [
         path: 'ofertas',
         component: OfertasComponent, // Ruta registro
       },
-      
+      {
+        path: 'preguntasecreta',
+        component: PreguntasecretaComponent, // Ruta registro
+      },
 
     ],
   },
