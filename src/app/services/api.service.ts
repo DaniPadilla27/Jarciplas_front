@@ -146,5 +146,14 @@ agregarAlCarrito(id_usuario: number, id_producto: number, cantidad: number): Obs
 obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
   return this.http.get<any>(`${environment.apiUrl}carrito/${id_usuario}`);
 }
+    // Método para eliminar un producto del carrito
+    eliminarDelCarrito(id_carrito: number): Observable<any> {
+      return this.http.delete<any>(`${environment.apiUrl}carrito/${id_carrito}`);
+  }
+
+  // Método para actualizar la cantidad de un producto en el carrito
+  actualizarCarrito(id_carrito: number, cantidad: number): Observable<any> {
+      return this.http.put<any>(`${environment.apiUrl}carrito/${id_carrito}`, { cantidad });
+  }
 
 }

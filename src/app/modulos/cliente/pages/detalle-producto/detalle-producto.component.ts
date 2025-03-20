@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
 import { CartService } from '../../../../services/cart.service';
-
+import { AuthService } from '../../../../services/auth.service'; // Importa AuthService
 
 @Component({
   selector: 'app-detalle-producto',
@@ -14,15 +14,19 @@ export class DetalleProductoComponent implements OnInit {
 
   producto: any;
   cantidad: number = 1;
+  id_usuario: number = 0;  // Inicializado con un valor predeterminado
 
-  // Aquí puedes obtener el id_usuario de algún servicio de autenticación o similar.
-  // Para el ejemplo usaremos un id estático.
-  id_usuario: number = 127; 
-
-  constructor(private route: ActivatedRoute, private apiService: ApiService,    private cartService: CartService // Servicio para actualizar el contador
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private cartService: CartService,
+    private authService: AuthService // Inyecta AuthService
   ) {}
 
   ngOnInit() {
+    // Obtén el ID del usuario de forma dinámica desde el servicio de autenticación
+    this.id_usuario = this.authService.getUserId();
+    
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.apiService.obtenerProductoPorId(id).subscribe(
       (data) => {
