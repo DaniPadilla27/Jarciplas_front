@@ -8,6 +8,7 @@ import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { HistorialComponent } from './pages/historial/historial.component';
+import { DetalleProductoComponent } from './pages/detalle-producto/detalle-producto.component';
 
 const routes: Routes = [
 
@@ -45,6 +46,14 @@ const routes: Routes = [
       {
         path: 'historial',
         component:HistorialComponent,
+      },
+      // {
+      //   path: 'producto/:id',
+      //   component:DetalleProductoComponent,
+      // },
+      {
+        path: 'detalle/:id',
+        component:DetalleProductoComponent,
       },
 
 

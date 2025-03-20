@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service'; 
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-inicio',
   standalone: false,
@@ -11,7 +12,7 @@ export class InicioComponent implements OnInit{
 
   productos: any[] = []; // Variable para almacenar los productos
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService,private router: Router) {}
 
   ngOnInit(): void {
     this.obtenerProductos();
@@ -27,6 +28,10 @@ export class InicioComponent implements OnInit{
         console.error('Error al obtener productos:', error);
       }
     );
+  }
+  verDetalle(id: number) {
+    console.log('ID del producto seleccionado:', id);
+    this.router.navigate(['/cliente/detalle',id]);
   }
 
 }

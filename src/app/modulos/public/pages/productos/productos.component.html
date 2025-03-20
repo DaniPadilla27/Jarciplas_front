@@ -16,9 +16,9 @@
       <div *ngFor="let producto of filtrarProductos()" class="bg-white shadow-md rounded-xl overflow-hidden border border-gray-100 p-5 transform transition-all duration-300 hover:scale-105 hover:shadow-xl relative">
         <!-- IMAGEN CON ALTURA FIJA Y AJUSTADA -->
         <div class="w-full h-48 overflow-hidden rounded-lg">
-          <img [src]="'data:image/jpeg;base64,' + producto.imagen" 
-               alt="{{ producto.nombre_producto }}" 
-               class="w-full h-full object-cover">
+          <img [src]="producto.imagen" 
+     alt="{{ producto.nombre_producto }}" 
+     class="w-full h-full object-cover">
         </div>
         
         <div class="p-5">

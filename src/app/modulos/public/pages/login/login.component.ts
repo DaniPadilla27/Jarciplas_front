@@ -49,9 +49,10 @@ export class LoginComponent {
   }
   
   login() {
-    if (this.loginForm.invalid) {
-      return;
-    }
+    console.log("AQUI PASO")
+    // if (this.loginForm.invalid) {
+    //   return;
+    // }
 
     const { correo, password } = this.loginForm.value;
 

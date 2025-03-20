@@ -9,6 +9,10 @@ import environment from '../variables/environment'; // Ajustar la ruta si es nec
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+ //nueva linea de codigo para la busqueda 
+  obtenerProductoPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}producto/${id}`);
+  }
 
   solicitarRecuperacionContrasena(email: string): Observable<any> {
     const body = { email }; // El cuerpo de la solicitud debe coincidir con lo que espera el backend
@@ -61,6 +65,7 @@ export class ApiService {
   login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
   }
+
 
   registrarUsuario(
     Nombre: string,

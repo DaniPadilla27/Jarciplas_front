@@ -1,22 +1,25 @@
 <div class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
-    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-6xl">
-      <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">
-         <span class="text-teal-500">Productos</span>
-      </h1>
-  
-      <!-- GRID PARA ORGANIZAR LOS PRODUCTOS EN FILAS DE 4 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <div *ngFor="let producto of productos" class="bg-white shadow-lg rounded-lg p-4">
-          <!-- IMAGEN AJUSTADA PARA QUE TODAS SE VEAN IGUALES -->
-          <img [src]="'data:image/jpeg;base64,' + producto.imagen" 
-               alt="{{ producto.nombre_producto }}" 
-               class="w-full h-48 object-cover rounded-lg">
-          
-          <h2 class="text-xl font-semibold text-gray-800 mt-2">{{ producto.nombre_producto }}</h2>
-          <p class="text-gray-600">Categoría: <span class="text-teal-500">{{ producto.categoria }}</span></p>
-          <p class="text-gray-800 font-bold text-lg">${{ producto.precio }}</p>
-        </div>
+  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-6xl">
+    <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">
+      <span class="text-teal-500">Productos</span>
+    </h1>
+
+    <!-- GRID PARA ORGANIZAR LOS PRODUCTOS EN FILAS DE 4 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Agrega (click)="verDetalle(producto.id)" en el contenedor del producto -->
+      <div *ngFor="let producto of productos" 
+           class="bg-white shadow-lg rounded-lg p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300"
+           (click)="verDetalle(producto.id)">
+        
+        <!-- IMAGEN AJUSTADA PARA QUE TODAS SE VEAN IGUALES -->
+        <img [src]="producto.imagen" 
+             alt="{{ producto.nombre_producto }}" 
+             class="w-full h-48 object-cover rounded-lg">
+        
+        <h2 class="text-xl font-semibold text-gray-800 mt-2">{{ producto.nombre_producto }}</h2>
+        <p class="text-gray-600">Categoría: <span class="text-teal-500">{{ producto.categoria }}</span></p>
+        <p class="text-gray-800 font-bold text-lg">${{ producto.precio }}</p>
       </div>
     </div>
   </div>
-  
+</div>

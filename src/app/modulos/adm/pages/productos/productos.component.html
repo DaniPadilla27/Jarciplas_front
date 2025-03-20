@@ -155,7 +155,8 @@
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.categoria }}</td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.descripcion }}</td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-          <img *ngIf="producto.imagen" [src]="'data:image/jpeg;base64,' + producto.imagen" class="w-16 h-16 object-cover rounded-lg">
+          <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Producto" class="w-16 h-16 object-cover rounded-lg">
+
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
           <button (click)="editarProducto(producto)" class="text-[#2aac62] hover:text-[#1f8f50] mr-2">
