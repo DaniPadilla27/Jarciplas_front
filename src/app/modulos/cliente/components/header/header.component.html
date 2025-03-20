@@ -1,15 +1,54 @@
 <header class="bg-[#f3f9f7] shadow-md">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <!-- Logo -->
-      <div class="text-[#2aac62] text-xl font-bold">Jarciplas</div>
-  
-      <!-- Navigation -->
-      <nav class="space-x-8 text-[#357563] font-medium">
-        <a [routerLink]="'/cliente/home'" class="hover:text-[#2aac62] transition-colors">Catalogo</a>
-        <a [routerLink]="'/cliente/ofertas'" class="hover:text-[#2aac62] transition-colors">Ofertas</a>
-        <a [routerLink]="'/cliente/historial'" class="hover:text-[#2aac62] transition-colors">Historial de compras</a>
-        <a [routerLink]="'/cliente/notificaciones'" class="hover:text-[#2aac62] transition-colors">Notificaciones</a>
-        <a [routerLink]="'/cliente/perfil'" class="hover:text-[#2aac62] transition-colors">Perfil</a>
-      </nav>
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Logo -->
+    <div class="text-[#2aac62] text-2xl font-bold flex items-center">
+      <img src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg"
+        alt="Logo Jarciplas" class="w-12 h-12 mr-2 rounded-full"> <!-- Logo más pequeño y redondeado -->
+      Jarciplas
     </div>
-  </header>
+
+    <!-- Navegación -->
+    <nav class="hidden md:flex space-x-8 text-[#357563] font-medium">
+      <a [routerLink]="'/cliente/home'" class="hover:text-[#2aac62] transition-colors">Productos</a>
+      <a [routerLink]="'/cliente/ofertas'" class="hover:text-[#2aac62] transition-colors">Ofertas</a>
+      <a [routerLink]="'/cliente/historial'" class="hover:text-[#2aac62] transition-colors">Historial de compras</a>
+      <a [routerLink]="'/cliente/notificaciones'"
+        class="hover:text-[#2aac62] transition-colors flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+      </a>
+      <a [routerLink]="'/cliente/perfil'" class="hover:text-[#2aac62] transition-colors">Perfil</a>
+    </nav>
+
+    <!-- Botones de acción (Carrito y Cerrar Sesión) -->
+    <div class="flex items-center space-x-6">
+      <!-- Ícono de "Añadir a la bolsa" (Carrito) -->
+      <button [routerLink]="'/cliente/carrito'"
+        class="text-[#648c9c] hover:text-[#2aac62] transition-colors duration-300 relative">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+          </path>
+        </svg>
+        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-1">
+          {{ cartCount }}
+        </span>
+      </button>
+
+      <!-- Botón de Cerrar Sesión -->
+      <div *ngIf="authService.isAuthenticated()" class="flex items-center">
+        <button (click)="logout()"
+          class="flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-300 font-semibold">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+          </svg>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

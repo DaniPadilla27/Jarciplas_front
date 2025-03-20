@@ -49,17 +49,13 @@ export class LoginComponent {
   }
   
   login() {
-    console.log("AQUI PASO")
-    // if (this.loginForm.invalid) {
-    //   return;
-    // }
 
     const { correo, password } = this.loginForm.value;
 
     this.apiService.login(correo, password).subscribe({
       next: (response: any) => {
         if (response?.tipo_usuario !== undefined) {
-          this.authService.login();
+          this.authService.login(response.id_usuario); 
           
           switch (response.tipo_usuario) {
             case 1:

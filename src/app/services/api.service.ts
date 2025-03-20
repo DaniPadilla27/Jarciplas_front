@@ -121,11 +121,6 @@ export class ApiService {
     return this.http.post<any>(`${environment.apiUrl}contacto`, body); // Asegúrate de que la ruta sea la correcta
   }
 
-
-  
-  
-
-
   crearPolitica(
     titulo: string,
     contenido: string
@@ -141,5 +136,15 @@ export class ApiService {
     return this.http.post<any>(`${environment.apiUrl}politicas`, body); // Asegúrate de que la ruta sea la correcta
   }
 
+  // Dentro de api.service.ts
+
+agregarAlCarrito(id_usuario: number, id_producto: number, cantidad: number): Observable<any> {
+  const body = { id_usuario, id_producto, cantidad };
+  return this.http.post<any>(`${environment.apiUrl}carrito`, body);
+}
+
+obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
+  return this.http.get<any>(`${environment.apiUrl}carrito/${id_usuario}`);
+}
 
 }
