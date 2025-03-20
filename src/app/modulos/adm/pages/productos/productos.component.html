@@ -1,6 +1,6 @@
-<div class="bg-white rounded-2xl shadow-2xl flex w-full max-w-5xl overflow-hidden transform transition-all hover:shadow-3xl">
+<div class="bg-white rounded-2xl shadow-2xl flex w-full max-w-5xl overflow-hidden transform transition-all hover:shadow-3xl mx-auto">
   <!-- Columna Izquierda: Formulario -->
-  <div class="w-full md:w-1/2 p-10">
+  <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
     <div class="mb-8 text-center">
       <div class="inline-block p-3 bg-[#2aac62]/10 rounded-full mb-4">
         <svg class="w-8 h-8 text-[#2aac62]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,7 +49,7 @@
               class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
           </div>
 
-          <!-- Categoría -->
+          <!-- Categoría (Combobox) -->
           <div>
             <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,8 +57,11 @@
               </svg>
               Categoría
             </label>
-            <input type="text" formControlName="categoria"
-              class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
+            <select formControlName="categoria"
+              class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl bg-white focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
+              <option value="">Selecciona una categoría</option>
+              <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+            </select>
           </div>
         </div>
 
@@ -100,7 +103,7 @@
       <button type="submit" 
         class="w-full bg-gradient-to-r from-[#2aac62] to-[#1f8f50] text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         [disabled]="productoForm.invalid || !imagen">
-        Registrar Producto
+        {{ modoEdicion ? 'Actualizar Producto' : 'Registrar Producto' }}
       </button>
     </form>
   </div>
@@ -156,7 +159,6 @@
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.descripcion }}</td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
           <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Producto" class="w-16 h-16 object-cover rounded-lg">
-
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
           <button (click)="editarProducto(producto)" class="text-[#2aac62] hover:text-[#1f8f50] mr-2">

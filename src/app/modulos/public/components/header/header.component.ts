@@ -18,6 +18,9 @@ export class HeaderComponent {
     this.router.navigate(['/public/registro']); // Asegúrate de usar '/public/Login'
   }
   
+  mostrarAlertaCarrito() {
+    alert("Debes iniciar sesión para agregar productos al carrito.");
+  }
   
 
 }

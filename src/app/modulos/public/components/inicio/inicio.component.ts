@@ -35,4 +35,8 @@ export class InicioComponent implements OnInit {
       }
     );
   }
+
+  mostrarAlertaCarrito(): void {
+    alert("Debes iniciar sesión para agregar productos al carrito.");
+  }
 }

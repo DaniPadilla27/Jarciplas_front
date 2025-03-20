@@ -6,11 +6,10 @@
 
     <!-- GRID PARA ORGANIZAR LOS PRODUCTOS EN FILAS DE 4 -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Agrega (click)="verDetalle(producto.id)" en el contenedor del producto -->
       <div *ngFor="let producto of productos" 
            class="bg-white shadow-lg rounded-lg p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300"
-           (click)="verDetalle(producto.id)">
-        
+           (click)="verDetalle(producto.id)"> <!-- Redirigir al detalle al hacer clic -->
+
         <!-- IMAGEN AJUSTADA PARA QUE TODAS SE VEAN IGUALES -->
         <img [src]="producto.imagen" 
              alt="{{ producto.nombre_producto }}" 
