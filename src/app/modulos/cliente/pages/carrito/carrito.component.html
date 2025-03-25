@@ -70,9 +70,11 @@
             <span class="text-xl font-bold text-teal-800">${{ calcularTotal() }}</span>
           </div>
         </div>
-        <button class="w-full mt-6 bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
-          Proceder al Pago
-        </button>
+        <button 
+        class="w-full mt-6 bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors"
+        (click)="comprarCarrito()">
+        Proceder al Pago
+      </button>
       </div>
     </div>
   

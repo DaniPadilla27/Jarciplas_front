@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../../services/api.service';
 import { CartService } from '../../../../services/cart.service';
-import { AuthService } from '../../../../services/auth.service'; // Importa AuthService
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -14,17 +14,17 @@ export class DetalleProductoComponent implements OnInit {
 
   producto: any;
   cantidad: number = 1;
-  id_usuario: number = 0;  // Inicializado con un valor predeterminado
+  id_usuario: number = 0;
+  mensajeError: string = ''; // Mensaje de error para el stock
 
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
     private cartService: CartService,
-    private authService: AuthService // Inyecta AuthService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    // Obtén el ID del usuario de forma dinámica desde el servicio de autenticación
     this.id_usuario = this.authService.getUserId();
     
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -45,11 +45,16 @@ export class DetalleProductoComponent implements OnInit {
       return;
     }
 
+    if (this.cantidad > this.producto.stock) {
+      this.mensajeError = 'La cantidad supera el stock disponible.';
+      return;
+    }
+
     this.apiService.agregarAlCarrito(this.id_usuario, this.producto.id, this.cantidad).subscribe(
       (response) => {
         console.log('Producto agregado al carrito', response);
+        this.mensajeError = ''; // Limpiar mensaje de error
 
-        // Obtener el nuevo número de productos en el carrito y actualizar el contador
         this.apiService.obtenerCarritoPorUsuario(this.id_usuario).subscribe(
           (carrito) => {
             this.cartService.updateCartCount(carrito.length);
