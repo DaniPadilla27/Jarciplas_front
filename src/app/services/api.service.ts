@@ -27,12 +27,13 @@ export class ApiService {
     const body = { correo, nuevaContrasena }; // Cuerpo de la solicitud
     return this.http.put<any>(`${environment.apiUrl}actualizarcon`, body);
   }
-  actualizarProducto(id: number, nombre_producto: string, precio: string, categoria: string, descripcion: string, imagen: File): Observable<any> {
+  actualizarProducto(id: number, nombre_producto: string, precio: string, categoria: string, descripcion: string, stok: number,imagen: File): Observable<any> {
     const formData = new FormData();
     formData.append('nombre_producto', nombre_producto);
     formData.append('precio', precio);
     formData.append('categoria', categoria);
     formData.append('descripcion', descripcion);
+    formData.append('stok', stok.toString());
   
     if (imagen) {
       formData.append('imagen', imagen);
@@ -113,14 +114,16 @@ export class ApiService {
     nombre_producto: string,
     precio: number,
     categoria: string,
-    descripcion:string,
+    descripcion: string,
+    stock: number,
     imagen: File
   ): Observable<any> {
     const formData = new FormData();
     formData.append('nombre_producto', nombre_producto);
     formData.append('precio', precio.toString());
     formData.append('categoria', categoria);
-    formData.append('descripcion',descripcion);
+    formData.append('descripcion', descripcion);
+    formData.append("stock", stock.toString()); // Conversión a string
     formData.append('imagen', imagen, imagen.name); // Asegurar que el archivo tiene un nombre
 
     // Debug: Verificar que FormData tiene los datos correctos
@@ -129,10 +132,9 @@ export class ApiService {
       console.log(pair[0], pair[1]);
     }
 
-  
-
-    return this.http.post<any>(`${environment.apiUrl}cambios`, formData); // Asegurar que la ruta sea la correcta
+    return this.http.post<any>(`${environment.apiUrl}cambios`, formData);
   }
+
 
   
   crearContacto(

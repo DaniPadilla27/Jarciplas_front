@@ -37,6 +37,7 @@ export class ProductosComponent implements OnInit {
       precio: ['', [Validators.required, Validators.min(0)]],
       categoria: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
+      stok: ['', [Validators.required, Validators.min(0)]], // Agregado campo stok
       imagen: [null, Validators.required]
     });
   }
@@ -67,11 +68,11 @@ export class ProductosComponent implements OnInit {
       return;
     }
 
-    const { nombre_producto, precio, categoria, descripcion } = this.productoForm.value;
+    const { nombre_producto, precio, categoria, descripcion, stok } = this.productoForm.value;
 
     if (this.modoEdicion && this.productoId) {
       // Actualizar producto
-      this.apiService.actualizarProducto(this.productoId, nombre_producto, precio, categoria, descripcion, this.imagen).subscribe(
+      this.apiService.actualizarProducto(this.productoId, nombre_producto, precio, categoria, descripcion, stok, this.imagen).subscribe(
         (response) => {
           alert('Producto actualizado exitosamente');
           this.obtenerProductos();
@@ -84,7 +85,7 @@ export class ProductosComponent implements OnInit {
       );
     } else {
       // Crear nuevo producto
-      this.apiService.crearProducto(nombre_producto, precio, categoria, descripcion, this.imagen).subscribe(
+      this.apiService.crearProducto(nombre_producto, precio, categoria, descripcion, stok, this.imagen).subscribe(
         (response) => {
           alert('Producto agregado exitosamente');
           this.obtenerProductos();
@@ -117,6 +118,7 @@ export class ProductosComponent implements OnInit {
       precio: producto.precio,
       categoria: producto.categoria,
       descripcion: producto.descripcion,
+      stok: producto.stok, // Cargar el stock al formulario
     });
 
     if (producto.imagen) {
