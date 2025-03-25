@@ -1,29 +1,42 @@
 <header class="bg-white shadow-sm">
   <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-    <!-- Logo (más grande y sin texto) -->
+    <!-- Logo -->
     <div>
       <img src="https://res.cloudinary.com/deo0abwns/image/upload/v1737660315/Jarciplas/g8zxvaynhnmd0jlqkugw.jpg" 
            alt="Logo Jarciplas" 
-           class="w-32 h-32 rounded-full"> <!-- Aumentado el tamaño del logo -->
+           class="w-32 h-32 rounded-full">
     </div>
 
     <!-- Navegación -->
     <nav class="hidden md:flex space-x-8 text-[#357563] font-medium">
-      <a href="#" class="hover:text-[#2aac62] transition-colors duration-300">Inicio</a>
       <a href="/public/productos" class="hover:text-[#2aac62] transition-colors duration-300">Productos</a>
       <a href="/public/ofertas" class="hover:text-[#2aac62] transition-colors duration-300">Ofertas</a>
       <a href="/public/empleos" class="hover:text-[#2aac62] transition-colors duration-300">Empleos</a>
+
+      <!-- Categorías -->
+      <div class="relative group">
+        <button class="hover:text-[#2aac62] transition-colors duration-300">
+          Categorías
+        </button>
+        <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg mt-2">
+          <ul class="py-2">
+            <li *ngFor="let categoria of categorias" 
+                (click)="redirigirPorCategoria(categoria)" 
+                class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              {{ categoria }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
-    
+
     <!-- Botones -->
     <div class="flex items-center space-x-6">
-      <!-- Ícono del carrito (más grande) -->
       <button (click)="mostrarAlertaCarrito()" 
               class="text-[#648c9c] hover:text-[#2aac62] transition-colors duration-300 relative">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
         </svg>
-        <!-- Notificación de cantidad (opcional) -->
         <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1.5">0</span>
       </button>
 

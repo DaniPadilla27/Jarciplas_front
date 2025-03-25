@@ -65,6 +65,9 @@ export class ApiService {
   login(Correo: string, Contraseña: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}usuarios/iniciar_sesion`, { Correo, Contraseña });
   }
+  obtenercategorias(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}categorias`);
+  }
 
 
   registrarUsuario(
