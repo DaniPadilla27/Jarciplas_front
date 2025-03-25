@@ -97,13 +97,13 @@ export class CarritoComponent implements OnInit {
 
   // Función para calcular el subtotal de la compra
   calcularSubtotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.precio_total, 0);
+    return this.cartItems.reduce((total, item) => total + (item.precio_unitario * item.cantidad), 0);
   }
 
   // Función para calcular el costo de envío (puedes personalizar esta lógica)
   calcularEnvio(): number {
     // Ejemplo: Envío fijo de $5.00
-    return 5.0;
+    return 0.0;
   }
 
   // Función para calcular el total de la compra

@@ -1,113 +1,91 @@
 <div class="container mx-auto p-4">
-  <!-- Header con el número de artículos -->
-  <header class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Carrito de Compras</h1>
+    <!-- Header con el número de artículos -->
+    <header class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Carrito de Compras</h1>
       <div class="flex items-center">
-          <span class="bg-teal-600 text-white rounded-full px-3 py-1 text-sm font-semibold">
-              {{ cartItems.length || 0 }}
-          </span>
-          <span class="ml-2">artículo(s)</span>
+        <span class="bg-teal-600 text-white rounded-full px-4 py-2 text-sm font-semibold">
+          {{ cartItems.length || 0 }} artículo(s)
+        </span>
       </div>
-  </header>
-
-  <!-- Mensaje si hay error o carrito vacío -->
-  <div *ngIf="mensaje" class="text-red-500 text-center mb-4">{{ mensaje }}</div>
-  <div *ngIf="cartItems && cartItems.length > 0; else emptyCart">
-      <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-              <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Imagen
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Producto
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Cantidad
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Precio Unitario
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Precio Total
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Acciones
-                  </th>
-              </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-              <tr *ngFor="let item of cartItems" class="hover:bg-gray-50 transition-colors">
-
-                  <!-- Resto de las columnas -->
-                  <td class="px-6 py-4 whitespace-nowrap">
-                      {{ item.nombre_producto }}
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                          <button (click)="decrementarCantidad(item)" class="text-gray-500 hover:text-gray-700">
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
-                              </svg>
-                          </button>
-                          <span class="mx-2">{{ item.cantidad }}</span>
-                          <button (click)="incrementarCantidad(item)" class="text-gray-500 hover:text-gray-700">
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                              </svg>
-                          </button>
-                      </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                      ${{ item.precio_unitario }}
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                      ${{ item.precio_total }}
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                      <button (click)="eliminarDelCarrito(item)" class="text-red-500 hover:text-red-700">
-                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                          </svg>
-                      </button>
-                  </td>
-              </tr>
-          </tbody>
+    </header>
+  
+    <!-- Mensaje si hay error o carrito vacío -->
+    <div *ngIf="mensaje" class="text-red-500 text-center mb-4">{{ mensaje }}</div>
+    <div *ngIf="cartItems && cartItems.length > 0; else emptyCart">
+      <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead class="bg-teal-600 text-white">
+          <tr>
+            <th class="px-6 py-4 text-left">Producto</th>
+            <th class="px-6 py-4 text-left">Cantidad</th>
+            <th class="px-6 py-4 text-left">Precio Unitario</th>
+            <th class="px-6 py-4 text-left">Precio Total</th>
+            <th class="px-6 py-4 text-left">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let item of cartItems" class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 font-medium text-gray-900">{{ item.nombre_producto }}</td>
+            <td class="px-6 py-4">
+              <div class="flex items-center">
+                <button (click)="decrementarCantidad(item)" class="text-gray-500 hover:text-gray-700">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                  </svg>
+                </button>
+                <span class="mx-2">{{ item.cantidad }}</span>
+                <button (click)="incrementarCantidad(item)" class="text-gray-500 hover:text-gray-700">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+            <td class="px-6 py-4">${{ item.precio_unitario }}</td>
+            <td class="px-6 py-4">${{ item.precio_total }}</td>
+            <td class="px-6 py-4">
+              <button (click)="eliminarDelCarrito(item)" class="text-red-500 hover:text-red-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
-
+  
       <!-- Resumen de la compra -->
-      <div class="mt-6 p-6 bg-gray-50 rounded-lg">
-          <h2 class="text-xl font-bold mb-4">Resumen de la Compra</h2>
-          <div class="space-y-2">
-              <div class="flex justify-between">
-                  <span>Subtotal</span>
-                  <span>${{ calcularSubtotal() }}</span>
-              </div>
-              <div class="flex justify-between">
-                  <span>Envío</span>
-                  <span>${{ calcularEnvio() }}</span>
-              </div>
-              <div class="flex justify-between font-bold">
-                  <span>Total</span>
-                  <span>${{ calcularTotal() }}</span>
-              </div>
+      <div class="mt-8 p-6 bg-teal-50 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-teal-800 mb-6">Resumen de la Compra</h2>
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <span class="text-gray-700">Subtotal</span>
+            <span class="font-semibold">${{ calcularSubtotal() }}</span>
           </div>
-          <button class="w-full mt-6 bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
-              Proceder al Pago
-          </button>
+          <div class="flex justify-between">
+            <span class="text-gray-700">Envío</span>
+            <span class="font-semibold">${{ calcularEnvio() }}</span>
+          </div>
+          <div class="flex justify-between border-t pt-4">
+            <span class="text-xl font-bold text-teal-800">Total</span>
+            <span class="text-xl font-bold text-teal-800">${{ calcularTotal() }}</span>
+          </div>
+        </div>
+        <button class="w-full mt-6 bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
+          Proceder al Pago
+        </button>
       </div>
+    </div>
+  
+    <!-- Template para carrito vacío -->
+    <ng-template #emptyCart>
+      <div class="text-center py-16">
+        <svg class="w-20 h-20 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <p class="mt-4 text-gray-500 text-lg">No hay productos en el carrito.</p>
+        <a href="/tienda" class="mt-6 inline-block bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
+          Ir a la Tienda
+        </a>
+      </div>
+    </ng-template>
   </div>
-
-  <!-- Template para carrito vacío -->
-  <ng-template #emptyCart>
-      <div class="text-center py-10">
-          <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-          </svg>
-          <p class="mt-4 text-gray-500">No hay productos en el carrito.</p>
-          <a href="/tienda" class="mt-6 inline-block bg-teal-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
-              Ir a la Tienda
-          </a>
-      </div>
-  </ng-template>
-</div>
