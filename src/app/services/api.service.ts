@@ -186,5 +186,11 @@ obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
   actualizarCarrito(id_carrito: number, cantidad: number): Observable<any> {
       return this.http.put<any>(`${environment.apiUrl}carrito/${id_carrito}`, { cantidad });
   }
+  
+  obtenerProductosPorCategoriadelpublico(categoria: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}obtener/${categoria}`);
+  }
+
+
 
 }

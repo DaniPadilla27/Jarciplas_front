@@ -39,4 +39,18 @@ export class InicioComponent implements OnInit {
   mostrarAlertaCarrito(): void {
     alert("Debes iniciar sesión para agregar productos al carrito.");
   }
+
+
+  verMas(categoria: string): void {
+    this.apiService.obtenerProductosPorCategoria().subscribe(
+      (response) => {
+        this.productos = response.productos; // Actualiza los productos con los de la categoría seleccionada
+        console.log(`Productos cargados para la categoría: ${categoria}`, this.productos);
+      },
+      (error) => {
+        console.error('Error al obtener productos:', error);
+      }
+    );
+  }
+  
 }

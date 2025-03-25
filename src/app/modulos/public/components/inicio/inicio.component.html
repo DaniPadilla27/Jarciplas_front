@@ -44,10 +44,11 @@
 
           <div class="mt-4 flex flex-col items-center">
             <p class="text-gray-900 font-bold text-lg">${{ producto.precio }}</p>
-            <button class="mt-3 px-6 py-2 rounded-full text-white font-semibold shadow-md transition-all 
-                           duration-500 transform hover:scale-105 hover:shadow-lg bg-[#2aac62] hover:bg-[#357563]">
-              Comprar
-            </button>
+            <button (click)="verMas(producto.categoria)"
+        class="mt-3 px-6 py-2 rounded-full text-white font-semibold shadow-md transition-all 
+               duration-500 transform hover:scale-105 hover:shadow-lg bg-[#2aac62] hover:bg-[#357563]">
+  Ver mas 
+</button>
           </div>
         </div>
 
