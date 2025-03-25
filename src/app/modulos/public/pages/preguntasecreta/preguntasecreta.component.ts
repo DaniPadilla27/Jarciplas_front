@@ -136,6 +136,8 @@ export class PreguntasecretaComponent {
         if (response.success) {
           this.contrasenaCambiada = true;
           this.mensaje = '¡Contraseña actualizada exitosamente!';
+          alert(`Usuario con teléfono ${Telefono} ha cambiado su contraseña correctamente.`);
+
           setTimeout(() => {
             this.resetFormulario();
           }, 2000);

@@ -1,1 +1,121 @@
-<p>perfil works!</p>
+<div class="container mx-auto p-6">
+    <!-- Título de la sección -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Mi Perfil</h1>
+  
+    <!-- Contenedor principal -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <!-- Sección de Información Personal -->
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Información Personal</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Foto de perfil -->
+          <div class="flex items-center space-x-4">
+            <img src="https://img.freepik.com/vector-premium/icono-imagen-perfil-avatar-fondo-azul-estilo-diseno-plano-recursos-diseno-elementos-graficos_991720-653.jpg" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover">
+            <div>
+              <h3 class="text-lg font-medium text-gray-800">Juan Pérez</h3>
+              <p class="text-sm text-gray-500">juan.perez&#64;example.com</p> <!-- Correo corregido -->
+              <button class="mt-2 text-blue-600 hover:text-blue-800 text-sm font-semibold">
+                Cambiar foto
+              </button>
+            </div>
+          </div>
+          <!-- Detalles del usuario -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Nombre completo</label>
+              <p class="mt-1 text-gray-900">Juan Pérez</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+              <p class="mt-1 text-gray-900">juan.perez&#64;example.com</p> <!-- Correo corregido -->
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+              <p class="mt-1 text-gray-900">+1 234 567 890</p>
+            </div>
+          </div>
+        </div>
+        <!-- Botón de editar -->
+        <div class="mt-6">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            Editar Información
+          </button>
+        </div>
+      </div>
+  
+      <!-- Sección de Preferencias -->
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Preferencias</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Notificaciones -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Notificaciones</label>
+            <p class="mt-1 text-gray-900">Recibir notificaciones por correo y app</p>
+          </div>
+          <!-- Idioma -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Idioma</label>
+            <p class="mt-1 text-gray-900">Español</p>
+          </div>
+        </div>
+        <!-- Botón de editar -->
+        <div class="mt-6">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            Cambiar Preferencias
+          </button>
+        </div>
+      </div>
+  
+      <!-- Sección de Actividad Reciente -->
+      <div class="p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Actividad Reciente</h2>
+        <div class="space-y-4">
+          <!-- Actividad 1 -->
+          <div class="flex items-center space-x-4">
+            <div class="bg-green-100 p-3 rounded-full">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-md font-medium text-gray-800">Compra completada</h3>
+              <p class="text-sm text-gray-500">Tu pedido #12345 ha sido entregado.</p>
+              <p class="text-xs text-gray-400 mt-1">Hace 2 horas</p>
+            </div>
+          </div>
+          <!-- Actividad 2 -->
+          <div class="flex items-center space-x-4">
+            <div class="bg-blue-100 p-3 rounded-full">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-md font-medium text-gray-800">Nuevo mensaje</h3>
+              <p class="text-sm text-gray-500">Tienes un nuevo mensaje de soporte.</p>
+              <p class="text-xs text-gray-400 mt-1">Hace 1 día</p>
+            </div>
+          </div>
+          <!-- Actividad 3 -->
+          <div class="flex items-center space-x-4">
+            <div class="bg-yellow-100 p-3 rounded-full">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-md font-medium text-gray-800">Recordatorio de pago</h3>
+              <p class="text-sm text-gray-500">Tu factura #67890 vence en 3 días.</p>
+              <p class="text-xs text-gray-400 mt-1">Hace 2 días</p>
+            </div>
+          </div>
+        </div>
+        <!-- Botón para ver más actividad -->
+        <div class="mt-6">
+          <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            Ver más actividad
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
