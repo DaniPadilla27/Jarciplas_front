@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { ApiService } from '../../../../services/api.service';
 @Component({
   selector: 'app-pronostico',
   standalone: false,
@@ -9,20 +9,28 @@ import { Component } from '@angular/core';
 export class PronosticoComponent {
   mostrarLista = true;
   categoriaSeleccionada: string = '';
+  categorias: { nombre: string; ventas: number }[] = []; // Actualizamos el tipo
   semanas: { numero: number; fechaInicio: string; fechaFin: string; ventas: number }[] = [];
-
-  
-  categorias = [
-    { nombre: 'Cuidado de la ropa', ventas: 430 },
-    { nombre: 'Higiene personal', ventas: 320 },
-    { nombre: 'Limpieza industrial y profesional', ventas: 320 },
-    { nombre: 'Utensilios de limpieza', ventas: 290 },
-    { nombre: 'Líquidos de Limpieza', ventas: 920 },
-    { nombre: 'Ambientadores', ventas: 90 }
-  ];
-
   datosCategoria: any = {};
   productos: any[] = [];
+  constructor(private apiService: ApiService) {}
+  
+  ngOnInit(): void {
+    this.cargarCategorias();
+  }
+  private cargarCategorias(): void {
+    this.apiService.obtenercategorias().subscribe({
+      next: (response: any) => {
+        this.categorias = response.categorias.map((nombre: string) => ({
+          nombre,
+          ventas: 0 // Inicializamos las ventas en 0 por ahora
+        }));
+      },
+      error: (error) => {
+        console.error('Error al obtener las categorías:', error);
+      }
+    });
+  }
 
   verDetalle(categoria: string) {
     this.categoriaSeleccionada = categoria;

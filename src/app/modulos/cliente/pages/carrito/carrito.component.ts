@@ -110,4 +110,20 @@ export class CarritoComponent implements OnInit {
   calcularTotal(): number {
     return this.calcularSubtotal() + this.calcularEnvio();
   }
+  comprarCarrito(): void {
+    this.apiService.comprarProductos(this.id_usuario).subscribe(
+      (response) => {
+        // Mostrar mensaje de éxito
+        alert('¡Compra realizada con éxito!');
+        
+        // Vaciar el carrito después de la compra
+        this.cartItems = [];
+        this.cartService.updateCartCount(0);
+      },
+      (error) => {
+        console.error('Error al realizar la compra:', error);
+        alert('Hubo un error al procesar la compra. Inténtalo de nuevo.');
+      }
+    );
+  }
 }

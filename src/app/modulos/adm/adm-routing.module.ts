@@ -8,7 +8,6 @@ import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.compone
 import { PoliticasComponent } from './pages/politicas/politicas.component';
 import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 import { PronosticoComponent } from './pages/pronostico/pronostico.component';
-import { DatallesComponent } from './pages/datalles/datalles.component';
 const routes: Routes = [
     
 
@@ -45,10 +44,7 @@ const routes: Routes = [
         path: 'pronostico',
         component: PronosticoComponent,
       },
-      {
-        path: 'detalles',
-        component: DatallesComponent,
-      },
+
     ],
 },
 ];

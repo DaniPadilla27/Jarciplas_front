@@ -193,4 +193,8 @@ obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
 
 
 
+  comprarProductos(id_usuario: number): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}comprar/${id_usuario}`, {});
+  }
+
 }
