@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-productos',
-  standalone: false,
   templateUrl: './productos.component.html',
+  standalone:false,
   styleUrls: ['./productos.component.scss'],
 })
 export class ProductosComponent implements OnInit {
@@ -18,13 +18,7 @@ export class ProductosComponent implements OnInit {
   productoId: number | null = null;
 
   // Lista de categorías a utilizar en el combobox
-  categorias: string[] = [
-    'Limpieza del hogar',
-    'Cuidado de la ropa',
-    'Higiene personal',
-    'Limpieza industrial y profesional',
-    'Utensilios de limpieza'
-  ];
+  categorias: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -35,9 +29,9 @@ export class ProductosComponent implements OnInit {
     this.productoForm = this.fb.group({
       nombre_producto: ['', [Validators.required]],
       precio: ['', [Validators.required, Validators.min(0)]],
-      categoria: ['', [Validators.required]],
+      categoria_id: ['', [Validators.required]], // Cambiado de 'categoria' a 'categoria_id'
       descripcion: ['', [Validators.required]],
-      stok: ['', [Validators.required, Validators.min(0)]], // Agregado campo stok
+      stock: ['', [Validators.required, Validators.min(0)]], // Corregido 'stok' a 'stock'
       imagen: [null, Validators.required]
     });
   }
@@ -62,17 +56,29 @@ export class ProductosComponent implements OnInit {
   }
 
   // Crear o actualizar producto
-  agregarProducto() {
-    if (this.productoForm.invalid || !this.imagen) {
-      alert('Todos los campos, incluyendo la imagen, son obligatorios');
-      return;
-    }
+  // Crear o actualizar producto
+agregarProducto() {
+  if (this.productoForm.invalid || !this.imagen) {
+    alert('Todos los campos, incluyendo la imagen, son obligatorios');
+    return;
+  }
 
-    const { nombre_producto, precio, categoria, descripcion, stok } = this.productoForm.value;
+  const { nombre_producto, precio, categoria_id, descripcion, stock } = this.productoForm.value;
 
-    if (this.modoEdicion && this.productoId) {
-      // Actualizar producto
-      this.apiService.actualizarProducto(this.productoId, nombre_producto, precio, categoria, descripcion, stok, this.imagen).subscribe(
+  // Convertir valores numéricos y validar
+  const precioNum = Number(precio);
+  const categoriaIdNum = Number(categoria_id); // Convertir a número
+  const stockNum = Number(stock);
+
+  if (isNaN(precioNum) || isNaN(categoriaIdNum) || isNaN(stockNum)) {
+    alert("Los valores de precio, categoría y stock deben ser números válidos.");
+    return;
+  }
+
+  if (this.modoEdicion && this.productoId) {
+    // Actualizar producto
+    this.apiService.actualizarProducto(this.productoId, nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
+      .subscribe(
         (response) => {
           alert('Producto actualizado exitosamente');
           this.obtenerProductos();
@@ -83,9 +89,10 @@ export class ProductosComponent implements OnInit {
           console.error('Error:', error);
         }
       );
-    } else {
-      // Crear nuevo producto
-      this.apiService.crearProducto(nombre_producto, precio, categoria, descripcion, stok, this.imagen).subscribe(
+  } else {
+    // Crear nuevo producto
+    this.apiService.crearProducto(nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
+      .subscribe(
         (response) => {
           alert('Producto agregado exitosamente');
           this.obtenerProductos();
@@ -96,8 +103,8 @@ export class ProductosComponent implements OnInit {
           console.error('Error:', error);
         }
       );
-    }
   }
+}
 
   // Obtiene la lista de productos
   obtenerProductos() {
@@ -116,9 +123,9 @@ export class ProductosComponent implements OnInit {
     this.productoForm.patchValue({
       nombre_producto: producto.nombre_producto,
       precio: producto.precio,
-      categoria: producto.categoria,
+      categoria_id: producto.categoria_id, // Cambiado de 'categoria' a 'categoria_id'
       descripcion: producto.descripcion,
-      stok: producto.stok, // Cargar el stock al formulario
+      stock: producto.stock, // Corregido 'stok' a 'stock'
     });
 
     if (producto.imagen) {
@@ -155,5 +162,12 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerProductos();
+    // Cargar categorías (simulado)
+    this.categorias = [
+      { id: 1, nombre: 'Electrónica' },
+      { id: 2, nombre: 'Ropa' },
+      { id: 3, nombre: 'Hogar' },
+      { id: 4, nombre: 'Juguetes' }
+    ];
   }
 }

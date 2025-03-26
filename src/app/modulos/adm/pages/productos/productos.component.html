@@ -57,36 +57,32 @@
               </svg>
               Categoría
             </label>
-            <select formControlName="categoria"
+            <select formControlName="categoria_id"
               class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl bg-white focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
               <option value="">Selecciona una categoría</option>
-              <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+              <option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.nombre }}</option>
             </select>
           </div>
         </div>
 
-
-
         <!-- Stock -->
-<div>
-  <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11m0 0h8m-8 0V3m0 7v11m0-11H7m0 0H3"/>
-    </svg>
-    Stock
-  </label>
-  <input type="number" formControlName="stok" min="0"
-    class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
-  <div *ngIf="productoForm.get('stok')?.invalid && productoForm.get('stok')?.touched"
-    class="text-red-500 text-sm mt-1 flex items-center">
-    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-    </svg>
-    Campo obligatorio
-  </div>
-</div>
-
-
+        <div>
+          <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11m0 0h8m-8 0V3m0 7v11m0-11H7m0 0H3"/>
+            </svg>
+            Stock
+          </label>
+          <input type="number" formControlName="stock" min="0"
+            class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
+          <div *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched"
+            class="text-red-500 text-sm mt-1 flex items-center">
+            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            Campo obligatorio
+          </div>
+        </div>
 
         <!-- Descripción -->
         <div>
@@ -158,47 +154,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<!-- Tabla de Productos -->
-<!-- Tabla de Productos -->
-<div class="mt-8 bg-white rounded-2xl shadow-2xl p-6 w-full max-w-5xl mx-auto">
-  <h2 class="text-2xl font-bold text-[#2aac62] mb-4">Lista de Productos</h2>
-  <table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-50">
-      <tr>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoría</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Imagen</th>
-        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
-      <tr *ngFor="let producto of productos">
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.nombre_producto }}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.precio }}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.categoria }}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.descripcion }}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.stock }}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-          <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Producto" class="w-16 h-16 object-cover rounded-lg">
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-          <button (click)="editarProducto(producto)" class="text-[#2aac62] hover:text-[#1f8f50] mr-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-            </svg>
-          </button>
-          <button (click)="eliminarProducto(producto.id)" class="text-red-500 hover:text-red-700">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

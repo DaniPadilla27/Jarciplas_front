@@ -27,16 +27,24 @@ export class ApiService {
     const body = { correo, nuevaContrasena }; // Cuerpo de la solicitud
     return this.http.put<any>(`${environment.apiUrl}actualizarcon`, body);
   }
-  actualizarProducto(id: number, nombre_producto: string, precio: string, categoria: string, descripcion: string, stok: number,imagen: File): Observable<any> {
+  actualizarProducto(
+    id: number,
+    nombre_producto: string,
+    precio: number,
+    categoria_id: number,
+    descripcion: string,
+    stock: number,
+    imagen: File
+  ): Observable<any> {
     const formData = new FormData();
     formData.append('nombre_producto', nombre_producto);
-    formData.append('precio', precio);
-    formData.append('categoria', categoria);
+    formData.append('precio', precio.toString());
+    formData.append('categoria_id', categoria_id.toString());
     formData.append('descripcion', descripcion);
-    formData.append('stok', stok.toString());
+    formData.append('stock', stock.toString());
   
     if (imagen) {
-      formData.append('imagen', imagen);
+      formData.append('imagen', imagen, imagen.name);
     }
   
     return this.http.put<any>(`${environment.apiUrl}productos/${id}`, formData);
@@ -113,7 +121,7 @@ export class ApiService {
   crearProducto(
     nombre_producto: string,
     precio: number,
-    categoria: string,
+    categoria_id: number,  // Cambiado a número y nombre correcto
     descripcion: string,
     stock: number,
     imagen: File
@@ -121,13 +129,13 @@ export class ApiService {
     const formData = new FormData();
     formData.append('nombre_producto', nombre_producto);
     formData.append('precio', precio.toString());
-    formData.append('categoria', categoria);
+    formData.append('categoria_id', categoria_id.toString()); // Campo corregido
     formData.append('descripcion', descripcion);
-    formData.append("stock", stock.toString()); // Conversión a string
-    formData.append('imagen', imagen, imagen.name); // Asegurar que el archivo tiene un nombre
+    formData.append("stock", stock.toString());
+    formData.append('imagen', imagen, imagen.name);
 
-    // Debug: Verificar que FormData tiene los datos correctos
-    console.log('FormData enviado:', formData);
+    // Debug: Verificar FormData
+    console.log('FormData enviado:');
     for (let pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
