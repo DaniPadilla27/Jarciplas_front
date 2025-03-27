@@ -60,48 +60,33 @@ export class ProductosComponent implements OnInit {
       alert('Todos los campos, incluyendo la imagen, son obligatorios');
       return;
     }
-
-    const { nombre_producto, precio, categoria_id, descripcion, stock } = this.productoForm.value;
-
-    // Convertir valores numéricos y validar
-    const precioNum = Number(precio);
-    const categoriaIdNum = Number(categoria_id); // Convertir a número
-    const stockNum = Number(stock);
-
-    if (isNaN(precioNum) || isNaN(categoriaIdNum) || isNaN(stockNum)) {
-      alert("Los valores de precio, categoría y stock deben ser números válidos.");
-      return;
-    }
-
-    if (this.modoEdicion && this.productoId) {
-      // Actualizar producto
-      this.apiService.actualizarProducto(this.productoId, nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
-        .subscribe(
-          (response) => {
-            alert('Producto actualizado exitosamente');
-            this.obtenerProductos();
-            this.resetForm();
-          },
-          (error) => {
-            alert('Error al actualizar el producto');
-            console.error('Error:', error);
-          }
-        );
-    } else {
-      // Crear nuevo producto
-      this.apiService.crearProducto(nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
-        .subscribe(
-          (response) => {
-            alert('Producto agregado exitosamente');
-            this.obtenerProductos();
-            this.resetForm();
-          },
-          (error) => {
-            alert('Error al agregar el producto');
-            console.error('Error:', error);
-          }
-        );
-    }
+  
+    const formData = new FormData();
+    formData.append('nombre_producto', this.productoForm.get('nombre_producto')?.value);
+    formData.append('precio', this.productoForm.get('precio')?.value);
+    formData.append('categoria_id', this.productoForm.get('categoria_id')?.value);
+    formData.append('descripcion', this.productoForm.get('descripcion')?.value);
+    formData.append('stock', this.productoForm.get('stock')?.value);
+    formData.append('imagen', this.imagen as File);
+  
+    this.apiService.crearProducto(
+      this.productoForm.get('nombre_producto')?.value,
+      this.productoForm.get('precio')?.value,
+      this.productoForm.get('categoria_id')?.value,
+      this.productoForm.get('descripcion')?.value,
+      this.productoForm.get('stock')?.value,
+      this.imagen as File
+    ).subscribe(
+      (response) => {
+        alert('Producto agregado exitosamente');
+        this.obtenerProductos();
+        this.resetForm();
+      },
+      (error) => {
+        alert('Error al agregar el producto');
+        console.error('Error:', error);
+      }
+    );
   }
 
   // Obtiene la lista de productos
