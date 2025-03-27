@@ -67,8 +67,11 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}trabajadores`);
   }
   
+
+
+  //funcion trabajada 
   obtenerProductosPorCategoria(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}productos-por-categoria`);
+    return this.http.get<any>(`${environment.apiUrl}categoriascatalogo`);
   }
 
   login(Correo: string, Contraseña: string): Observable<any> {
@@ -124,7 +127,7 @@ export class ApiService {
   crearProducto(
     nombre_producto: string,
     precio: number,
-    categoria_id: number,  // Cambiado a número y nombre correcto
+    categoria_id: number,
     descripcion: string,
     stock: number,
     imagen: File
@@ -132,17 +135,17 @@ export class ApiService {
     const formData = new FormData();
     formData.append('nombre_producto', nombre_producto);
     formData.append('precio', precio.toString());
-    formData.append('categoria_id', categoria_id.toString()); // Campo corregido
+    formData.append('categoria_id', categoria_id.toString());
     formData.append('descripcion', descripcion);
-    formData.append("stock", stock.toString());
+    formData.append('stock', stock.toString());
     formData.append('imagen', imagen, imagen.name);
-
+  
     // Debug: Verificar FormData
     console.log('FormData enviado:');
     for (let pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
-
+  
     return this.http.post<any>(`${environment.apiUrl}cambios`, formData);
   }
 
@@ -210,5 +213,15 @@ obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
   productosmasvendidos(id_usuario: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}productosmasvendidos/${id_usuario}`, {});
   }
+
+
+
+  obtenerConclik(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}productos/categoria/${id}`);
+  }
+
+
+
+
 
 }
