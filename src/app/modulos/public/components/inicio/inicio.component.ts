@@ -46,14 +46,51 @@ export class InicioComponent implements OnInit {
     );
   }
 
-  convertirImagen(imagenBuffer: any): string {
-    if (!imagenBuffer || !imagenBuffer.data) {
-      return 'assets/default-image.jpg'; // Imagen por defecto
-    }
-    const byteArray = new Uint8Array(imagenBuffer.data);
+//   convertirImagen(imagenBuffer: any): string {
+//   if (!imagenBuffer || !imagenBuffer.data) {
+//     return 'assets/default-image.jpg'; // Imagen por defecto
+//   }
+//   const byteArray = new Uint8Array(imagenBuffer.data);
+//   const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Ajusta el tipo si es PNG u otro formato
+//   return URL.createObjectURL(blob);
+// }
+// convertirImagen(imagenData: any): string {
+//   // Si ya es una URL base64
+//   if (typeof imagenData === 'string' && imagenData.startsWith('data:image/')) {
+//     return imagenData;
+//   }
+  
+//   // Si el backend envía un objeto con datos base64 (caso menos común)
+//   if (imagenData?.base64) {
+//     return `data:${imagenData.type};base64,${imagenData.base64}`;
+//   }
+
+//   // Imagen por defecto si no hay datos
+//   return 'assets/default-image.jpg';
+// }
+
+
+convertirImagen(imagenData: any): string {
+  // Si ya es una URL base64
+  if (typeof imagenData === 'string' && imagenData.startsWith('data:image/')) {
+    return imagenData;
+  }
+
+  // Si el backend envía un objeto con datos base64 (caso menos común)
+  if (imagenData?.base64) {
+    return `data:${imagenData.type};base64,${imagenData.base64}`;
+  }
+
+  // Si el backend envía un buffer de datos
+  if (imagenData?.data) {
+    const byteArray = new Uint8Array(imagenData.data);
     const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Ajusta el tipo si es PNG u otro formato
     return URL.createObjectURL(blob);
   }
+
+  // Imagen por defecto si no hay datos
+  return 'assets/default-image.jpg';
+}
 
   mostrarAlertaCarrito(): void {
     alert('Debes iniciar sesión para agregar productos al carrito.');
