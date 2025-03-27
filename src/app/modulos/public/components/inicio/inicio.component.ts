@@ -24,11 +24,12 @@ export class InicioComponent implements OnInit {
         if (response && Array.isArray(response.categorias)) {
           this.categorias = response.categorias; // Asignamos las categorías con sus productos
 
-          // Solo tomar el primer producto de cada categoría y decodificar la imagen
+          // Procesar productos y asignar categoria_id
           this.productos = this.categorias
             .map((categoria: any) => categoria.productos.length > 0 ? { 
               ...categoria.productos[0], 
               categoria: categoria.nombre_categoria,
+              categoria_id: categoria.id, // Aseguramos que el ID de la categoría esté presente
               imagen: this.convertirImagen(categoria.productos[0].imagen) // Convertir Buffer a URL
             } : null)
             .filter((producto: any) => producto !== null);
@@ -58,17 +59,30 @@ export class InicioComponent implements OnInit {
     alert('Debes iniciar sesión para agregar productos al carrito.');
   }
 
-  verMas(categoria: string): void {
-    const categoriaSeleccionada = this.categorias.find((cat: any) => cat.nombre_categoria === categoria);
-    if (categoriaSeleccionada) {
-      this.productos = categoriaSeleccionada.productos.map((producto: any) => ({
-        ...producto,
-        categoria: categoriaSeleccionada.nombre_categoria,
-        imagen: this.convertirImagen(producto.imagen) // Convertir Buffer a URL
-      }));
-      console.log(`Productos cargados para la categoría: ${categoria}`, this.productos);
-    } else {
-      console.warn(`[WARNING] Categoría no encontrada: ${categoria}`);
+  verMas(categoriaId: number): void {
+    console.log('[DEBUG] ID de la categoría recibido:', categoriaId); // Depuración
+  
+    if (!categoriaId) {
+      console.warn('[WARNING] El ID de la categoría es inválido:', categoriaId);
+      return;
     }
+  
+    this.apiService.obtenerConclik(categoriaId).subscribe(
+      (response) => {
+        if (response && Array.isArray(response.productos)) {
+          this.productos = response.productos.map((producto: any) => ({
+            ...producto,
+            imagen: this.convertirImagen(producto.imagen) // Convertir Buffer a URL
+          }));
+          console.log(`[INFO] Productos de la categoría ${categoriaId} cargados:`, this.productos);
+        } else {
+          console.warn('[WARNING] No se encontraron productos para esta categoría:', response);
+          this.productos = [];
+        }
+      },
+      (error) => {
+        console.error('[ERROR] No se pudieron obtener los productos de la categoría:', error);
+      }
+    );
   }
 }

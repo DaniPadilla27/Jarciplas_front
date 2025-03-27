@@ -208,4 +208,14 @@ obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}comprar/${id_usuario}`, {});
   }
 
+
+
+  obtenerConclik(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}productos/categoria/${id}`);
+  }
+
+
+
+
+
 }
