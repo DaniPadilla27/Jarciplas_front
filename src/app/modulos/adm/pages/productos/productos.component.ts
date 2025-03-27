@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
-  standalone:false,
+  standalone: false,
   styleUrls: ['./productos.component.scss'],
 })
 export class ProductosComponent implements OnInit {
@@ -54,66 +54,82 @@ export class ProductosComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
   // Crear o actualizar producto
-  // Crear o actualizar producto
-agregarProducto() {
-  if (this.productoForm.invalid || !this.imagen) {
-    alert('Todos los campos, incluyendo la imagen, son obligatorios');
-    return;
+  agregarProducto() {
+    if (this.productoForm.invalid || !this.imagen) {
+      alert('Todos los campos, incluyendo la imagen, son obligatorios');
+      return;
+    }
+
+    const { nombre_producto, precio, categoria_id, descripcion, stock } = this.productoForm.value;
+
+    // Convertir valores numéricos y validar
+    const precioNum = Number(precio);
+    const categoriaIdNum = Number(categoria_id); // Convertir a número
+    const stockNum = Number(stock);
+
+    if (isNaN(precioNum) || isNaN(categoriaIdNum) || isNaN(stockNum)) {
+      alert("Los valores de precio, categoría y stock deben ser números válidos.");
+      return;
+    }
+
+    if (this.modoEdicion && this.productoId) {
+      // Actualizar producto
+      this.apiService.actualizarProducto(this.productoId, nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
+        .subscribe(
+          (response) => {
+            alert('Producto actualizado exitosamente');
+            this.obtenerProductos();
+            this.resetForm();
+          },
+          (error) => {
+            alert('Error al actualizar el producto');
+            console.error('Error:', error);
+          }
+        );
+    } else {
+      // Crear nuevo producto
+      this.apiService.crearProducto(nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
+        .subscribe(
+          (response) => {
+            alert('Producto agregado exitosamente');
+            this.obtenerProductos();
+            this.resetForm();
+          },
+          (error) => {
+            alert('Error al agregar el producto');
+            console.error('Error:', error);
+          }
+        );
+    }
   }
-
-  const { nombre_producto, precio, categoria_id, descripcion, stock } = this.productoForm.value;
-
-  // Convertir valores numéricos y validar
-  const precioNum = Number(precio);
-  const categoriaIdNum = Number(categoria_id); // Convertir a número
-  const stockNum = Number(stock);
-
-  if (isNaN(precioNum) || isNaN(categoriaIdNum) || isNaN(stockNum)) {
-    alert("Los valores de precio, categoría y stock deben ser números válidos.");
-    return;
-  }
-
-  if (this.modoEdicion && this.productoId) {
-    // Actualizar producto
-    this.apiService.actualizarProducto(this.productoId, nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
-      .subscribe(
-        (response) => {
-          alert('Producto actualizado exitosamente');
-          this.obtenerProductos();
-          this.resetForm();
-        },
-        (error) => {
-          alert('Error al actualizar el producto');
-          console.error('Error:', error);
-        }
-      );
-  } else {
-    // Crear nuevo producto
-    this.apiService.crearProducto(nombre_producto, precioNum, categoriaIdNum, descripcion, stockNum, this.imagen)
-      .subscribe(
-        (response) => {
-          alert('Producto agregado exitosamente');
-          this.obtenerProductos();
-          this.resetForm();
-        },
-        (error) => {
-          alert('Error al agregar el producto');
-          console.error('Error:', error);
-        }
-      );
-  }
-}
 
   // Obtiene la lista de productos
-  obtenerProductos() {
-    this.apiService.obtenerProductos().subscribe(
-      (data) => {
-        this.productos = data.productos;
+// filepath: src/app/modulos/adm/pages/productos/productos.component.ts
+obtenerProductos() {
+  this.apiService.obtenerProductos().subscribe(
+    (data) => {
+      this.productos = data.productos.map((producto: any) => ({
+        ...producto,
+        categoria: producto.categoria || 'Sin categoría', // Asegurar que siempre haya un valor
+      }));
+      console.log('Productos cargados:', this.productos);
+    },
+    (error) => {
+      console.error('Error al obtener los productos:', error);
+    }
+  );
+}
+  cargarCategorias() {
+    this.apiService.obtenercategorias().subscribe(
+      (response) => {
+        this.categorias = response.categorias.map((cat: any) => ({
+          id: cat.id,
+          nombre: cat.nombre_categoria, // Ajustar al nombre correcto del campo
+        }));
       },
       (error) => {
-        console.error('Error al obtener los productos:', error);
+        console.error('Error al obtener las categorías:', error);
       }
     );
   }
@@ -128,10 +144,11 @@ agregarProducto() {
       stock: producto.stock, // Corregido 'stok' a 'stock'
     });
 
-    if (producto.imagen) {
-      this.imagenPreview = 'data:image/jpeg;base64,' + producto.imagen;
-      this.imagen = producto.imagen;
-    }
+  // Solo mostrar la vista previa de la imagen, no asignarla como archivo
+  if (producto.imagen) {
+    this.imagenPreview = producto.imagen; // Base64 ya viene del backend
+    this.imagen = null; // No hay archivo cargado aún
+  }
 
     this.modoEdicion = true;
     this.productoId = producto.id;
@@ -162,12 +179,7 @@ agregarProducto() {
 
   ngOnInit(): void {
     this.obtenerProductos();
-    // Cargar categorías (simulado)
-    this.categorias = [
-      { id: 1, nombre: 'Electrónica' },
-      { id: 2, nombre: 'Ropa' },
-      { id: 3, nombre: 'Hogar' },
-      { id: 4, nombre: 'Juguetes' }
-    ];
+    this.cargarCategorias(); // Llamar al método para cargar categorías
+
   }
 }

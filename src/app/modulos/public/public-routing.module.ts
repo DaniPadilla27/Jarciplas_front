@@ -16,7 +16,7 @@ import { PreguntasecretaComponent } from './pages/preguntasecreta/preguntasecret
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home', // Redirige directamente a home en lugar de estar vacío
+    redirectTo: 'productos', // Redirige directamente a home en lugar de estar vacío
     pathMatch: 'full',
   },
   {

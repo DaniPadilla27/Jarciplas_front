@@ -1,37 +1,45 @@
-<div class="bg-white rounded-2xl shadow-2xl flex w-full max-w-5xl overflow-hidden transform transition-all hover:shadow-3xl mx-auto">
+<div class="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row w-full max-w-6xl overflow-hidden transform transition-all hover:shadow-3xl mx-auto">
   <!-- Columna Izquierda: Formulario -->
-  <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
+  <div class="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center bg-gradient-to-br from-[#f0fdf4] to-[#ecfdf5]">
     <div class="mb-8 text-center">
-      <div class="inline-block p-3 bg-[#2aac62]/10 rounded-full mb-4">
-        <svg class="w-8 h-8 text-[#2aac62]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+      <div class="inline-flex items-center justify-center p-4 bg-white rounded-full shadow-md mb-4 border-2 border-[#2aac62]/20">
+        <svg class="w-8 h-8 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/>
         </svg>
       </div>
       <h2 class="text-[#357563] text-xl font-semibold uppercase tracking-wide mb-2">
-        Nuevo Producto
+        Gestión de Inventario
       </h2>
       <h1 class="text-3xl font-bold text-[#2aac62]">Registro de Productos</h1>
+      <p class="text-[#648c9c] mt-2">Complete todos los campos para agregar un nuevo producto al catálogo</p>
     </div>
 
     <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()" class="space-y-6">
       <!-- Campos del Formulario -->
-      <div class="space-y-4">
+      <div class="space-y-5">
         <!-- Nombre del Producto -->
         <div>
-          <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          <label class="block text-sm font-semibold text-[#357563] mb-2 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
             </svg>
             Nombre del Producto
           </label>
-          <input type="text" formControlName="nombre_producto"
-            class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all placeholder-[#94a3b8]">
+          <input type="text" formControlName="nombre_producto" placeholder="Ej: Laptop HP Pavilion 15"
+            class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all placeholder-[#94a3b8] bg-white">
           <div *ngIf="productoForm.get('nombre_producto')?.invalid && productoForm.get('nombre_producto')?.touched"
             class="text-red-500 text-sm mt-1 flex items-center">
             <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
             </svg>
-            Campo obligatorio
+            El nombre del producto es obligatorio
+          </div>
+          <div class="text-xs text-[#648c9c] mt-1 flex items-start">
+            <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            <span>Sugerencia: Use nombres descriptivos que incluyan marca, modelo y características principales.</span>
           </div>
         </div>
 
@@ -39,118 +47,230 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Precio -->
           <div>
-            <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <label class="block text-sm font-semibold text-[#357563] mb-2 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
               </svg>
               Precio (USD)
             </label>
-            <input type="number" formControlName="precio"
-              class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
+            <div class="relative">
+              <span class="absolute left-3 top-3 text-[#94a3b8]">$</span>
+              <input type="number" formControlName="precio" placeholder="0.00" step="0.01" min="0"
+                class="w-full pl-8 pr-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all bg-white">
+            </div>
+            <div class="text-xs text-[#648c9c] mt-1 flex items-start">
+              <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+              </svg>
+              <span>Sugerencia: Considere márgenes de ganancia al establecer el precio de venta.</span>
+            </div>
           </div>
 
           <!-- Categoría (Combobox) -->
           <div>
-            <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+            <label class="block text-sm font-semibold text-[#357563] mb-2 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
               </svg>
               Categoría
             </label>
             <select formControlName="categoria_id"
-              class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl bg-white focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
+              class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl bg-white focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNS4yOTMgNy4yOTNhMSAxIDAgMDExLjQxNCAwTDEwIDEwLjU4NWwzLjI5My0zLjI5MmExIDEgMCAxMTEuNDE0IDEuNDE0bC00IDRhMSAxIDAgMDEtMS40MTQgMGwtNC00YTEgMSAwIDAxMC0xLjQxNHoiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==')] bg-no-repeat bg-[center_right_1rem]">
               <option value="">Selecciona una categoría</option>
               <option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.nombre }}</option>
             </select>
+            <div class="text-xs text-[#648c9c] mt-1 flex items-start">
+              <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+              </svg>
+              <span>Organice sus productos en categorías lógicas para facilitar la búsqueda.</span>
+            </div>
           </div>
         </div>
 
-        <!-- Stock -->
-        <div>
-          <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11m0 0h8m-8 0V3m0 7v11m0-11H7m0 0H3"/>
-            </svg>
-            Stock
-          </label>
-          <input type="number" formControlName="stock" min="0"
-            class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all">
-          <div *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched"
-            class="text-red-500 text-sm mt-1 flex items-center">
-            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-            </svg>
-            Campo obligatorio
+        <!-- Stock y Unidad de Medida -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Stock -->
+          <div>
+            <label class="block text-sm font-semibold text-[#357563] mb-2 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
+              </svg>
+              Stock Disponible
+            </label>
+            <input type="number" formControlName="stock" min="0" placeholder="0"
+              class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all bg-white">
+            <div *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched"
+              class="text-red-500 text-sm mt-1 flex items-center">
+              <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              El stock debe ser un número válido
+            </div>
           </div>
         </div>
 
         <!-- Descripción -->
         <div>
-          <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          <label class="block text-sm font-semibold text-[#357563] mb-2 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
             </svg>
             Descripción
           </label>
-          <textarea formControlName="descripcion" rows="3"
-            class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all"></textarea>
+          <textarea formControlName="descripcion" rows="3" placeholder="Incluya características, especificaciones y detalles relevantes del producto..."
+            class="w-full px-4 py-3 border-2 border-[#e2e8f0] rounded-xl focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all bg-white"></textarea>
+          <div class="flex justify-between items-center mt-1">
+            <div class="text-xs text-[#648c9c] flex items-start">
+              <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+              </svg>
+              <span>Una buena descripción ayuda a los clientes a entender mejor el producto.</span>
+            </div>
+            <span class="text-xs text-[#94a3b8]">{{ productoForm.get('descripcion')?.value?.length || 0 }}/500</span>
+          </div>
         </div>
 
         <!-- Imagen -->
         <div>
-          <label class="block text-sm font-semibold text-[#648c9c] mb-2 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          <label class="block text-sm font-semibold text-[#357563] mb-2 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-[#2aac62]" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
             </svg>
             Imagen del Producto
           </label>
-          <div class="flex items-center space-x-4">
-            <label class="flex-1 cursor-pointer">
-              <input type="file" (change)="onFileChange($event)" class="hidden">
-              <div class="w-full px-4 py-3 border-2 border-dashed border-[#e2e8f0] rounded-xl hover:border-[#2aac62] transition-colors text-center">
-                <span class="text-[#648c9c]">Arrastra o selecciona una imagen</span>
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <label class="cursor-pointer flex-1">
+              <input type="file" (change)="onFileChange($event)" accept="image/*" class="hidden">
+              <div class="w-full px-4 py-8 border-2 border-dashed border-[#e2e8f0] rounded-xl hover:border-[#2aac62] transition-colors text-center bg-white">
+                <div class="flex flex-col items-center justify-center text-[#648c9c]">
+                  <svg class="w-10 h-10 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                  </svg>
+                  <p class="font-medium">Arrastra y suelta la imagen aquí</p>
+                  <p class="text-sm">o haz clic para seleccionar</p>
+                  <p class="text-xs mt-2">Formatos soportados: JPG, PNG, WEBP (Max. 5MB)</p>
+                </div>
               </div>
             </label>
-            <div *ngIf="imagen" class="w-12 h-12 rounded-lg overflow-hidden border-2 border-[#2aac62]/20">
-              <img [src]="imagenPreview" class="w-full h-full object-cover">
+            <div *ngIf="imagen" class="flex flex-col items-center">
+              <div class="w-24 h-24 rounded-lg overflow-hidden border-2 border-[#2aac62]/20 bg-white p-1 shadow-sm">
+                <img [src]="imagenPreview" class="w-full h-full object-contain">
+              </div>
             </div>
+          </div>
+          <div class="text-xs text-[#648c9c] mt-2 flex items-start">
+            <svg class="w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            <span>Use imágenes de alta calidad con fondo blanco o neutro para mejor presentación.</span>
           </div>
         </div>
       </div>
 
       <!-- Botón de Enviar -->
-      <button type="submit" 
-        class="w-full bg-gradient-to-r from-[#2aac62] to-[#1f8f50] text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-        [disabled]="productoForm.invalid || !imagen">
-        {{ modoEdicion ? 'Actualizar Producto' : 'Registrar Producto' }}
-      </button>
+      <div class="pt-2">
+        <button type="submit" 
+          class="w-full bg-gradient-to-r from-[#2aac62] to-[#1f8f50] text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+          [disabled]="productoForm.invalid || !imagen">
+          <span>{{ modoEdicion ? 'Actualizar Producto' : 'Registrar Producto' }}</span>
+          <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </button>
+      </div>
     </form>
   </div>
 
-  <!-- Columna Derecha: Imagen -->
-  <div class="hidden md:block md:w-1/2 relative bg-gradient-to-br from-[#2aac62]/5 to-[#1f8f50]/10">
-    <div class="absolute inset-0 flex flex-col items-center justify-center p-8 h-full">
-      <!-- Contenedor de imagen ajustado -->
-      <div class="flex-1 flex items-center justify-center max-h-[40%] w-full mb-4">
-        <img src="https://www.jarciplas.com/assets/img/logos/logo_med.png" 
-             alt="Logo Jarciplas" 
-             class="w-56 h-56 object-contain animate-float">
+  <!-- Columna Derecha: Tabla de Productos -->
+  <div class="w-full md:w-1/2 p-8 md:p-10 bg-white border-l border-[#e2e8f0]">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold text-[#2aac62]">Inventario de Productos</h2>
+      <div class="relative">
+        <input type="text" placeholder="Buscar producto..." 
+          class="pl-10 pr-4 py-2 border border-[#e2e8f0] rounded-lg focus:border-[#2aac62] focus:ring-2 focus:ring-[#2aac62]/30 transition-all text-sm">
+        <svg class="w-5 h-5 absolute left-3 top-2 text-[#94a3b8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
       </div>
-      
-      <!-- Contenido textual -->
-      <div class="flex-1 flex flex-col justify-center text-center space-y-8">
-        <h3 class="text-3xl font-bold text-[#357563] leading-tight">
-          Administración de<br>Productos
-        </h3>
-        <p class="text-[#648c9c] px-8">
-          Mantén actualizado tu inventario con información detallada y precisa para tus clientes.
-        </p>
-        <div class="inline-flex items-center bg-white px-6 py-3 rounded-full shadow-md">
-          <svg class="w-6 h-6 text-[#2aac62] mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+    </div>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto rounded-lg border border-[#e2e8f0] shadow-sm">
+      <table class="w-full text-sm text-left">
+        <thead class="bg-[#f8fafc] text-[#357563] uppercase">
+          <tr>
+            <th class="px-4 py-3 font-semibold">Producto</th>
+            <th class="px-4 py-3 font-semibold">Precio</th>
+            <th class="px-4 py-3 font-semibold hidden sm:table-cell">Stock</th>
+            <th class="px-4 py-3 font-semibold text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#e2e8f0]">
+          <tr *ngFor="let producto of productos" class="hover:bg-[#f1f5f9]">
+            <td class="px-4 py-3">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10 rounded-md overflow-hidden border border-[#e2e8f0] bg-white">
+                  <img *ngIf="producto.imagen" [src]="producto.imagen" alt="{{ producto.nombre_producto }}" class="h-full w-full object-cover">
+                  <div *ngIf="!producto.imagen" class="h-full w-full bg-[#e2e8f0] flex items-center justify-center text-[#94a3b8]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="ml-3">
+                  <p class="font-medium text-[#357563]">{{ producto.nombre_producto }}</p>
+                  <p class="text-xs text-[#94a3b8]">{{ producto.categoria }}</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-4 py-3 font-medium">${{ producto.precio | number:'1.2-2' }}</td>
+            <td class="px-4 py-3 hidden sm:table-cell">
+              <span [class]="'px-2 py-1 text-xs rounded-full ' + (producto.stock > 5 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800')">
+                {{ producto.stock }} {{ producto.stock === 1 ? 'unidad' : 'unidades' }}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-right">
+              <div class="flex justify-end space-x-2">
+                <button (click)="editarProducto(producto)" class="p-1 text-[#2aac62] hover:text-[#1f8f50] rounded-full hover:bg-[#d1e7dd]/50">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                  </svg>
+                </button>
+                <button (click)="eliminarProducto(producto.id)" class="p-1 text-red-500 hover:text-red-700 rounded-full hover:bg-red-100/50">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación y resumen -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-[#648c9c]">
+      <div class="mb-2 sm:mb-0">
+        Mostrando <span class="font-medium">1</span> a <span class="font-medium">5</span> de <span class="font-medium">24</span> productos
+      </div>
+      <div class="flex space-x-1">
+        <button class="px-3 py-1 border border-[#e2e8f0] rounded-md hover:bg-[#2aac62] hover:text-white disabled:opacity-50" disabled>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
           </svg>
-          <span class="text-base font-semibold text-[#357563]">Datos Protegidos</span>
-        </div>
+        </button>
+        <button class="px-3 py-1 border border-[#e2e8f0] rounded-md bg-[#2aac62] text-white">1</button>
+        <button class="px-3 py-1 border border-[#e2e8f0] rounded-md hover:bg-[#e2e8f0]">2</button>
+        <button class="px-3 py-1 border border-[#e2e8f0] rounded-md hover:bg-[#e2e8f0]">3</button>
+        <button class="px-3 py-1 border border-[#e2e8f0] rounded-md hover:bg-[#2aac62] hover:text-white">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
