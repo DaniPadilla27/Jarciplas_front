@@ -29,27 +29,31 @@ export class CarritoComponent implements OnInit {
 
   obtenerCarrito(): void {
     this.apiService.obtenerCarritoPorUsuario(this.id_usuario).subscribe(
-        (data) => {
-            console.log('Datos del carrito:', data);  // Verifica que "imagen" esté presente
-            const groupedItems = data.reduce((acc: any[], item: any) => {
-                const existingItem = acc.find((p) => p.id_producto === item.id_producto);
-                if (existingItem) {
-                    existingItem.cantidad += item.cantidad;
-                    existingItem.precio_total += item.precio_total;
-                } else {
-                    acc.push({ ...item });
-                }
-                return acc;
-            }, []);
-
-            this.cartItems = groupedItems;
-            this.cartService.updateCartCount(this.cartItems.length);
-        },
-        (error) => {
-            console.error('Error al obtener el carrito:', error);
-            this.mensaje = 'No se pudo cargar el carrito.';
-        }
+      (data) => {
+        console.log('Datos del carrito:', data);
+  
+        // Procesar los datos del carrito
+        this.cartItems = data.map((item: any) => ({
+          ...item,
+          imagen: this.convertirImagen(item.imagen), // Convertir imagen del buffer
+        }));
+  
+        this.cartService.updateCartCount(this.cartItems.length);
+      },
+      (error) => {
+        console.error('Error al obtener el carrito:', error);
+        this.mensaje = 'No se pudo cargar el carrito.';
+      }
     );
+  }
+
+  // Función para convertir la imagen del buffer a base64
+convertirImagen(imagen: any): string {
+  if (!imagen || !imagen.data) {
+    return ''; // Imagen no disponible
+  }
+  const base64String = btoa(String.fromCharCode(...new Uint8Array(imagen.data)));
+  return `data:image/png;base64,${base64String}`;
 }
 
   // Función para decrementar la cantidad de un producto en el carrito
@@ -63,6 +67,11 @@ export class CarritoComponent implements OnInit {
 
   // Función para incrementar la cantidad de un producto en el carrito
   incrementarCantidad(item: any): void {
+    if (item.cantidad + 1 > item.stock) {
+      this.mensaje = `No puedes agregar más de ${item.stock} unidades de ${item.nombre_producto}.`;
+      return;
+    }
+  
     item.cantidad++;
     item.precio_total = item.cantidad * item.precio_unitario;
     this.actualizarItemCarrito(item);
@@ -94,7 +103,6 @@ export class CarritoComponent implements OnInit {
       }
     );
   }
-
   // Función para calcular el subtotal de la compra
   calcularSubtotal(): number {
     return this.cartItems.reduce((total, item) => total + (item.precio_unitario * item.cantidad), 0);

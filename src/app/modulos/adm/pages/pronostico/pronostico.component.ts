@@ -9,8 +9,12 @@ import { ApiService } from '../../../../services/api.service';
 export class PronosticoComponent {
   mostrarLista = true;
   categoriaSeleccionada: string = '';
-  categorias: { nombre: string; ventas: number }[] = []; // Actualizamos el tipo
-  semanas: { numero: number; fechaInicio: string; fechaFin: string; ventas: number }[] = [];
+  categorias: { 
+    nombre: string; 
+    ventas: number; 
+    stockInicial: number; 
+    stockRestante: number; 
+  }[] = [];  semanas: { numero: number; fechaInicio: string; fechaFin: string; ventas: number }[] = [];
   datosCategoria: any = {};
   productos: any[] = [];
   constructor(private apiService: ApiService) {}
@@ -19,11 +23,13 @@ export class PronosticoComponent {
     this.cargarCategorias();
   }
   private cargarCategorias(): void {
-    this.apiService.obtenercategorias().subscribe({
+    this.apiService.prediccion().subscribe({
       next: (response: any) => {
-        this.categorias = response.categorias.map((nombre: string) => ({
-          nombre,
-          ventas: 0 // Inicializamos las ventas en 0 por ahora
+        this.categorias = response.categorias.map((categoria: any) => ({
+          nombre: categoria.categorias, // Cambiado para reflejar el nuevo campo
+          ventas: parseInt(categoria.ventasTotales, 10) || 0, // Convertimos a número
+          stockInicial: parseInt(categoria.stock_inicial, 10) || 0, // Nuevo campo
+          stockRestante: parseInt(categoria.stock_Restante, 10) || 0 // Nuevo campo
         }));
       },
       error: (error) => {
@@ -35,8 +41,18 @@ export class PronosticoComponent {
   verDetalle(categoria: string) {
     this.categoriaSeleccionada = categoria;
     this.mostrarLista = false;
-    this.cargarDatosCategoria(categoria);
-    this.generarSemanas(); // Añade esta línea
+  
+    // Buscar los datos de la categoría seleccionada
+    const categoriaSeleccionada = this.categorias.find(cat => cat.nombre === categoria);
+    if (categoriaSeleccionada) {
+      this.datosCategoria = {
+        stockInicial: categoriaSeleccionada.stockInicial,
+        ventasTotales: categoriaSeleccionada.ventas,
+        stockRestante: categoriaSeleccionada.stockRestante
+      };
+    }
+  
+    this.generarSemanas(); // Si necesitas generar semanas, mantén esta línea
   }
 
   volverALista() {

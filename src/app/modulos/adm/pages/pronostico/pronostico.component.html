@@ -9,6 +9,8 @@
           <tr>
             <th class="px-6 py-4 text-left text-white font-semibold">Categoría</th>
             <th class="px-6 py-4 text-left text-white font-semibold">Ventas Totales</th>
+            <th class="px-6 py-4 text-left text-white font-semibold">Stock Inicial</th>
+            <th class="px-6 py-4 text-left text-white font-semibold">Stock Restante</th>
             <th class="px-6 py-4 text-left text-white font-semibold">Acción</th>
           </tr>
         </thead>
@@ -16,6 +18,8 @@
           <tr *ngFor="let cat of categorias" class="hover:bg-gray-50 transition-all">
             <td class="px-6 py-4 text-gray-700">{{ cat.nombre }}</td>
             <td class="px-6 py-4 text-gray-700">{{ cat.ventas }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ cat.stockInicial }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ cat.stockRestante }}</td>
             <td class="px-6 py-4">
               <button (click)="verDetalle(cat.nombre)" 
                       class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all">
@@ -80,7 +84,9 @@
           </tr>
         </tbody>
       </table>
-    </div><!-- Gráfico de Ventas por Semana - Versión Corregida -->
+    </div>
+
+    <!-- Gráfico de Ventas por Semana -->
     <h3 class="text-lg font-semibold text-gray-700 mt-6">📈 Ventas por Semana</h3>
     <div class="mt-4 bg-gray-100 rounded-lg p-6 flex flex-col items-center">
       <p class="text-gray-600 text-sm mb-4">Tendencia de Ventas - Últimas 5 semanas</p>
@@ -102,3 +108,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>

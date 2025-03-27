@@ -77,6 +77,9 @@ export class ApiService {
   obtenercategorias(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}categorias`);
   }
+  prediccion(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}prediccion`);
+  }
 
 
   registrarUsuario(
@@ -203,6 +206,9 @@ obtenerCarritoPorUsuario(id_usuario: number): Observable<any> {
 
   comprarProductos(id_usuario: number): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}comprar/${id_usuario}`, {});
+  }
+  productosmasvendidos(id_usuario: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}productosmasvendidos/${id_usuario}`, {});
   }
 
 }
