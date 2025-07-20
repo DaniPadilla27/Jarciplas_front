@@ -1,0 +1,96 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">
+            <i class="fas fa-bell me-2"></i>
+            Configuración de Notificaciones Push
+          </h4>
+        </div>
+        <div class="card-body">
+          
+          <!-- Estado del soporte -->
+          <div class="alert" [ngClass]="isSupported ? 'alert-success' : 'alert-danger'">
+            <i class="fas" [ngClass]="isSupported ? 'fa-check-circle' : 'fa-times-circle'"></i>
+            <strong>Soporte del navegador:</strong>
+            {{ isSupported ? 'Compatible' : 'No compatible' }}
+          </div>
+
+          <!-- Estado de permisos -->
+          <div class="mb-3">
+            <strong>Estado de permisos:</strong>
+            <span class="ms-2" [ngClass]="getPermissionClass()">
+              {{ getPermissionText() }}
+            </span>
+          </div>
+
+          <!-- Estado de suscripción -->
+          <div class="mb-4">
+            <strong>Estado de suscripción:</strong>
+            <span class="ms-2" [ngClass]="isSubscribed ? 'text-success' : 'text-secondary'">
+              <i class="fas" [ngClass]="isSubscribed ? 'fa-check-circle' : 'fa-times-circle'"></i>
+              {{ isSubscribed ? 'Suscrito' : 'No suscrito' }}
+            </span>
+          </div>
+
+          <!-- Mensajes -->
+          <div *ngIf="message" class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" (click)="message = ''" aria-label="Close"></button>
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="d-grid gap-2" *ngIf="isSupported">
+            
+            <!-- Botón de suscripción -->
+            <button 
+              *ngIf="!isSubscribed" 
+              type="button" 
+              class="btn btn-primary btn-lg"
+              [disabled]="loading"
+              (click)="subscribe()">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+              <i *ngIf="!loading" class="fas fa-bell me-2"></i>
+              {{ loading ? 'Suscribiendo...' : 'Activar Notificaciones' }}
+            </button>
+
+            <!-- Botón de desuscripción -->
+            <button 
+              *ngIf="isSubscribed" 
+              type="button" 
+              class="btn btn-outline-danger"
+              [disabled]="loading"
+              (click)="unsubscribe()">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+              <i *ngIf="!loading" class="fas fa-bell-slash me-2"></i>
+              {{ loading ? 'Desuscribiendo...' : 'Desactivar Notificaciones' }}
+            </button>
+
+            <!-- Botón de prueba -->
+            <button 
+              *ngIf="isSubscribed" 
+              type="button" 
+              class="btn btn-outline-info"
+              (click)="sendTestNotification()">
+              <i class="fas fa-vial me-2"></i>
+              Enviar Notificación de Prueba
+            </button>
+
+          </div>
+
+          <!-- Información adicional -->
+          <div class="mt-4">
+            <h6>Información:</h6>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-info-circle text-info me-2"></i>Las notificaciones te alertarán sobre productos con stock bajo</li>
+              <li><i class="fas fa-shield-alt text-success me-2"></i>Solo los administradores reciben estas notificaciones</li>
+              <li><i class="fas fa-mobile-alt text-primary me-2"></i>Funciona en dispositivos móviles y escritorio</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

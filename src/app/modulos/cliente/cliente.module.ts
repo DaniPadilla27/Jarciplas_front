@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
-import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 import { HistorialComponent } from './pages/historial/historial.component';
 import { DetalleProductoComponent } from './pages/detalle-producto/detalle-producto.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
@@ -26,7 +25,6 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
     ClienteComponent,
     OfertasComponent,
     PerfilComponent,
-    NotificacionesComponent,
     HistorialComponent,
     DetalleProductoComponent,
     CarritoComponent,

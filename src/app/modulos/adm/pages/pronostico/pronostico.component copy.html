@@ -1,0 +1,120 @@
+<div class="max-w-5xl mx-auto p-8 bg-white rounded-xl shadow-lg">
+  <!-- Vista de lista de categorías -->
+  <div *ngIf="mostrarLista">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Pronósticos de Inventario por Categoría</h2>
+
+    <div class="overflow-x-auto rounded-lg shadow-sm">
+      <table class="w-full border-collapse">
+        <thead class="bg-gradient-to-r from-blue-500 to-blue-600">
+          <tr>
+            <th class="px-6 py-4 text-left text-white font-semibold">Categoría</th>
+            <th class="px-6 py-4 text-left text-white font-semibold">Ventas Totales</th>
+            <th class="px-6 py-4 text-left text-white font-semibold">Stock Inicial</th>
+            <th class="px-6 py-4 text-left text-white font-semibold">Stock Restante</th>
+            <th class="px-6 py-4 text-left text-white font-semibold">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let cat of categorias" class="hover:bg-gray-50 transition-all">
+            <td class="px-6 py-4 text-gray-700">{{ cat.nombre }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ cat.ventas }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ cat.stockInicial }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ cat.stockRestante }}</td>
+            <td class="px-6 py-4">
+              <button (click)="verDetalle(cat)" 
+                      class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all">
+                Ver detalles
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Vista de detalle de categoría -->
+  <div *ngIf="!mostrarLista" class="p-6">
+    <button (click)="volverALista()" class="mb-4 flex items-center text-blue-600 hover:text-blue-800">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+      </svg>
+      Volver a la lista
+    </button>
+
+    <h2 class="text-2xl font-semibold text-gray-700 flex items-center gap-2">
+      📊 Reporte de Inventario y Ventas - {{ categoriaSeleccionada }}
+    </h2>
+    <p class="text-blue-600 underline text-sm mt-1">
+      Análisis de ventas y proyección de inventario - Abril 2025
+    </p>
+
+    <!-- Tarjetas de información -->
+    <div class="grid grid-cols-3 gap-4 mt-4">
+      <div class="p-4 bg-blue-100 rounded-lg text-center">
+        <p class="text-gray-600 text-sm">Stock Inicial</p>
+        <p class="text-2xl font-semibold text-blue-700">{{ datosCategoria.stockInicial || 0 }} unidades</p>
+      </div>
+      <div class="p-4 bg-green-100 rounded-lg text-center">
+        <p class="text-gray-600 text-sm">Ventas Totales</p>
+        <p class="text-2xl font-semibold text-green-700">{{ datosCategoria.ventasTotales || 0 }} unidades</p>
+      </div>
+      <div class="p-4 bg-yellow-100 rounded-lg text-center">
+        <p class="text-gray-600 text-sm">Stock Restante</p>
+        <p class="text-2xl font-semibold text-yellow-700">{{ datosCategoria.stockRestante || 0 }} unidades</p>
+      </div>
+    </div>
+
+<!-- Tabla de productos más vendidos -->
+<h3 class="text-lg font-semibold text-gray-700 mt-6">📋 Productos Más Vendidos</h3>
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse border border-gray-300 mt-2">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-4 py-2 text-left">Producto</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Categoría</th>
+        <th class="border border-gray-300 px-4 py-2 text-center">Stock Restante</th>
+        <th class="border border-gray-300 px-4 py-2 text-center">Precio</th>
+        <th class="border border-gray-300 px-4 py-2 text-center">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos; let even = even" 
+          [class.bg-white]="!even" [class.bg-gray-50]="even">
+        <td class="border border-gray-300 px-4 py-2">{{ producto.nombre }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ producto.categoria }}</td>
+        <td class="border border-gray-300 px-4 py-2 text-center">{{ producto.stock }}</td>
+        <td class="border border-gray-300 px-4 py-2 text-center">${{ producto.precio }}</td>
+        <td class="border border-gray-300 px-4 py-2 text-center">
+          <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all">
+            Ver detalles
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    <!-- Gráfico de Ventas por Semana -->
+    <h3 class="text-lg font-semibold text-gray-700 mt-6">📈 Ventas por Semana</h3>
+    <div class="mt-4 bg-gray-100 rounded-lg p-6 flex flex-col items-center">
+      <p class="text-gray-600 text-sm mb-4">Tendencia de Ventas - Últimas 5 semanas</p>
+      
+      <div class="w-full flex justify-between items-end space-x-2" style="height: 200px;">
+        <div *ngFor="let semana of semanas" class="flex flex-col items-center w-1/5 h-full">
+          <div class="relative flex flex-col items-center h-full">
+            <div class="bg-blue-500 w-3/4 rounded-t-lg text-white text-xs flex items-end justify-center" 
+                 [style.height.%]="(semana.ventas / maxVentasSemanales()) * 100">
+              <span class="absolute -top-6 text-gray-600 font-medium">{{ semana.ventas }}</span>
+            </div>
+            <div class="text-xs text-gray-600 mt-2 text-center w-full">
+              <div>Sem {{ semana.numero }}</div>
+              <div class="font-medium whitespace-nowrap">
+                {{ semana.fechaInicio }}<br>a {{ semana.fechaFin }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

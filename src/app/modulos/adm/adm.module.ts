@@ -13,6 +13,8 @@ import { TrabajadorComponent } from '../trabajador/trabajador.component';
 import { TrabajadoresComponent } from './pages/trabajadores/trabajadores.component';
 import { ContactanosComponent } from './pages/contactanos/contactanos.component';
 import { PronosticoComponent } from './pages/pronostico/pronostico.component';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { PronosticoComponent } from './pages/pronostico/pronostico.component';
     PoliticasComponent,
     TrabajadoresComponent,
     ContactanosComponent,
+    NotificacionesComponent,
     PronosticoComponent
     
   ],
@@ -30,7 +33,7 @@ import { PronosticoComponent } from './pages/pronostico/pronostico.component';
     CommonModule,
     AdmRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule  // <-- Asegurar que está aquí
+    HttpClientModule, // <-- Asegurar que está aquí
   ],
   providers: [ApiService]  // <-- Asegurar que ApiService está en providers
 })

@@ -31,13 +31,13 @@ export class CarritoComponent implements OnInit {
     this.apiService.obtenerCarritoPorUsuario(this.id_usuario).subscribe(
       (data) => {
         console.log('Datos del carrito:', data);
-  
-        // Procesar los datos del carrito
+
+        // Simplificar el mapeo: usar la URL de imagen directamente
         this.cartItems = data.map((item: any) => ({
           ...item,
-          imagen: this.convertirImagen(item.imagen), // Convertir imagen del buffer
+          imagen: item.imagen || '', // Usa la URL directamente, con valor por defecto vacío si no existe
         }));
-  
+
         this.cartService.updateCartCount(this.cartItems.length);
       },
       (error) => {
@@ -47,21 +47,12 @@ export class CarritoComponent implements OnInit {
     );
   }
 
-  // Función para convertir la imagen del buffer a base64
-convertirImagen(imagen: any): string {
-  if (!imagen || !imagen.data) {
-    return ''; // Imagen no disponible
-  }
-  const base64String = btoa(String.fromCharCode(...new Uint8Array(imagen.data)));
-  return `data:image/png;base64,${base64String}`;
-}
-
   // Función para decrementar la cantidad de un producto en el carrito
   decrementarCantidad(item: any): void {
     if (item.cantidad > 1) {
       item.cantidad--;
-      item.precio_total = item.cantidad * item.precio_unitario;
-      this.actualizarItemCarrito(item);
+      item.precio_total = this.roundToTwoDecimals(item.cantidad * item.precio_unitario);
+      this.actualizarItemCarrito(item).then(() => this.obtenerCarrito());
     }
   }
 
@@ -71,10 +62,10 @@ convertirImagen(imagen: any): string {
       this.mensaje = `No puedes agregar más de ${item.stock} unidades de ${item.nombre_producto}.`;
       return;
     }
-  
+
     item.cantidad++;
-    item.precio_total = item.cantidad * item.precio_unitario;
-    this.actualizarItemCarrito(item);
+    item.precio_total = this.roundToTwoDecimals(item.cantidad * item.precio_unitario);
+    this.actualizarItemCarrito(item).then(() => this.obtenerCarrito());
   }
 
   // Función para eliminar un producto del carrito
@@ -91,40 +82,48 @@ convertirImagen(imagen: any): string {
     );
   }
 
-  // Función para actualizar un item en el carrito
-  actualizarItemCarrito(item: any): void {
-    this.apiService.actualizarCarrito(item.id_carrito, item.cantidad).subscribe(
-      () => {
-        console.log('Carrito actualizado correctamente');
-      },
-      (error) => {
-        console.error('Error al actualizar el carrito:', error);
-        this.mensaje = 'No se pudo actualizar el carrito.';
-      }
-    );
+  // Función para actualizar un item en el carrito (convertida a Promise para sincronización)
+  actualizarItemCarrito(item: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.actualizarCarrito(item.id_carrito, item.cantidad).subscribe(
+        () => {
+          console.log('Carrito actualizado correctamente');
+          resolve();
+        },
+        (error) => {
+          console.error('Error al actualizar el carrito:', error);
+          this.mensaje = 'No se pudo actualizar el carrito.';
+          reject(error);
+        }
+      );
+    });
   }
-  // Función para calcular el subtotal de la compra
+
+  // Función para calcular el subtotal de la compra con redondeo
   calcularSubtotal(): number {
-    return this.cartItems.reduce((total, item) => total + (item.precio_unitario * item.cantidad), 0);
+    const subtotal = this.cartItems.reduce((total, item) => total + (item.precio_unitario * item.cantidad), 0);
+    return this.roundToTwoDecimals(subtotal);
   }
 
   // Función para calcular el costo de envío (puedes personalizar esta lógica)
   calcularEnvio(): number {
-    // Ejemplo: Envío fijo de $5.00
-    return 0.0;
+    return this.roundToTwoDecimals(0.0); // Envío fijo de $0.00 como ejemplo
   }
 
   // Función para calcular el total de la compra
   calcularTotal(): number {
-    return this.calcularSubtotal() + this.calcularEnvio();
+    return this.roundToTwoDecimals(this.calcularSubtotal() + this.calcularEnvio());
   }
+
+  // Función auxiliar para redondear a 2 decimales
+  private roundToTwoDecimals(value: number): number {
+    return Math.round(value * 100) / 100;
+  }
+
   comprarCarrito(): void {
     this.apiService.comprarProductos(this.id_usuario).subscribe(
       (response) => {
-        // Mostrar mensaje de éxito
         alert('¡Compra realizada con éxito!');
-        
-        // Vaciar el carrito después de la compra
         this.cartItems = [];
         this.cartService.updateCartCount(0);
       },

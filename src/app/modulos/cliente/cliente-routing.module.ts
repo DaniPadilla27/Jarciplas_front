@@ -5,7 +5,7 @@ import { ClienteComponent } from './cliente.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
-import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+import { NotificacionesComponent } from '../adm/pages/notificaciones/notificaciones.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { HistorialComponent } from './pages/historial/historial.component';
 import { DetalleProductoComponent } from './pages/detalle-producto/detalle-producto.component';

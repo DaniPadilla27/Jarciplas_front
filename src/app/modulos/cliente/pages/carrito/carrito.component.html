@@ -1,97 +1,285 @@
-<div class="container mx-auto p-4">
-    <!-- Header con el número de artículos -->
-    <header class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold text-gray-800">Carrito de Compras</h1>
-      <div class="flex items-center">
-        <span class="bg-teal-600 text-white rounded-full px-4 py-2 text-sm font-semibold">
-          {{ cartItems.length || 0 }} artículo(s)
-        </span>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/40">
+  <div class="container mx-auto p-6 max-w-7xl">
+    <!-- Header premium -->
+    <header class="mb-12 text-center relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#2aac62]/5 via-transparent to-[#2aac62]/5 rounded-3xl"></div>
+      <div class="relative py-8">
+
+        <h1 class="text-5xl font-black bg-gradient-to-r from-slate-800 via-slate-700 to-slate-600 bg-clip-text text-transparent mb-3">
+          Mi Carrito Premium
+        </h1>
       </div>
     </header>
-  
-    <!-- Mensaje si hay error o carrito vacío -->
-    <div *ngIf="mensaje" class="text-red-500 text-center mb-4">{{ mensaje }}</div>
-    <div *ngIf="cartItems && cartItems.length > 0; else emptyCart">
-      <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-        <thead class="bg-teal-600 text-white">
-          <tr>
-            <th class="px-6 py-4 text-left">Producto</th>
-            <th class="px-6 py-4 text-left">Imagen</th>
-            <th class="px-6 py-4 text-left">Cantidad</th>
-            <th class="px-6 py-4 text-left">Precio Unitario</th>
-            <th class="px-6 py-4 text-left">Precio Total</th>
-            <th class="px-6 py-4 text-left">Acciones</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-          <tr *ngFor="let item of cartItems" class="hover:bg-gray-50 transition-colors">
-            <td class="px-6 py-4 font-medium text-gray-900">{{ item.nombre_producto }}</td>
-            <td class="px-6 py-4">
-              <img [src]="item.imagen" alt="{{ item.nombre_producto }}" class="w-16 h-16 object-cover rounded-lg" />
-            </td>
-            <td class="px-6 py-4">
-              <div class="flex items-center">
-                <button (click)="decrementarCantidad(item)" class="text-gray-500 hover:text-gray-700">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                  </svg>
-                </button>
-                <span class="mx-2">{{ item.cantidad }}</span>
-                <button (click)="incrementarCantidad(item)" class="text-gray-500 hover:text-gray-700">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </button>
-              </div>
-            </td>
-            <td class="px-6 py-4">${{ item.precio_unitario }}</td>
-            <td class="px-6 py-4">${{ item.precio_total }}</td>
-            <td class="px-6 py-4">
-              <button (click)="eliminarDelCarrito(item)" class="text-red-500 hover:text-red-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <!-- Resumen de la compra -->
-      <div class="mt-8 p-6 bg-teal-50 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold text-teal-800 mb-6">Resumen de la Compra</h2>
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <span class="text-gray-700">Subtotal</span>
-            <span class="font-semibold">${{ calcularSubtotal() }}</span>
+
+    <!-- Mensaje de error premium -->
+    <div *ngIf="mensaje" class="relative mb-8">
+      <div class="absolute inset-0 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-2xl blur-xl"></div>
+      <div class="relative bg-white/80 backdrop-blur-sm border border-red-200/50 text-red-700 px-8 py-6 rounded-2xl shadow-xl">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-700">Envío</span>
-            <span class="font-semibold">${{ calcularEnvio() }}</span>
-          </div>
-          <div class="flex justify-between border-t pt-4">
-            <span class="text-xl font-bold text-teal-800">Total</span>
-            <span class="text-xl font-bold text-teal-800">${{ calcularTotal() }}</span>
+          <div>
+            <h3 class="font-semibold text-lg">¡Atención!</h3>
+            <p class="text-red-600">{{ mensaje }}</p>
           </div>
         </div>
-        <button 
-        class="w-full mt-6 bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors"
-        (click)="comprarCarrito()">
-        Proceder al Pago
-      </button>
       </div>
     </div>
-  
-    <!-- Template para carrito vacío -->
+
+    <div *ngIf="cartItems && cartItems.length > 0; else emptyCart" class="grid lg:grid-cols-3 gap-8">
+      <!-- Lista de productos premium -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-[#2aac62]/5 to-blue-500/5 rounded-3xl blur-2xl"></div>
+          <div class="relative bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
+            <div class="bg-gradient-to-r from-[#2aac62] via-[#22c55e] to-[#16a34a] px-8 py-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="text-2xl font-bold text-white">Productos Seleccionados</h2>
+                    <p class="text-white/80">{{ cartItems.length }} artículos en tu carrito</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-3xl font-black text-white">${{ calcularSubtotal() }}</div>
+                  <div class="text-white/80 text-sm">Subtotal</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-2">
+              <div *ngFor="let item of cartItems; let i = index" 
+                   class="m-4 bg-white rounded-2xl shadow-lg border border-slate-100 p-6 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group relative overflow-hidden">
+                
+                <!-- Efecto de brillo -->
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                
+                <div class="relative flex flex-col sm:flex-row sm:items-center gap-6">
+                  <!-- Imagen premium -->
+                  <div class="flex-shrink-0 relative">
+                    <div class="relative w-28 h-28 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-shadow">
+                      <div class="absolute inset-0 bg-gradient-to-br from-[#2aac62]/10 to-blue-500/10"></div>
+                      <img [src]="item.imagen" [alt]="item.nombre_producto" class="w-full h-full object-cover relative z-10" />
+                    </div>
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-[#2aac62] to-[#16a34a] rounded-full flex items-center justify-center shadow-lg">
+                      <span class="text-sm font-bold text-white">{{ item.cantidad }}</span>
+                    </div>
+                    <div class="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-md">
+                      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- Info del producto premium -->
+                  <div class="flex-1 min-w-0">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-[#2aac62] transition-colors">
+                      {{ item.nombre_producto }}
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 shadow-sm">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                        </svg>
+                        ${{ item.precio_unitario }} c/u
+                      </span>
+                      <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 shadow-sm">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        En stock
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Controles premium -->
+                  <div class="flex items-center gap-4">
+                    <div class="flex items-center bg-gradient-to-r from-slate-50 to-slate-100 rounded-2xl p-2 shadow-inner border border-slate-200">
+                      <button (click)="decrementarCantidad(item)"
+                              class="w-12 h-12 rounded-xl bg-white shadow-md flex items-center justify-center hover:bg-gradient-to-br hover:from-[#2aac62] hover:to-[#22c55e] hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent hover:shadow-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M20 12H4" />
+                        </svg>
+                      </button>
+                      <div class="w-16 text-center">
+                        <span class="text-2xl font-black text-slate-800">{{ item.cantidad }}</span>
+                      </div>
+                      <button (click)="incrementarCantidad(item)"
+                              class="w-12 h-12 rounded-xl bg-white shadow-md flex items-center justify-center hover:bg-gradient-to-br hover:from-[#2aac62] hover:to-[#22c55e] hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent hover:shadow-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Precio y eliminar premium -->
+                  <div class="flex items-center gap-6">
+                    <div class="text-right">
+                      <div class="text-3xl font-black text-slate-800">${{ item.precio_total }}</div>
+                      <div class="text-slate-500 text-sm font-medium">Total</div>
+                    </div>
+                    <button (click)="eliminarDelCarrito(item)"
+                            class="w-14 h-14 rounded-2xl hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100 flex items-center justify-center transition-all duration-300 group/delete border-2 border-slate-200 hover:border-red-200 shadow-md hover:shadow-lg">
+                      <svg class="w-6 h-6 text-slate-400 group-hover/delete:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen premium del lado derecho -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-6">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#2aac62]/10 to-blue-500/10 rounded-3xl blur-2xl"></div>
+            <div class="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
+              
+              <!-- Header del resumen -->
+              <div class="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600 px-8 py-8">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="text-2xl font-bold text-white">Resumen de Compra</h2>
+                    <p class="text-white/70">Detalles de tu pedido</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Contenido del resumen -->
+              <div class="p-8">
+                <div class="space-y-6 mb-8">
+                  <div class="flex justify-between items-center py-4 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                      </div>
+                      <span class="text-slate-700 font-semibold">Subtotal</span>
+                    </div>
+                    <span class="text-xl font-bold text-slate-800">${{ calcularSubtotal() }}</span>
+                  </div>
+                  
+                  <div class="flex justify-between items-center py-4 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                      </div>
+                      <span class="text-slate-700 font-semibold">Envío</span>
+                    </div>
+                    <span class="text-xl font-bold text-slate-800">${{ calcularEnvio() }}</span>
+                  </div>
+                  
+                  <div class="bg-gradient-to-r from-[#2aac62]/5 to-green-500/5 rounded-2xl p-6 border border-[#2aac62]/20">
+                    <div class="flex justify-between items-center">
+                      <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-[#2aac62] to-[#16a34a] rounded-xl flex items-center justify-center shadow-lg">
+                          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                          </svg>
+                        </div>
+                        <span class="text-2xl font-bold text-slate-800">Total</span>
+                      </div>
+                      <span class="text-3xl font-black text-[#2aac62]">${{ calcularTotal() }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Botón de pago premium -->
+                <button class="w-full bg-gradient-to-r from-[#2aac62] via-[#22c55e] to-[#16a34a] text-white py-5 rounded-2xl font-bold text-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 shadow-xl mb-6 relative overflow-hidden group"
+                        (click)="comprarCarrito()">
+                  <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <div class="relative flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                    </svg>
+                    Finalizar Compra
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                  </div>
+                </button>
+
+                <!-- Garantías -->
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
+                      <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                      </svg>
+                    </div>
+                    <span class="font-medium">Pago 100% seguro</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+                      <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                    </div>
+                    <span class="font-medium">Garantía de satisfacción</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <div class="w-8 h-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
+                      <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                      </svg>
+                    </div>
+                    <span class="font-medium">Envío express disponible</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template para carrito vacío premium -->
     <ng-template #emptyCart>
-      <div class="text-center py-16">
-        <svg class="w-20 h-20 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
-        <p class="mt-4 text-gray-500 text-lg">No hay productos en el carrito.</p>
-        <a href="/tienda" class="mt-6 inline-block bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
-          Ir a la Tienda
+      <div class="text-center py-20">
+        <div class="relative mb-12">
+          <div class="absolute inset-0 bg-gradient-to-r from-[#2aac62]/10 to-blue-500/10 rounded-full blur-3xl"></div>
+          <div class="relative w-40 h-40 mx-auto bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300 rounded-full flex items-center justify-center shadow-2xl">
+            <svg class="w-20 h-20 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-4xl font-black text-slate-800 mb-6">¡Tu carrito está esperando!</h3>
+        <p class="text-slate-600 mb-12 text-xl max-w-2xl mx-auto leading-relaxed">
+          Descubre nuestra increíble colección de productos premium y comienza a crear tu experiencia de compra perfecta
+        </p>
+        <a href="/tienda" class="inline-flex items-center gap-4 bg-gradient-to-r from-[#2aac62] via-[#22c55e] to-[#16a34a] text-white px-12 py-6 rounded-2xl font-bold text-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 shadow-xl relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          <svg class="w-6 h-6 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span class="relative z-10">Explorar Tienda Premium</span>
+          <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
         </a>
       </div>
     </ng-template>
   </div>
+</div>

@@ -1,23 +1,130 @@
-<div class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-6">
-  <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-6xl">
-    <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">
-      <span class="text-teal-500">Productos</span>
-    </h1>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/40 py-12 px-6">
+  <div class="container mx-auto max-w-7xl">
 
-    <!-- GRID PARA ORGANIZAR LOS PRODUCTOS EN FILAS DE 4 -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <div *ngFor="let producto of productos" 
-           class="bg-white shadow-lg rounded-lg p-4 cursor-pointer hover:shadow-xl transition-shadow duration-300"
-           (click)="verDetalle(producto.id)"> <!-- Redirigir al detalle al hacer clic -->
+    <!-- Filtros y búsqueda -->
+    <div class="mb-12 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="bg-white/70 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg border border-white/50">
+          <span class="text-slate-700 font-semibold">{{ productos.length }} productos disponibles</span>
+        </div>
+      </div>
+    </div>
 
-        <!-- IMAGEN AJUSTADA PARA QUE TODAS SE VEAN IGUALES -->
-        <img [src]="producto.imagen" 
-             alt="{{ producto.nombre_producto }}" 
-             class="w-full h-48 object-cover rounded-lg">
+    <!-- Grid de productos premium -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div *ngFor="let producto of productos; let i = index"
+           class="group relative bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/50 overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer"
+           (click)="verDetalle(producto.id)">
         
-        <h2 class="text-xl font-semibold text-gray-800 mt-2">{{ producto.nombre_producto }}</h2>
-        <p class="text-gray-600">Categoría: <span class="text-teal-500">{{ producto.categoria }}</span></p>
-        <p class="text-gray-800 font-bold text-lg">${{ producto.precio }}</p>
+        <!-- Efecto de brillo -->
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+        
+        <!-- Badge de categoría -->
+        <div class="absolute top-4 left-4 z-20">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg">
+            {{ producto.categoria }}
+          </span>
+        </div>
+
+        <!-- Badge de precio -->
+        <div class="absolute top-4 right-4 z-20">
+          <div class="bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg border border-white/50">
+            <span class="text-lg font-black text-slate-800">${{ producto.precio }}</span>
+          </div>
+        </div>
+
+        <!-- Imagen del producto -->
+        <div class="relative h-64 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10"></div>
+          <img [src]="producto.imagen"
+               [alt]="producto.nombre_producto"
+               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+          
+          <!-- Overlay con solo botón de ver -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
+            <button class="bg-white/90 backdrop-blur-sm text-slate-800 px-6 py-3 rounded-xl font-semibold hover:bg-white transition-colors shadow-lg flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+              Ver Detalle
+            </button>
+          </div>
+        </div>
+
+        <!-- Información del producto -->
+        <div class="p-6 relative z-10">
+          <div class="mb-4">
+            <h2 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors line-clamp-2">
+              {{ producto.nombre_producto }}
+            </h2>
+            
+            <!-- Rating estrellas (simulado) -->
+            <div class="flex items-center gap-2 mb-3">
+              <div class="flex items-center">
+                <svg *ngFor="let star of [1,2,3,4,5]" class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              </div>
+              <span class="text-sm text-slate-500 font-medium">(4.8)</span>
+            </div>
+          </div>
+
+          <!-- Precio y botón -->
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-2xl font-black text-slate-800">${{ producto.precio }}</div>
+              <div class="text-sm text-slate-500">Precio final</div>
+            </div>
+            <button class="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+              Ver más
+            </button>
+          </div>
+
+          <!-- Características adicionales -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="inline-flex items-center px-2 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-700">
+              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              En stock
+            </span>
+            <span class="inline-flex items-center px-2 py-1 rounded-lg text-xs font-medium bg-blue-100 text-blue-700">
+              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+              Envío gratis
+            </span>
+          </div>
+        </div>
+
+        <!-- Indicador de posición -->
+        <div class="absolute bottom-4 left-4">
+          <div class="w-8 h-8 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center shadow-md">
+            <span class="text-xs font-bold text-slate-600">{{ i + 1 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación o cargar más -->
+    <div class="text-center mt-16">
+      <button class="inline-flex items-center gap-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:from-teal-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-xl hover:shadow-2xl">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Cargar más productos
+      </button>
+    </div>
+
+    <!-- Footer de la sección -->
+    <div class="mt-20 text-center">
+      <div class="bg-white/50 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/50">
+        <h3 class="text-2xl font-bold text-slate-800 mb-4">¿No encuentras lo que buscas?</h3>
+        <p class="text-slate-600 mb-6">Contáctanos y te ayudaremos a encontrar el producto perfecto</p>
+        <button class="bg-gradient-to-r from-slate-800 to-slate-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-slate-700 hover:to-slate-500 transition-all duration-200">
+          Contactar soporte
+        </button>
       </div>
     </div>
   </div>
