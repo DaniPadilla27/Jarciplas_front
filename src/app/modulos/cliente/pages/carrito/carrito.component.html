@@ -4,7 +4,6 @@
     <header class="mb-12 text-center relative">
       <div class="absolute inset-0 bg-gradient-to-r from-[#2aac62]/5 via-transparent to-[#2aac62]/5 rounded-3xl"></div>
       <div class="relative py-8">
-
         <h1 class="text-5xl font-black bg-gradient-to-r from-slate-800 via-slate-700 to-slate-600 bg-clip-text text-transparent mb-3">
           Mi Carrito Premium
         </h1>
@@ -56,7 +55,7 @@
             </div>
             
             <div class="p-2">
-              <div *ngFor="let item of cartItems; let i = index" 
+              <div *ngFor="let item of cartItems; let i = index"
                    class="m-4 bg-white rounded-2xl shadow-lg border border-slate-100 p-6 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group relative overflow-hidden">
                 
                 <!-- Efecto de brillo -->
@@ -205,20 +204,29 @@
                   </div>
                 </div>
 
-                <!-- Botón de pago premium -->
-                <button class="w-full bg-gradient-to-r from-[#2aac62] via-[#22c55e] to-[#16a34a] text-white py-5 rounded-2xl font-bold text-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 shadow-xl mb-6 relative overflow-hidden group"
-                        (click)="comprarCarrito()">
-                  <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  <div class="relative flex items-center justify-center gap-3">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                    </svg>
-                    Finalizar Compra
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
+                <!-- Contenedor del botón PayPal -->
+                <div class="mb-6">
+                  <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-yellow-500/10 rounded-2xl blur-xl"></div>
+                    <div class="relative bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-blue-200/50 shadow-xl">
+                      <div class="text-center mb-4">
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Pagar con PayPal</h3>
+                        <p class="text-sm text-slate-600">Pago seguro y protegido</p>
+                      </div>
+                      
+                      <!-- Indicador de procesamiento -->
+                      <div *ngIf="paymentInProgress" class="text-center py-4">
+                        <div class="inline-flex items-center gap-3 text-blue-600">
+                          <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                          <span class="font-semibold">Procesando pago...</span>
+                        </div>
+                      </div>
+                      
+                      <!-- Botón PayPal -->
+                      <div #paypalButtonContainer [class.opacity-50]="paymentInProgress" [class.pointer-events-none]="paymentInProgress"></div>
+                    </div>
                   </div>
-                </button>
+                </div>
 
                 <!-- Garantías -->
                 <div class="space-y-3">
@@ -228,7 +236,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                       </svg>
                     </div>
-                    <span class="font-medium">Pago 100% seguro</span>
+                    <span class="font-medium">Pago 100% seguro con PayPal</span>
                   </div>
                   <div class="flex items-center gap-3 text-sm text-slate-600">
                     <div class="w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">

@@ -53,9 +53,13 @@ const routes: Routes = [
       //   component:DetalleProductoComponent,
       // },
       {
-        path: 'detalle/:id',
-        component:DetalleProductoComponent,
-      },
+  path: 'detalle/:id',
+  component: DetalleProductoComponent,
+  data: {
+    renderMode: 'ssr'  // 👈 Agrega esto
+  }
+},
+
       {
         path: 'carrito',
         component:CarritoComponent,
