@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class PushNotificationService {
   private readonly VAPID_PUBLIC_KEY =
     'BGiJD7Rg1_BAC2w45aULBCSVcR2hoquJsTfZGYzFuf-AoMnrPfW2SpVVT_epwFMi6IYgou5LezD_5ALbdQ0mK6Y';
-  private readonly API_URL = 'http://31.220.108.196:3005/api'; // Ajusta según tu configuración
+  private readonly API_URL = 'http://localhost:3001/api'; // Ajusta según tu configuración
 
   constructor() {
     console.log('PushNotificationService inicializado');
