@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import  { HttpClient } from "@angular/common/http"
-import { Observable } from "rxjs"
-import environment from "../variables/environment" // Ajustar la ruta si es necesario
+import  { Observable } from "rxjs"
+import environment from "../variables/environment"
 
 @Injectable({
   providedIn: "root",
@@ -9,27 +9,51 @@ import environment from "../variables/environment" // Ajustar la ruta si es nece
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  // Método corregido para obtener recomendaciones
+  obtenerRecomendaciones(producto: string): Observable<any> {
+    // Codificar el nombre del producto para URL
+    const productoEncoded = encodeURIComponent(producto)
+
+    // Construir la URL completa - asegúrate de que incluya /api/
+    const url = `${environment.apiUrl}recomendar?producto=${productoEncoded}`
+
+    console.log("URL de recomendaciones:", url) // Para debug
+
+    return this.http.get<any>(url)
+  }
+
+  // Método alternativo si tu environment.apiUrl no incluye /api/
+  obtenerRecomendacionesAlternativo(producto: string): Observable<any> {
+    const productoEncoded = encodeURIComponent(producto)
+
+    // Si tu environment.apiUrl es solo http://localhost:3001
+    const url = `${environment.apiUrl}recomendar?producto=${productoEncoded}`
+
+    console.log("URL de recomendaciones (alternativa):", url)
+
+    return this.http.get<any>(url)
+  }
+
   //nueva linea de codigo para la busqueda
   obtenerProductoPorId(id: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}producto/${id}`)
   }
 
   solicitarRecuperacionContrasena(email: string): Observable<any> {
-    const body = { email } // El cuerpo de la solicitud debe coincidir con lo que espera el backend
+    const body = { email }
     return this.http.post<any>(`${environment.apiUrl}solicitarR`, body)
   }
 
   verificarCodigo(codigo: string, email: string): Observable<any> {
-    const body = { codigo, email } // El cuerpo de la solicitud debe coincidir con lo que espera el backend
+    const body = { codigo, email }
     return this.http.post<any>(`${environment.apiUrl}verificarCodigo`, body)
   }
 
   actualizarContrasena(correo: string, nuevaContrasena: string): Observable<any> {
-    const body = { correo, nuevaContrasena } // Cuerpo de la solicitud
+    const body = { correo, nuevaContrasena }
     return this.http.put<any>(`${environment.apiUrl}actualizarcon`, body)
   }
 
-  // MÉTODO ACTUALIZADO: actualizarProducto con imagen opcional
   actualizarProducto(
     id: number,
     nombre_producto: string,
@@ -37,7 +61,7 @@ export class ApiService {
     categoria_id: number,
     descripcion: string,
     stock: number,
-    imagen?: File, // Hacer la imagen opcional
+    imagen?: File,
   ): Observable<any> {
     const formData = new FormData()
     formData.append("nombre_producto", nombre_producto)
@@ -46,12 +70,10 @@ export class ApiService {
     formData.append("descripcion", descripcion)
     formData.append("stock", stock.toString())
 
-    // Solo agregar imagen si existe
     if (imagen) {
       formData.append("imagen", imagen, imagen.name)
     }
 
-    // Debug: Verificar FormData
     console.log("FormData para actualizar producto:")
     for (const pair of formData.entries()) {
       console.log(pair[0], pair[1])
@@ -101,9 +123,8 @@ export class ApiService {
     Correo: string,
     Contraseña: string,
     Telefono: string,
-    pregunta_secreta: string, // Corregido para coincidir con el backend
-    respuesta_secreta: string, // Corregido para coincidir con el backend
-    // Agregado porque el backend lo espera
+    pregunta_secreta: string,
+    respuesta_secreta: string,
   ): Observable<any> {
     return this.http.post<any>(
       `${environment.apiUrl}usuarios`,
@@ -112,9 +133,8 @@ export class ApiService {
         Correo,
         Contraseña,
         Telefono,
-        pregunta_secreta, // Ahora coincide con el backend
-        respuesta_secreta, // Ahora coincide con el backend
-        // Enviado correctamente
+        pregunta_secreta,
+        respuesta_secreta,
       },
       {
         headers: { "Content-Type": "application/json" },
@@ -145,7 +165,7 @@ export class ApiService {
   crearProducto(
     nombre_producto: string,
     precio: number,
-    categoria_id: number, // Cambiado a número y nombre correcto
+    categoria_id: number,
     descripcion: string,
     stock: number,
     imagen: File,
@@ -153,12 +173,11 @@ export class ApiService {
     const formData = new FormData()
     formData.append("nombre_producto", nombre_producto)
     formData.append("precio", precio.toString())
-    formData.append("categoria_id", categoria_id.toString()) // Campo corregido
+    formData.append("categoria_id", categoria_id.toString())
     formData.append("descripcion", descripcion)
     formData.append("stock", stock.toString())
     formData.append("imagen", imagen, imagen.name)
 
-    // Debug: Verificar FormData
     console.log("FormData enviado:")
     for (const pair of formData.entries()) {
       console.log(pair[0], pair[1])
@@ -173,10 +192,9 @@ export class ApiService {
       informacion,
     }
 
-    // Debug: Verificar que el cuerpo de la solicitud tiene los datos correctos
     console.log("Datos enviados para crear Contacto:", body)
 
-    return this.http.post<any>(`${environment.apiUrl}contacto`, body) // Asegúrate de que la ruta sea la correcta
+    return this.http.post<any>(`${environment.apiUrl}contacto`, body)
   }
 
   crearPolitica(titulo: string, contenido: string): Observable<any> {
@@ -185,13 +203,11 @@ export class ApiService {
       contenido,
     }
 
-    // Debug: Verificar que el cuerpo de la solicitud tiene los datos correctos
     console.log("Datos enviados para crear política:", body)
 
-    return this.http.post<any>(`${environment.apiUrl}politicas`, body) // Asegúrate de que la ruta sea la correcta
+    return this.http.post<any>(`${environment.apiUrl}politicas`, body)
   }
 
-  // Dentro de api.service.ts
   agregarAlCarrito(id_usuario: number, id_producto: number, cantidad: number): Observable<any> {
     const body = { id_usuario, id_producto, cantidad }
     return this.http.post<any>(`${environment.apiUrl}carrito`, body)
@@ -201,12 +217,10 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}carrito/${id_usuario}`)
   }
 
-  // Método para eliminar un producto del carrito
   eliminarDelCarrito(id_carrito: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}carrito/${id_carrito}`)
   }
 
-  // Método para actualizar la cantidad de un producto en el carrito
   actualizarCarrito(id_carrito: number, cantidad: number): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}carrito/${id_carrito}`, { cantidad })
   }
