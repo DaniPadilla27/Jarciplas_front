@@ -229,9 +229,16 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}obtener/${categoria}`)
   }
 
-  comprarProductos(id_usuario: number): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}comprar/${id_usuario}`, {})
+comprarProductos(id_usuario: number, datosCompra?: any): Observable<any> {
+  const url = `${environment.apiUrl}comprar/${id_usuario}`
+  
+  // Si hay datos de compra (PayPal), enviarlos en el body
+  if (datosCompra) {
+    return this.http.post<any>(url, datosCompra)
+  } else {
+    return this.http.post<any>(url, {})
   }
+}
 
   productosmasvendidos(id_usuario: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}productosmasvendidos/${id_usuario}`, {})

@@ -88,28 +88,36 @@ export class CarritoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  procesarCompraExitosa(paypalDetails: any): void {
-    // Aquí ejecutamos la compra en nuestro backend después del pago exitoso
-    this.apiService.comprarProductos(this.id_usuario).subscribe(
-      (response) => {
-        this.paymentInProgress = false
-        alert(`¡Compra realizada con éxito! 
-               ID de transacción PayPal: ${paypalDetails.id}
-               Total pagado: $${this.calcularTotal()} MXN`)
-        this.cartItems = []
-        this.cartService.updateCartCount(0)
-        this.paymentCompleted = false
-
-        // Opcional: redirigir a una página de confirmación
-        // this.router.navigate(['/confirmacion-compra']);
-      },
-      (error) => {
-        console.error("Error al registrar la compra en el backend:", error)
-        this.paymentInProgress = false
-        alert("El pago se procesó correctamente, pero hubo un error al registrar la compra. Contacta al soporte.")
-      },
-    )
+// Solo necesitas actualizar esta función en tu componente Angular:
+procesarCompraExitosa(paypalDetails: any): void
+{
+  // 🚀 CAMBIO PRINCIPAL: Enviar datos de PayPal al backend
+  const datosCompra = {
+    id_transaccion_paypal: paypalDetails.id,
+    metodo_pago: "paypal",
   }
+
+  // Modificar la llamada para incluir los datos de PayPal
+  this.apiService.comprarProductos(this.id_usuario, datosCompra).subscribe(
+    (response) => {
+      this.paymentInProgress = false
+      alert(`¡Compra realizada con éxito!
+                ID de venta: ${response.id_venta}
+                ID de transacción PayPal: ${paypalDetails.id}
+                Total pagado: $${this.calcularTotal()} MXN
+                Productos comprados: ${response.productos_comprados}`)
+      this.cartItems = []
+      this.cartService.updateCartCount(0)
+      this.paymentCompleted = false
+    },
+    (error) => {
+      console.error("Error al registrar la compra en el backend:", error)
+      this.paymentInProgress = false
+      alert("El pago se procesó correctamente, pero hubo un error al registrar la compra. Contacta al soporte.")
+    },
+  )
+}
+
 
   obtenerCarrito(): void {
     this.apiService.obtenerCarritoPorUsuario(this.id_usuario).subscribe(
