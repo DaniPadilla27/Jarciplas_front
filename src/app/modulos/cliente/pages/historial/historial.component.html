@@ -1,122 +1,262 @@
-<div class="container mx-auto p-6">
-    <!-- Título de la sección -->
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">Historial de Compras</h1>
-  
-    <!-- Lista de compras -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-      <!-- Compra 1 -->
-      <div class="p-6 border-b border-gray-200 hover:bg-gray-50 transition-colors">
-        <div class="flex justify-between items-start">
-          <!-- Información de la compra -->
-          <div>
-            <h2 class="text-lg font-semibold text-gray-800">Compra #12345</h2>
-            <p class="text-sm text-gray-500">Fecha: 25/10/2023</p>
-            <p class="text-sm text-gray-500">Total: $45.00</p>
-          </div>
-          <!-- Estado de la compra -->
-          <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold">
-            Entregado
-          </span>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
+  <!-- Header Hero Section -->
+  <div class="gradient-bg text-white py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z">
+            </path>
+          </svg>
         </div>
-  
-        <!-- Lista de productos -->
-        <div class="mt-4">
-          <div class="flex items-center space-x-4">
-            <img src="https://via.placeholder.com/50" alt="Producto 1" class="w-12 h-12 object-cover rounded">
-            <div>
-              <h3 class="text-md font-medium text-gray-800">Jabón Líquido</h3>
-              <p class="text-sm text-gray-500">Cantidad: 2</p>
-              <p class="text-sm text-gray-500">Precio: $10.00</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4 mt-3">
-            <img src="https://via.placeholder.com/50" alt="Producto 2" class="w-12 h-12 object-cover rounded">
-            <div>
-              <h3 class="text-md font-medium text-gray-800">Desinfectante Multiusos</h3>
-              <p class="text-sm text-gray-500">Cantidad: 1</p>
-              <p class="text-sm text-gray-500">Precio: $15.00</p>
-            </div>
-          </div>
+        <h1 class="text-5xl font-bold mb-4">Mi Historial de Compras</h1>
+        <p class="text-xl text-teal-100" *ngIf="usuarioActual">
+          Bienvenido de vuelta, <span class="font-semibold">{{ usuarioActual.Nombre || usuarioActual.nombre || 'Usuario' }}</span>
+        </p>
+        <p class="text-lg text-teal-200" *ngIf="!usuarioActual">
+          Cargando información del usuario...
+        </p>
+      </div>
+
+      <!-- Estadísticas del usuario -->
+      <div *ngIf="!loading && !error" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+          <div class="text-3xl font-bold mb-2">{{ ventas.length }}</div>
+          <div class="text-teal-100">Compras Realizadas</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+          <div class="text-3xl font-bold mb-2">${{ formatearPrecio(totalGastado) }}</div>
+          <div class="text-teal-100">Total Gastado</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+          <div class="text-3xl font-bold mb-2">{{ totalProductos }}</div>
+          <div class="text-teal-100">Productos Comprados</div>
         </div>
       </div>
-  
-      <!-- Compra 2 -->
-      <div class="p-6 border-b border-gray-200 hover:bg-gray-50 transition-colors">
-        <div class="flex justify-between items-start">
-          <!-- Información de la compra -->
-          <div>
-            <h2 class="text-lg font-semibold text-gray-800">Compra #12346</h2>
-            <p class="text-sm text-gray-500">Fecha: 20/10/2023</p>
-            <p class="text-sm text-gray-500">Total: $30.00</p>
-          </div>
-          <!-- Estado de la compra -->
-          <span class="bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full text-sm font-semibold">
-            En Proceso
-          </span>
-        </div>
-  
-        <!-- Lista de productos -->
-        <div class="mt-4">
-          <div class="flex items-center space-x-4">
-            <img src="https://via.placeholder.com/50" alt="Producto 1" class="w-12 h-12 object-cover rounded">
-            <div>
-              <h3 class="text-md font-medium text-gray-800">Detergente en Polvo</h3>
-              <p class="text-sm text-gray-500">Cantidad: 1</p>
-              <p class="text-sm text-gray-500">Precio: $12.00</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4 mt-3">
-            <img src="https://via.placeholder.com/50" alt="Producto 2" class="w-12 h-12 object-cover rounded">
-            <div>
-              <h3 class="text-md font-medium text-gray-800">Limpiador de Vidrios</h3>
-              <p class="text-sm text-gray-500">Cantidad: 1</p>
-              <p class="text-sm text-gray-500">Precio: $8.00</p>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Compra 3 -->
-      <div class="p-6 hover:bg-gray-50 transition-colors">
-        <div class="flex justify-between items-start">
-          <!-- Información de la compra -->
-          <div>
-            <h2 class="text-lg font-semibold text-gray-800">Compra #12347</h2>
-            <p class="text-sm text-gray-500">Fecha: 15/10/2023</p>
-            <p class="text-sm text-gray-500">Total: $50.00</p>
-          </div>
-          <!-- Estado de la compra -->
-          <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold">
-            En Camino
-          </span>
-        </div>
-  
-        <!-- Lista de productos -->
-        <div class="mt-4">
-          <div class="flex items-center space-x-4">
-            <img src="https://via.placeholder.com/50" alt="Producto 1" class="w-12 h-12 object-cover rounded">
-            <div>
-              <h3 class="text-md font-medium text-gray-800">Limpiador de Pisos</h3>
-              <p class="text-sm text-gray-500">Cantidad: 1</p>
-              <p class="text-sm text-gray-500">Precio: $20.00</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4 mt-3">
-            <img src="https://via.placeholder.com/50" alt="Producto 2" class="w-12 h-12 object-cover rounded">
-            <div>
-              <h3 class="text-md font-medium text-gray-800">Escoba y Recogedor</h3>
-              <p class="text-sm text-gray-500">Cantidad: 1</p>
-              <p class="text-sm text-gray-500">Precio: $15.00</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Botón para cargar más compras -->
-    <div class="mt-6 text-center">
-      <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-        Cargar más compras
-      </button>
     </div>
   </div>
+
+  <div class="max-w-6xl mx-auto px-4 -mt-8 relative z-10">
+    <!-- Loading spinner -->
+    <div *ngIf="loading" class="bg-white shadow-2xl rounded-3xl p-16 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-teal-100 rounded-full mb-6">
+        <div class="animate-spin rounded-full h-8 w-8 border-4 border-teal-200 border-t-teal-600"></div>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-2">Cargando tu historial...</h3>
+      <p class="text-gray-600">Esto puede tomar unos segundos</p>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="error && !loading" class="bg-white shadow-2xl rounded-3xl p-12 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-6">
+        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+          </path>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-red-800 mb-4">¡Oops! Algo salió mal</h3>
+      <p class="text-red-700 mb-6">{{ error }}</p>
+      <button (click)="cargarHistorialCompras()" 
+              class="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+          </path>
+        </svg>
+        Reintentar
+      </button>
+    </div>
+
+    <!-- Contenido principal -->
+    <div *ngIf="!loading && !error" class="pb-12">
+      <!-- Mensaje si no hay compras -->
+      <div *ngIf="ventas.length === 0" class="bg-white shadow-2xl rounded-3xl p-16 text-center">
+        <div class="inline-flex items-center justify-center w-24 h-24 bg-teal-100 rounded-full mb-8">
+          <svg class="w-12 h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z">
+            </path>
+          </svg>
+        </div>
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">
+          {{ usuarioEncontrado ? '¡Comienza tu primera compra!' : '¿No encuentras tus compras?' }}
+        </h2>
+        <p class="text-xl text-gray-600 mb-8 max-w-md mx-auto">
+          {{ usuarioEncontrado ? 
+             'Aún no tienes compras registradas. Explora nuestros productos y encuentra lo que necesitas.' :
+             'Parece que hay un problema con la identificación del usuario. Intenta iniciar sesión nuevamente.' }}
+        </p>
+        <div class="space-y-4">
+          <button class="px-10 py-5 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl">
+            <svg class="w-6 h-6 inline mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z">
+              </path>
+            </svg>
+            {{ usuarioEncontrado ? 'Explorar Productos' : 'Iniciar Sesión' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Lista de compras -->
+      <div *ngIf="ventas.length > 0" class="space-y-8">
+        <div *ngFor="let venta of ventasMostradas; let i = index" 
+             class="bg-white shadow-2xl rounded-3xl overflow-hidden hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2">
+          
+          <!-- Header de la compra con diseño atractivo -->
+          <div class="bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 p-8 text-white">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+              <div class="flex items-center gap-6">
+                <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z">
+                    </path>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="text-3xl font-bold mb-2">Compra #{{ venta.id_venta }}</h2>
+                  <div class="flex flex-wrap gap-4 text-teal-100">
+                    <div class="flex items-center gap-2">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V6a2 2 0 012-2h4a2 2 0 012 2v1m-6 0h8m-8 0H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-2">
+                        </path>
+                      </svg>
+                      <span class="font-medium">{{ formatearFecha(venta.fecha_venta) }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4">
+                        </path>
+                      </svg>
+                      <span class="font-medium">{{ calcularTotalProductos(venta.productos) }} productos</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="text-right">
+                <div class="text-4xl font-bold mb-2">${{ formatearPrecio(venta.total_venta) }}</div>
+                <span [class]="obtenerClaseEstado(venta.estado_venta) + ' px-4 py-2 rounded-full text-sm font-bold shadow-lg'">
+                  {{ venta.estado_venta }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Información adicional -->
+            <div class="mt-6 pt-6 border-t border-white/20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="flex items-center gap-2" *ngIf="venta.metodo_pago">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                    </path>
+                  </svg>
+                  <span class="text-teal-100">Método de pago:</span>
+                  <span class="font-semibold">{{ venta.metodo_pago }}</span>
+                </div>
+                <div class="flex items-center gap-2" *ngIf="venta.id_transaccion_paypal">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                    </path>
+                  </svg>
+                  <span class="text-teal-100">ID PayPal:</span>
+                  <span class="font-mono text-xs">{{ venta.id_transaccion_paypal }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de productos con diseño mejorado -->
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="bg-teal-100 p-2 rounded-xl">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4">
+                  </path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-800">Productos Comprados</h3>
+              <span class="bg-teal-100 text-teal-800 px-4 py-2 rounded-full text-sm font-bold">
+                {{ venta.productos.length }} items
+              </span>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div *ngFor="let producto of venta.productos" 
+                   class="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 hover:from-teal-50 hover:to-cyan-50 transition-all duration-300 hover:shadow-lg">
+                
+                <div class="flex items-center gap-6">
+                  <div class="relative">
+                    <div class="w-24 h-24 bg-white rounded-2xl shadow-md overflow-hidden">
+                      <img [src]="producto.imagen_producto || '/placeholder.svg?height=96&width=96'" 
+                           [alt]="producto.nombre_producto" 
+                           class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                           (error)="onImageError($event)">
+                    </div>
+                    <div class="absolute -top-2 -right-2 bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shadow-lg">
+                      {{ convertirANumero(producto.cantidad) }}
+                    </div>
+                  </div>
+                  
+                  <div class="flex-1 min-w-0">
+                    <h4 class="font-bold text-lg text-gray-900 mb-2 group-hover:text-teal-700 transition-colors">
+                      {{ producto.nombre_producto }}
+                    </h4>
+                    <p class="text-sm text-gray-600 line-clamp-2 mb-3" *ngIf="producto.descripcion_producto">
+                      {{ producto.descripcion_producto }}
+                    </p>
+                    <div class="flex items-center justify-between">
+                      <div class="bg-white px-3 py-2 rounded-lg shadow-sm">
+                        <span class="text-xs text-gray-500">Precio unitario</span>
+                        <div class="font-semibold text-gray-800">${{ formatearPrecio(producto.precio_unitario) }}</div>
+                      </div>
+                      <div class="text-right">
+                        <span class="text-xs text-gray-500">Subtotal</span>
+                        <div class="text-xl font-bold text-teal-600">${{ formatearPrecio(producto.precio_total_producto) }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón para cargar más compras -->
+      <div class="mt-12 text-center" *ngIf="hayMasVentas()">
+        <button (click)="cargarMasCompras()"
+                class="px-10 py-5 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl">
+          <svg class="w-6 h-6 inline mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3">
+            </path>
+          </svg>
+          Cargar más compras ({{ ventas.length - ventasMostradas.length }} restantes)
+        </button>
+      </div>
+
+      <!-- Mensaje cuando se han cargado todas -->
+      <div class="mt-12 text-center" *ngIf="!hayMasVentas() && ventas.length > 0">
+        <div class="bg-white shadow-2xl rounded-3xl p-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6">
+            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M5 13l4 4L19 7">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">¡Perfecto!</h3>
+          <p class="text-gray-600">Has visto todo tu historial de compras ({{ ventas.length }} compras)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

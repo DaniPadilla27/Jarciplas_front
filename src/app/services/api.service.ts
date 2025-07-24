@@ -9,32 +9,26 @@ import environment from "../variables/environment"
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  // Método para obtener el historial de ventas/compras
+  obtenerHistorialCompras(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}ventas`)
+  }
+
   // Método corregido para obtener recomendaciones
   obtenerRecomendaciones(producto: string): Observable<any> {
-    // Codificar el nombre del producto para URL
     const productoEncoded = encodeURIComponent(producto)
-
-    // Construir la URL completa - asegúrate de que incluya /api/
     const url = `${environment.apiUrl}recomendar?producto=${productoEncoded}`
-
-    console.log("URL de recomendaciones:", url) // Para debug
-
+    console.log("URL de recomendaciones:", url)
     return this.http.get<any>(url)
   }
 
-  // Método alternativo si tu environment.apiUrl no incluye /api/
   obtenerRecomendacionesAlternativo(producto: string): Observable<any> {
     const productoEncoded = encodeURIComponent(producto)
-
-    // Si tu environment.apiUrl es solo http://localhost:3001
     const url = `${environment.apiUrl}recomendar?producto=${productoEncoded}`
-
     console.log("URL de recomendaciones (alternativa):", url)
-
     return this.http.get<any>(url)
   }
 
-  //nueva linea de codigo para la busqueda
   obtenerProductoPorId(id: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}producto/${id}`)
   }
@@ -69,7 +63,6 @@ export class ApiService {
     formData.append("categoria_id", categoria_id.toString())
     formData.append("descripcion", descripcion)
     formData.append("stock", stock.toString())
-
     if (imagen) {
       formData.append("imagen", imagen, imagen.name)
     }
@@ -191,9 +184,7 @@ export class ApiService {
       nombre,
       informacion,
     }
-
     console.log("Datos enviados para crear Contacto:", body)
-
     return this.http.post<any>(`${environment.apiUrl}contacto`, body)
   }
 
@@ -202,9 +193,7 @@ export class ApiService {
       titulo,
       contenido,
     }
-
     console.log("Datos enviados para crear política:", body)
-
     return this.http.post<any>(`${environment.apiUrl}politicas`, body)
   }
 
@@ -229,16 +218,14 @@ export class ApiService {
     return this.http.get<any>(`${environment.apiUrl}obtener/${categoria}`)
   }
 
-comprarProductos(id_usuario: number, datosCompra?: any): Observable<any> {
-  const url = `${environment.apiUrl}comprar/${id_usuario}`
-  
-  // Si hay datos de compra (PayPal), enviarlos en el body
-  if (datosCompra) {
-    return this.http.post<any>(url, datosCompra)
-  } else {
-    return this.http.post<any>(url, {})
+  comprarProductos(id_usuario: number, datosCompra?: any): Observable<any> {
+    const url = `${environment.apiUrl}comprar/${id_usuario}`
+    if (datosCompra) {
+      return this.http.post<any>(url, datosCompra)
+    } else {
+      return this.http.post<any>(url, {})
+    }
   }
-}
 
   productosmasvendidos(id_usuario: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}productosmasvendidos/${id_usuario}`, {})
