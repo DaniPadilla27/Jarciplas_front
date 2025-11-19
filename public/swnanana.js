@@ -1,20 +1,48 @@
-// Service Worker para manejar notificaciones push
-const CACHE_NAME = "push-notifications-v1"
+// Service Worker para manejar notificaciones push y cachear páginas
+const CACHE_NAME = "push-notifications-v2"
 
-// Instalar el service worker
-self.addEventListener("install", (event) => {
+// Lista de páginas a cachear
+const URLS_TO_CACHE = [
+  '/',
+  '/home',
+  '/login',
+  '/registro',
+  '/inicio',
+  '/index.html',
+]
+
+// Instalar el service worker y cachear páginas
+globalThis.addEventListener("install", (event) => {
   console.log("Service Worker instalado")
-  self.skipWaiting()
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(URLS_TO_CACHE)
+    })
+  )
+  globalThis.skipWaiting()
+})
+// Interceptar peticiones y servir desde el caché si existe
+globalThis.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      // Si está en caché, responde con el caché
+      if (response) {
+        return response
+      }
+      // Si no, realiza la petición normalmente
+      return fetch(event.request)
+    })
+  )
 })
 
 // Activar el service worker
-self.addEventListener("activate", (event) => {
+globalThis.addEventListener("activate", (event) => {
   console.log("Service Worker activado")
-  event.waitUntil(self.clients.claim())
+  event.waitUntil(globalThis.clients.claim())
 })
 
 // Manejar notificaciones push recibidas
-self.addEventListener("push", (event) => {
+globalThis.addEventListener("push", (event) => {
   console.log("Notificación push recibida:", event)
 
   let notificationData = {
@@ -39,13 +67,23 @@ self.addEventListener("push", (event) => {
         requireInteraction: data.requireInteraction || false,
         actions: data.actions || [],
       }
+      // Enviar datos a la app para guardar en localStorage
+      globalThis.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({
+            type: 'GUARDAR_LOCALSTORAGE',
+            key: 'notificacion',
+            value: data
+          })
+        })
+      })
     } catch (error) {
       console.error("Error al parsear datos de la notificación:", error)
     }
   }
 
   // Mostrar la notificación
-  const promiseChain = self.registration.showNotification(notificationData.title, {
+  const promiseChain = globalThis.registration.showNotification(notificationData.title, {
     body: notificationData.body,
     icon: notificationData.icon,
     badge: notificationData.badge,
@@ -61,7 +99,7 @@ self.addEventListener("push", (event) => {
 })
 
 // Manejar clics en las notificaciones
-self.addEventListener("notificationclick", (event) => {
+globalThis.addEventListener("notificationclick", (event) => {
   console.log("Notificación clickeada:", event)
 
   // Cerrar la notificación
@@ -72,7 +110,7 @@ self.addEventListener("notificationclick", (event) => {
     switch (event.action) {
       case "explore":
         // Abrir una URL específica
-        event.waitUntil(clients.openWindow("/admin/productos"))
+        event.waitUntil(globalThis.clients.openWindow("/admin/productos"))
         break
       case "close":
         // Solo cerrar la notificación (ya se hace arriba)
@@ -83,7 +121,7 @@ self.addEventListener("notificationclick", (event) => {
   } else {
     // Click general en la notificación
     event.waitUntil(
-      clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      globalThis.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
         // Si hay una ventana abierta, enfocarla
         for (const client of clientList) {
           if (client.url.includes("/admin") && "focus" in client) {
@@ -92,8 +130,8 @@ self.addEventListener("notificationclick", (event) => {
         }
 
         // Si no hay ventana abierta, abrir una nueva
-        if (clients.openWindow) {
-          return clients.openWindow("/admin")
+        if (globalThis.clients.openWindow) {
+          return globalThis.clients.openWindow("/admin")
         }
       }),
     )
@@ -101,7 +139,7 @@ self.addEventListener("notificationclick", (event) => {
 })
 
 // Manejar el cierre de notificaciones
-self.addEventListener("notificationclose", (event) => {
+globalThis.addEventListener("notificationclose", (event) => {
   console.log("Notificación cerrada:", event)
 
   // Aquí puedes agregar lógica para tracking de notificaciones cerradas
@@ -109,7 +147,7 @@ self.addEventListener("notificationclose", (event) => {
 })
 
 // Manejar errores de push
-self.addEventListener("pushsubscriptionchange", (event) => {
+globalThis.addEventListener("pushsubscriptionchange", (event) => {
   console.log("Suscripción push cambió:", event)
 
   // Aquí puedes manejar cambios en la suscripción

@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
+
   "assetGroups": [
     {
       "name": "app",
@@ -8,7 +9,6 @@
       "resources": {
         "files": [
           "/favicon.ico",
-          "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
@@ -22,8 +22,28 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/assets/**",
+          "/icons/**",
+          "/*.png",
+          "/*.jpg",
+          "/*.jpeg",
+          "/**/*.(svg|cur|jpg|jpeg|png|webp|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+
+  "dataGroups": [
+    {
+      "name": "api-requests",
+      "urls": [
+        "https://jarciplas-back.onrender.com/api/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "8h",
+        "strategy": "freshness",
+        "timeout": "3s"
       }
     }
   ]
