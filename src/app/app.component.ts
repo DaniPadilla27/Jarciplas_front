@@ -20,7 +20,9 @@ export class AppComponent implements OnInit {
 
   solicitarPermisosNotificaciones() {
     if ('Notification' in window) {
-      Notification.requestPermission();
+      Notification.requestPermission().then((permiso) => {
+        console.log("Permiso:", permiso);
+      });
     }
   }
 
@@ -35,8 +37,15 @@ export class AppComponent implements OnInit {
   }
 
   mostrarNotificacion(titulo: string, cuerpo: string) {
-    if (Notification.permission === 'granted') {
+    if (!("Notification" in window)) {
+      alert(`${titulo}: ${cuerpo}`);
+      return;
+    }
+
+    if (Notification.permission === "granted") {
       new Notification(titulo, { body: cuerpo });
+    } else {
+      alert(`${titulo}: ${cuerpo}`);
     }
   }
 }
