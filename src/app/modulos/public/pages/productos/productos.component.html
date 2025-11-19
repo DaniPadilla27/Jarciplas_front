@@ -12,10 +12,23 @@
 
     <!-- 🔍 BUSCADOR -->
     <div class="mb-12 flex justify-center">
-      <div class="bg-white/70 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg border border-white/50 w-full max-w-md">
+      <div class="bg-white/70 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg border border-white/50 w-full max-w-md flex items-center gap-2">
         <input type="text" [(ngModel)]="searchTerm"
                placeholder="Buscar por nombre o categoría..."
                class="w-full bg-transparent border-none outline-none text-slate-700 placeholder-slate-500 text-lg">
+        <!-- Botón de micrófono -->
+        <button type="button" (click)="activarBusquedaVoz()"
+                class="ml-2 p-2 rounded-full bg-teal-100 hover:bg-teal-200 transition-colors"
+                [attr.aria-label]="escuchando ? 'Detener búsqueda por voz' : 'Buscar por voz'">
+          <svg *ngIf="!escuchando" class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v2m0 0h-3m3 0h3m-3-2a4 4 0 01-4-4V7a4 4 0 018 0v7a4 4 0 01-4 4z" />
+          </svg>
+          <svg *ngIf="escuchando" class="w-6 h-6 text-red-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v-6" />
+            <circle cx="12" cy="10" r="2" fill="currentColor" />
+          </svg>
+        </button>
       </div>
     </div>
 

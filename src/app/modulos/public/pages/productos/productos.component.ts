@@ -38,6 +38,8 @@ export class ProductosComponent implements OnInit {
   searchTerm = "" // Variable para almacenar la búsqueda
   currentIndex = 0 // Índice actual del carrusel
   mostrarModal = false
+  escuchando = false // Estado del micrófono
+  reconocimiento: any = null // Instancia de reconocimiento de voz
 
   constructor(
     private apiService: ApiService,
@@ -46,6 +48,44 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerProductos()
+    // Inicializar reconocimiento de voz si está disponible
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+    if (SpeechRecognition) {
+      this.reconocimiento = new SpeechRecognition()
+      this.reconocimiento.lang = 'es-ES'
+      this.reconocimiento.continuous = false
+      this.reconocimiento.interimResults = false
+      this.reconocimiento.onresult = (event: any) => {
+        const resultado = event.results[0][0].transcript
+        this.searchTerm = resultado
+        this.escuchando = false
+      }
+      this.reconocimiento.onend = () => {
+        this.escuchando = false
+      }
+      this.reconocimiento.onerror = () => {
+        this.escuchando = false
+      }
+    }
+  }
+  // Activar/desactivar búsqueda por voz
+  activarBusquedaVoz(): void {
+    if (!this.reconocimiento) {
+      alert('La búsqueda por voz no es compatible con este navegador.')
+      return
+    }
+    if (this.escuchando) {
+      this.reconocimiento.stop()
+      this.escuchando = false
+    } else {
+      // Solicitar permisos de micrófono y comenzar a escuchar
+      try {
+        this.escuchando = true
+        this.reconocimiento.start()
+      } catch (e) {
+        this.escuchando = false
+      }
+    }
   }
 
   obtenerProductos(): void {
