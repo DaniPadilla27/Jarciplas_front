@@ -1,23 +1,78 @@
-<div class="min-h-screen flex items-center justify-center bg-white p-8">
-    <div class="w-full max-w-4xl">
-        <!-- Encabezado -->
-        <div class="text-center mb-10">
-            <h2 class="text-gray-800 text-4xl font-bold uppercase tracking-tight">Políticas de Empresa</h2>
-            <p class="text-gray-500 mt-2 text-lg">Conoce nuestras normativas y regulaciones</p>
-        </div>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-teal-50/40 py-14 px-6">
+  <div class="container mx-auto max-w-5xl">
 
-        <!-- Contenedor de políticas -->
-        <div class="space-y-8">
-            <!-- Mensaje si no hay políticas -->
-            <div *ngIf="politicas.length === 0" class="text-center py-8">
-                <p class="text-gray-500 text-lg">No hay políticas disponibles en este momento.</p>
-            </div>
-
-            <!-- Lista de políticas -->
-            <div *ngFor="let politica of politicas" class="border-b border-gray-200 pb-6">
-                <h3 class="text-gray-800 text-xl font-semibold mb-3">{{ politica.titulo }}</h3>
-                <p class="text-gray-600 text-base leading-relaxed">{{ politica.contenido }}</p>
-            </div>
-        </div>
+    <!-- Encabezado -->
+    <div class="text-center mb-14">
+      <h2 class="text-5xl font-extrabold text-gray-900 tracking-tight">
+        Nuestras <span class="text-teal-600">Políticas</span>
+      </h2>
+      <p class="text-xl text-slate-600 max-w-2xl mx-auto mt-3">
+        Conoce nuestras normativas, regulaciones y lineamientos internos
+      </p>
     </div>
+
+    <!-- Contenedor principal -->
+    <div class="space-y-8">
+
+      <!-- No hay políticas -->
+      <div *ngIf="politicas.length === 0" class="text-center py-16">
+        <div class="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-lg border border-white/50 max-w-md mx-auto">
+          <svg class="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">No hay políticas disponibles</h3>
+          <p class="text-slate-600">Estamos trabajando en agregarlas pronto.</p>
+        </div>
+      </div>
+
+      <!-- Lista de políticas -->
+      <div *ngFor="let politica of politicas; let i = index"
+           class="group bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/40 hover:shadow-2xl hover:scale-[1.01] transition-all duration-500 p-8 relative overflow-hidden">
+
+        <!-- Efecto brillo -->
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
+                    -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]"></div>
+
+        <!-- Título -->
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-500 
+                      text-white text-xl font-bold flex items-center justify-center shadow-md">
+            {{ i + 1 }}
+          </div>
+
+          <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">
+            {{ politica.titulo }}
+          </h3>
+        </div>
+
+        <!-- Contenido -->
+        <p class="mt-4 text-slate-700 text-lg leading-relaxed">
+          {{ politica.contenido }}
+        </p>
+
+        <!-- Línea decorativa -->
+        <div class="h-1 w-full bg-gradient-to-r from-teal-500 to-emerald-500 mt-6 rounded-full"></div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer sección -->
+    <div class="mt-20 text-center">
+      <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-10 shadow-lg border border-white/40">
+        <h3 class="text-2xl font-bold text-slate-800 mb-3">
+          ¿Tienes dudas sobre alguna política?
+        </h3>
+        <p class="text-slate-600 mb-6">Contáctanos para obtener información más detallada.</p>
+
+        <button class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-8 py-3 
+                       rounded-xl font-semibold hover:from-teal-700 hover:to-emerald-700 
+                       transition-all duration-200 shadow-lg">
+          Contactar soporte
+        </button>
+      </div>
+    </div>
+
+  </div>
 </div>

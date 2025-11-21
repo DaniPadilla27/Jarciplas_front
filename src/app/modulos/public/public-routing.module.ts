@@ -13,6 +13,7 @@ import { OlvidecontraComponent } from './pages/olvidecontra/olvidecontra.compone
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 import { OfertasComponent } from './pages/ofertas/ofertas.component';
 import { PreguntasecretaComponent } from './pages/preguntasecreta/preguntasecreta.component';
+import { TerminosComponent } from './pages/terminos/terminos.component';
 const routes: Routes = [
   {
     path: '',
@@ -40,7 +41,7 @@ const routes: Routes = [
         component: PoliticasComponent, // Ruta registro
       },
       {
-        path: 'contactanos',
+        path: 'contacto',
         component: ContactanosComponent, // Ruta registro
       },
       {
@@ -67,6 +68,10 @@ const routes: Routes = [
         path: 'preguntasecreta',
         component: PreguntasecretaComponent, // Ruta registro
       },
+      {
+        path: 'terminos',
+        component: TerminosComponent, // Ruta registro
+      }
 
     ],
   },
