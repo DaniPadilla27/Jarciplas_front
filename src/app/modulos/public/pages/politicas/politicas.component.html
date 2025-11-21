@@ -11,49 +11,79 @@
       </p>
     </div>
 
-    <!-- Contenedor principal -->
+    <!-- Listado ESTÁTICO de Políticas -->
     <div class="space-y-8">
 
-      <!-- No hay políticas -->
-      <div *ngIf="politicas.length === 0" class="text-center py-16">
-        <div class="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-lg border border-white/50 max-w-md mx-auto">
-          <svg class="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <h3 class="text-xl font-bold text-slate-800 mb-2">No hay políticas disponibles</h3>
-          <p class="text-slate-600">Estamos trabajando en agregarlas pronto.</p>
-        </div>
-      </div>
-
-      <!-- Lista de políticas -->
-      <div *ngFor="let politica of politicas; let i = index"
-           class="group bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/40 hover:shadow-2xl hover:scale-[1.01] transition-all duration-500 p-8 relative overflow-hidden">
-
-        <!-- Efecto brillo -->
+      <!-- Política 1 -->
+      <div class="group bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/40 hover:shadow-2xl hover:scale-[1.01] transition-all duration-500 p-8 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
                     -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]"></div>
 
-        <!-- Título -->
         <div class="flex items-start gap-4">
           <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-500 
                       text-white text-xl font-bold flex items-center justify-center shadow-md">
-            {{ i + 1 }}
+            1
           </div>
-
           <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">
-            {{ politica.titulo }}
+            Política de Privacidad
           </h3>
         </div>
 
-        <!-- Contenido -->
         <p class="mt-4 text-slate-700 text-lg leading-relaxed">
-          {{ politica.contenido }}
+          Protegemos la información personal de todos nuestros usuarios. 
+          Los datos proporcionados se utilizan únicamente para fines internos 
+          y nunca serán compartidos sin autorización.
         </p>
 
-        <!-- Línea decorativa -->
         <div class="h-1 w-full bg-gradient-to-r from-teal-500 to-emerald-500 mt-6 rounded-full"></div>
+      </div>
 
+      <!-- Política 2 -->
+      <div class="group bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/40 hover:shadow-2xl hover:scale-[1.01] transition-all duration-500 p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
+                    -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]"></div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-500 
+                      text-white text-xl font-bold flex items-center justify-center shadow-md">
+            2
+          </div>
+          <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">
+            Política de Devoluciones
+          </h3>
+        </div>
+
+        <p class="mt-4 text-slate-700 text-lg leading-relaxed">
+          Las devoluciones podrán realizarse dentro de los primeros 7 días 
+          posteriores a la compra, siempre que el producto se encuentre en 
+          buenas condiciones y con su empaque original.
+        </p>
+
+        <div class="h-1 w-full bg-gradient-to-r from-teal-500 to-emerald-500 mt-6 rounded-full"></div>
+      </div>
+
+      <!-- Política 3 -->
+      <div class="group bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/40 hover:shadow-2xl hover:scale-[1.01] transition-all duration-500 p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
+                    -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]"></div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-500 
+                      text-white text-xl font-bold flex items-center justify-center shadow-md">
+            3
+          </div>
+          <h3 class="text-2xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors">
+            Política de Uso del Sitio
+          </h3>
+        </div>
+
+        <p class="mt-4 text-slate-700 text-lg leading-relaxed">
+          El acceso al sitio implica aceptar los términos de uso. 
+          Queda prohibido realizar actividades maliciosas o intentar acceder 
+          a áreas restringidas sin autorización.
+        </p>
+
+        <div class="h-1 w-full bg-gradient-to-r from-teal-500 to-emerald-500 mt-6 rounded-full"></div>
       </div>
 
     </div>
