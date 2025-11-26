@@ -1,219 +1,275 @@
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/40 py-12 px-6">
-  <div class="container mx-auto max-w-7xl">
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+<!-- PLANTILLA COMPLETA MEJORADA (Hero Carousel + Offer Bar + Filtros + Grid 5-cols en XL) -->
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/40 py-10">
+
+  <!-- CONTENEDOR MÁS ANCHO -->
+  <div class="mx-auto max-w-[95rem] px-4">
+
+    <!-- HERO CAROUSEL -->
+    <div class="relative w-full overflow-hidden rounded-3xl shadow-2xl mb-10">
+      <div class="flex animate-slideCarousel">
+        <!-- Slide 1 -->
+        <div class="w-full flex-shrink-0 h-[380px] bg-cover bg-center"
+             style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600&auto=format&fit=crop');">
+          <div class="w-full h-full bg-black/40 flex flex-col items-start justify-center px-8 md:px-16">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-xl leading-tight">
+              Fragancias <span class="text-amber-200">Premium</span> para cada momento
+            </h2>
+            <p class="mt-4 text-sm md:text-lg text-white/90 max-w-lg">Descubre ediciones limitadas y ofertas especiales.</p>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="w-full flex-shrink-0 h-[380px] bg-cover bg-center"
+             style="background-image: url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1600&auto=format&fit=crop');">
+          <div class="w-full h-full bg-black/32 flex flex-col items-start justify-center px-8 md:px-16">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-xl leading-tight">
+              Ofertas <span class="text-teal-300">Exclusivas</span> cada semana
+            </h2>
+            <p class="mt-4 text-sm md:text-lg text-white/90 max-w-lg">Aprovecha envíos gratis y descuentos por tiempo limitado.</p>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="w-full flex-shrink-0 h-[380px] bg-cover bg-center"
+             style="background-image: url('https://images.unsplash.com/photo-1525286116112-b59af11adad1?q=80&w=1600&auto=format&fit=crop');">
+          <div class="w-full h-full bg-black/30 flex flex-col items-start justify-center px-8 md:px-16">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-xl leading-tight">
+              Nuevas <span class="text-amber-200">Colecciones</span> Primavera
+            </h2>
+            <p class="mt-4 text-sm md:text-lg text-white/90 max-w-lg">Aromas frescos y diseños renovados.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel styles -->
+      <style>
+        @keyframes slideCarousel {
+          0% { transform: translateX(0%); }
+          33% { transform: translateX(0%); }
+          36% { transform: translateX(-100%); }
+          66% { transform: translateX(-100%); }
+          69% { transform: translateX(-200%); }
+          100% { transform: translateX(-200%); }
+        }
+        .animate-slideCarousel { animation: slideCarousel 14s infinite linear; }
+      </style>
+    </div>
+
+    <!-- OFFER BAR ANIMADA -->
+    <div class="relative overflow-hidden mb-8">
+      <div class="animate-marquee whitespace-nowrap flex gap-6 text-base md:text-lg font-semibold text-teal-700">
+        <span class="px-5 py-2 bg-white/80 backdrop-blur-md rounded-full shadow border border-white/50">🎉 Descuentos 20% — Lavanda</span>
+        <span class="px-5 py-2 bg-white/80 backdrop-blur-md rounded-full shadow border border-white/50">🚚 Envío gratis sobre $50</span>
+        <span class="px-5 py-2 bg-white/80 backdrop-blur-md rounded-full shadow border border-white/50">🌸 Nuevos aromas Primavera</span>
+        <span class="px-5 py-2 bg-white/80 backdrop-blur-md rounded-full shadow border border-white/50">🔥 Promos en Aires Tropicales</span>
+
+        <!-- Repetimos para que el marquee sea continuo -->
+        <span class="px-5 py-2 bg-white/80 backdrop-blur-md rounded-full shadow border border-white/50">🎉 Descuentos 20% — Lavanda</span>
+        <span class="px-5 py-2 bg-white/80 backdrop-blur-md rounded-full shadow border border-white/50">🚚 Envío gratis sobre $50</span>
+      </div>
+    </div>
+
+    <style>
+      @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+      .animate-marquee { animation: marquee 18s linear infinite; }
+    </style>
+
+    <!-- TITULO -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3 tracking-tight">
         Nuestros <span class="text-teal-600">Productos</span>
       </h1>
-      <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-        Descubre nuestra increíble colección de productos premium
+      <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto">
+        Colección premium con fragancias, diseños y experiencias únicas
       </p>
     </div>
 
-    <!-- 🔍 BUSCADOR -->
-    <div class="mb-12 flex justify-center">
-      <div class="bg-white/70 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg border border-white/50 w-full max-w-md flex items-center gap-2">
-        <input type="text" [(ngModel)]="searchTerm"
-               placeholder="Buscar por nombre o categoría..."
-               class="w-full bg-transparent border-none outline-none text-slate-700 placeholder-slate-500 text-lg">
-        <!-- Botón de micrófono -->
-        <button type="button" (click)="activarBusquedaVoz()"
-                class="ml-2 p-2 rounded-full bg-teal-100 hover:bg-teal-200 transition-colors"
-                [attr.aria-label]="escuchando ? 'Detener búsqueda por voz' : 'Buscar por voz'">
-          <svg *ngIf="!escuchando" class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v2m0 0h-3m3 0h3m-3-2a4 4 0 01-4-4V7a4 4 0 018 0v7a4 4 0 01-4 4z" />
-          </svg>
-          <svg *ngIf="escuchando" class="w-6 h-6 text-red-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.2" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v-6" />
-            <circle cx="12" cy="10" r="2" fill="currentColor" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Filtros y búsqueda -->
-    <div class="mb-12 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <div class="bg-white/70 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg border border-white/50">
-          <span class="text-slate-700 font-semibold">{{ filtrarProductos().length }} productos disponibles</span>
+    <!-- BARRA DE BÚSQUEDA Y CONTROLES -->
+    <div class="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div class="w-full lg:flex-1">
+        <div class="bg-white/90 backdrop-blur-xl rounded-3xl px-4 py-3 shadow-xl border border-white/50 w-full flex items-center gap-3">
+          <input type="text" [(ngModel)]="searchTerm"
+                 placeholder="Buscar por nombre o categoría..."
+                 class="w-full bg-transparent border-none outline-none text-slate-700 placeholder-slate-500 text-lg">
+          <button type="button" (click)="activarBusquedaVoz()"
+                  class="p-3 rounded-full bg-teal-100 hover:bg-teal-200 transition-colors shadow-md"
+                  [attr.aria-label]="escuchando ? 'Detener búsqueda por voz' : 'Buscar por voz'">
+            <svg *ngIf="!escuchando" class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18v2m0 0h-3m3 0h3m-3-2a4 4 0 01-4-4V7a4 4 0 018 0v7a4 4 0 01-4 4z"/>
+            </svg>
+            <svg *ngIf="escuchando" class="w-6 h-6 text-red-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke-width="2" fill="currentColor" fill-opacity="0.15"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v-6"/>
+              <circle cx="12" cy="10" r="2"/>
+            </svg>
+          </button>
         </div>
       </div>
+
+      <!-- FILTROS AVANZADOS -->
+      <div class="flex items-center gap-3">
+        <div class="bg-white/90 backdrop-blur-xl rounded-xl px-4 py-2 shadow border border-white/50 hidden sm:inline-flex items-center">
+          <span class="text-slate-700 font-semibold mr-3">{{ filtrarProductos().length }} disponibles</span>
+        </div>
+
+        <select class="px-3 py-2 rounded-xl bg-white/90 backdrop-blur-md border border-white/50 shadow"
+                [(ngModel)]="ordenPrecio">
+          <option value="">Orden</option>
+          <option value="asc">Precio asc</option>
+          <option value="desc">Precio desc</option>
+        </select>
+
+        <input type="number" placeholder="Máx $"
+               [(ngModel)]="precioMax"
+               class="px-3 py-2 w-28 rounded-xl bg-white/90 backdrop-blur-md border border-white/50 shadow">
+      </div>
     </div>
 
-    <!-- Grid de productos premium -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <!-- GRID DE PRODUCTOS (AHORA 5 columnas EN XL) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
       <div *ngFor="let producto of filtrarProductos(); let i = index"
-           class="group relative bg-white/70 backdrop-blur-sm rounded-3xl shadow-lg border border-white/50 overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 cursor-pointer"
+           class="group relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 overflow-hidden hover:shadow-3xl hover:scale-[1.03] transition-all duration-500 cursor-pointer"
            (click)="mostrarMensajeInicioSesion()">
-        
-        <!-- Efecto de brillo -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-        
-        <!-- Badge de categoría -->
+
+        <!-- Shine effect -->
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms] pointer-events-none"></div>
+
+        <!-- Badge categoría -->
         <div class="absolute top-4 left-4 z-20">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-lg">
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-xl">
             {{ producto.categoria }}
           </span>
         </div>
 
-        <!-- Badge de precio -->
+        <!-- Badge precio -->
         <div class="absolute top-4 right-4 z-20">
-          <div class="bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg border border-white/50">
+          <div class="bg-white/95 backdrop-blur-sm rounded-xl px-3 py-2 shadow-md border border-white/50">
             <span class="text-lg font-black text-slate-800">${{ producto.precio }}</span>
           </div>
         </div>
 
-        <!-- Imagen del producto -->
-        <div class="relative h-64 overflow-hidden">
+        <!-- Imagen -->
+        <div class="relative h-56 md:h-64 overflow-hidden bg-slate-100">
           <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10"></div>
           <img [src]="producto.imagen"
                [alt]="producto.nombre_producto"
                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                (error)="onImageError($event)">
-          
-          <!-- Overlay con mensaje de inicio de sesión -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center">
-            <button class="bg-white/90 backdrop-blur-sm text-slate-800 px-6 py-3 rounded-xl font-semibold hover:bg-white transition-colors shadow-lg flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-              </svg>
+
+          <!-- Overlay login -->
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+            <button class="bg-white/95 px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-white transition-colors">
               Iniciar Sesión
             </button>
           </div>
         </div>
 
-        <!-- Información del producto -->
-        <div class="p-6 relative z-10">
-          <div class="mb-4">
-            <h2 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-teal-600 transition-colors line-clamp-2">
-              {{ producto.nombre_producto }}
-            </h2>
-            
-            <!-- Rating estrellas (simulado) -->
-            <div class="flex items-center gap-2 mb-3">
-              <div class="flex items-center">
-                <svg *ngFor="let star of [1,2,3,4,5]" class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                </svg>
-              </div>
-              <span class="text-sm text-slate-500 font-medium">(4.8)</span>
-            </div>
+        <!-- Info -->
+        <div class="p-5 md:p-6">
+          <h2 class="text-lg md:text-xl font-bold text-slate-800 mb-1 group-hover:text-teal-600 transition-colors line-clamp-2">
+            {{ producto.nombre_producto }}
+          </h2>
 
-            <!-- Descripción -->
-            <p class="text-sm text-slate-600 line-clamp-2 mb-3">{{ producto.descripcion }}</p>
+          <!-- Rating y descripción corta -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex items-center">
+              <svg *ngFor="let star of [1,2,3,4,5]" class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            </div>
+            <span class="text-sm text-slate-500 font-medium">(4.8)</span>
           </div>
 
-          <!-- Precio y botón -->
+          <p class="text-sm text-slate-600 line-clamp-2 mb-4">{{ producto.descripcion }}</p>
+
+          <!-- Precio y acción -->
           <div class="flex items-center justify-between">
             <div>
-              <div class="text-2xl font-black text-slate-800">${{ producto.precio }}</div>
-              <div class="text-sm text-slate-500">Precio final</div>
+              <div class="text-xl md:text-2xl font-extrabold text-slate-900">${{ producto.precio }}</div>
+              <div class="text-xs text-slate-500">Precio final</div>
             </div>
-            <button class="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
+
+            <button class="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-4 md:px-5 py-2 rounded-xl font-semibold hover:scale-105 transition-all shadow-md">
               Ver más
             </button>
           </div>
 
-          <!-- Características adicionales -->
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="inline-flex items-center px-2 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-700">
-              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
-              En stock
-            </span>
-            <span class="inline-flex items-center px-2 py-1 rounded-lg text-xs font-medium bg-blue-100 text-blue-700">
-              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-              </svg>
-              Envío gratis
-            </span>
+          <!-- Chips -->
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-700 flex items-center gap-1">✓ En stock</span>
+            <span class="px-2 py-1 rounded-lg text-xs font-medium bg-blue-100 text-blue-700 flex items-center gap-1">🚚 Envío gratis</span>
           </div>
         </div>
 
-        <!-- Indicador de posición -->
+        <!-- Índice -->
         <div class="absolute bottom-4 left-4">
-          <div class="w-8 h-8 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full flex items-center justify-center shadow-md">
-            <span class="text-xs font-bold text-slate-600">{{ i + 1 }}</span>
+          <div class="w-8 h-8 bg-white/95 rounded-full flex items-center justify-center shadow">
+            <span class="text-xs font-bold text-slate-700">{{ i + 1 }}</span>
           </div>
         </div>
 
-        <!-- Línea de color inferior según la categoría -->
-        <div class="h-2 w-full absolute bottom-0 left-0"
+        <!-- Banda inferior de color por categoría -->
+        <div class="h-2 w-full"
              [ngClass]="{
                'bg-orange-500': producto.categoria === 'Aires Tropicales',
                'bg-purple-600': producto.categoria === 'Lavanda',
                'bg-pink-500': producto.categoria === 'Primavera',
-               'bg-teal-500': !['Aires Tropicales', 'Lavanda', 'Primavera'].includes(producto.categoria)
-             }">
-        </div>
+               'bg-teal-500': !['Aires Tropicales','Lavanda','Primavera'].includes(producto.categoria)
+             }"></div>
       </div>
     </div>
 
-    <!-- Mensaje cuando no hay productos -->
+    <!-- Mensaje si no hay productos -->
     <div *ngIf="filtrarProductos().length === 0" class="text-center py-16">
-      <div class="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-lg border border-white/50 max-w-md mx-auto">
+      <div class="bg-white/90 backdrop-blur-xl rounded-3xl p-12 shadow-2xl border border-white/50 max-w-md mx-auto">
         <svg class="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
         <h3 class="text-xl font-bold text-slate-800 mb-2">No se encontraron productos</h3>
         <p class="text-slate-600">Intenta con otros términos de búsqueda</p>
       </div>
     </div>
 
-    <!-- Paginación o cargar más -->
-    <div class="text-center mt-16" *ngIf="filtrarProductos().length > 0">
-      <button class="inline-flex items-center gap-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:from-teal-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-xl hover:shadow-2xl">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-        </svg>
-        Cargar más productos
-      </button>
-    </div>
-
-    <!-- Footer de la sección -->
-    <div class="mt-20 text-center">
-      <div class="bg-white/50 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/50">
-        <h3 class="text-2xl font-bold text-slate-800 mb-4">¿Quieres ver más detalles?</h3>
-        <p class="text-slate-600 mb-6">Inicia sesión para acceder a información detallada de nuestros productos</p>
-        <button (click)="mostrarMensajeInicioSesion()" class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-teal-700 hover:to-emerald-700 transition-all duration-200 shadow-lg">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-          </svg>
+    <!-- FOOTER CTA -->
+    <div class="mt-12 text-center">
+      <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-2xl border border-white/50">
+        <h3 class="text-xl md:text-2xl font-bold text-slate-800 mb-3">¿Quieres ver más detalles?</h3>
+        <p class="text-slate-600 mb-4">Inicia sesión para acceder a información detallada</p>
+        <button (click)="mostrarMensajeInicioSesion()" class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:scale-105 transition-shadow shadow-lg">
           Iniciar Sesión
         </button>
       </div>
     </div>
-  </div>
+
+  </div> <!-- /max-w container -->
 </div>
 
-<!-- Modal de inicio de sesión -->
+<!-- MODAL -->
 <div *ngIf="mostrarModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" (click)="cerrarModal()">
-  <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl transform transition-all" (click)="$event.stopPropagation()">
+  <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl" (click)="$event.stopPropagation()">
     <div class="text-center">
-      <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
         </svg>
       </div>
-      <h3 class="text-2xl font-bold text-slate-800 mb-2">Acceso Requerido</h3>
-      <p class="text-slate-600 mb-6">Para ver los detalles completos del producto y realizar compras, necesitas iniciar sesión en tu cuenta.</p>
-      
+
+      <h3 class="text-xl font-bold text-slate-800 mb-1">Acceso Requerido</h3>
+      <p class="text-slate-600 mb-4">Inicia sesión para continuar</p>
+
       <div class="space-y-3">
-        <button (click)="redirectToLogin()" class="w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-emerald-600 transition-all duration-200">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
-          </svg>
+        <button (click)="redirectToLogin()" class="w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white py-3 rounded-xl font-semibold shadow-lg">
           Iniciar Sesión
         </button>
-        <button (click)="redirectToRegistro()" class="w-full border-2 border-slate-200 text-slate-700 py-3 rounded-xl font-semibold hover:bg-slate-50 transition-all duration-200">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-          </svg>
+
+        <button (click)="redirectToRegistro()" class="w-full border-2 border-slate-200 text-slate-700 py-3 rounded-xl font-semibold hover:bg-slate-50">
           Crear Cuenta
         </button>
-        <button (click)="cerrarModal()" class="w-full text-slate-500 py-2 font-medium hover:text-slate-700 transition-colors">
+
+        <button (click)="cerrarModal()" class="w-full text-slate-500 py-2 font-medium hover:text-slate-700">
           Continuar navegando
         </button>
       </div>

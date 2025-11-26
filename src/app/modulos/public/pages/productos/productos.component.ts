@@ -1,6 +1,6 @@
 import { Component, type OnInit } from "@angular/core"
-import  { Router } from "@angular/router"
-import  { ApiService } from "../../../../services/api.service"
+import { Router } from "@angular/router"
+import { ApiService } from "../../../../services/api.service"
 
 interface Producto {
   id: number
@@ -34,12 +34,24 @@ interface Producto {
   `,
 })
 export class ProductosComponent implements OnInit {
-  productos: any[] = [] // Lista de productos obtenidos del backend
-  searchTerm = "" // Variable para almacenar la búsqueda
-  currentIndex = 0 // Índice actual del carrusel
+  // Productos cargados desde el backend
+  productos: any[] = []
+
+  // Filtros
+  searchTerm = ""
+  categoriaSeleccionada: string = ""
+  ordenPrecio: string = ""
+  precioMax: number | null = null
+
+  // Carrusel
+  currentIndex = 0
+
+  // Modal
   mostrarModal = false
-  escuchando = false // Estado del micrófono
-  reconocimiento: any = null // Instancia de reconocimiento de voz
+
+  // Voz
+  escuchando = false
+  reconocimiento: any = null
 
   constructor(
     private apiService: ApiService,
@@ -48,41 +60,44 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerProductos()
-    // Inicializar reconocimiento de voz si está disponible
+
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
     if (SpeechRecognition) {
       this.reconocimiento = new SpeechRecognition()
-      this.reconocimiento.lang = 'es-ES'
+      this.reconocimiento.lang = "es-ES"
       this.reconocimiento.continuous = false
       this.reconocimiento.interimResults = false
+
       this.reconocimiento.onresult = (event: any) => {
         const resultado = event.results[0][0].transcript
         this.searchTerm = resultado
         this.escuchando = false
       }
+
       this.reconocimiento.onend = () => {
         this.escuchando = false
       }
+
       this.reconocimiento.onerror = () => {
         this.escuchando = false
       }
     }
   }
-  // Activar/desactivar búsqueda por voz
+
   activarBusquedaVoz(): void {
     if (!this.reconocimiento) {
-      alert('La búsqueda por voz no es compatible con este navegador.')
+      alert("La búsqueda por voz no es compatible con este navegador.")
       return
     }
+
     if (this.escuchando) {
       this.reconocimiento.stop()
       this.escuchando = false
     } else {
-      // Solicitar permisos de micrófono y comenzar a escuchar
       try {
         this.escuchando = true
         this.reconocimiento.start()
-      } catch (e) {
+      } catch {
         this.escuchando = false
       }
     }
@@ -92,16 +107,14 @@ export class ProductosComponent implements OnInit {
     this.apiService.obtenerProductos().subscribe({
       next: (data) => {
         if (data && Array.isArray(data.productos)) {
-          this.productos = data.productos // Solo asigna si es un array válido
-          console.log("[INFO] Productos cargados:", this.productos)
+          this.productos = data.productos
         } else if (data && Array.isArray(data)) {
-          // Si la respuesta directa es un array
           this.productos = data
-          console.log("[INFO] Productos cargados (array directo):", this.productos)
         } else {
-          console.warn("[WARNING] Datos inesperados recibidos:", data)
-          this.productos = [] // Evita asignaciones erróneas
+          this.productos = []
         }
+
+        console.log("[INFO] Productos cargados:", this.productos)
       },
       error: (error) => {
         console.error("[ERROR] No se pudieron obtener los productos:", error)
@@ -110,34 +123,54 @@ export class ProductosComponent implements OnInit {
     })
   }
 
-  // 🔍 Método para filtrar productos en tiempo real
+  // 🔍 FILTRO COMPLETO SUPER OPTIMIZADO
   filtrarProductos(): any[] {
-    if (!this.searchTerm.trim()) {
-      return this.productos
+    let lista = [...this.productos]
+
+    // 1. FILTRAR POR TEXTO
+    if (this.searchTerm.trim()) {
+      const termino = this.searchTerm.toLowerCase().trim()
+      lista = lista.filter(
+        (p) =>
+          p.nombre_producto.toLowerCase().includes(termino) ||
+          p.categoria.toLowerCase().includes(termino) ||
+          (p.descripcion && p.descripcion.toLowerCase().includes(termino)),
+      )
     }
 
-    const termino = this.searchTerm.toLowerCase().trim()
-    return this.productos.filter(
-      (producto) =>
-        producto.nombre_producto.toLowerCase().includes(termino) ||
-        producto.categoria.toLowerCase().includes(termino) ||
-        (producto.descripcion && producto.descripcion.toLowerCase().includes(termino)),
-    )
+    // 2. FILTRAR POR CATEGORÍA
+    if (this.categoriaSeleccionada.trim()) {
+      lista = lista.filter(
+        (p) => p.categoria.toLowerCase() === this.categoriaSeleccionada.toLowerCase(),
+      )
+    }
+
+    // 3. FILTRAR POR PRECIO MÁXIMO
+    if (this.precioMax !== null && this.precioMax > 0) {
+      lista = lista.filter((p) => p.precio <= this.precioMax!)
+    }
+
+    // 4. ORDENAR POR PRECIO
+    if (this.ordenPrecio === "asc") {
+      lista.sort((a, b) => a.precio - b.precio)
+    } else if (this.ordenPrecio === "desc") {
+      lista.sort((a, b) => b.precio - a.precio)
+    }
+
+    return lista
   }
 
-  // Método para navegar al producto anterior en el carrusel
   anteriorProducto(): void {
     const productosFiltrados = this.filtrarProductos()
     this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : productosFiltrados.length - 1
   }
 
-  // Método para navegar al siguiente producto en el carrusel
   siguienteProducto(): void {
     const productosFiltrados = this.filtrarProductos()
-    this.currentIndex = this.currentIndex < productosFiltrados.length - 1 ? this.currentIndex + 1 : 0
+    this.currentIndex =
+      this.currentIndex < productosFiltrados.length - 1 ? this.currentIndex + 1 : 0
   }
 
-  // Métodos para el modal de inicio de sesión
   mostrarMensajeInicioSesion(): void {
     this.mostrarModal = true
   }
@@ -146,18 +179,16 @@ export class ProductosComponent implements OnInit {
     this.mostrarModal = false
   }
 
-  // Métodos de redirección
   redirectToLogin(): void {
     this.router.navigate(["/public/login"])
-    this.cerrarModal() // Cerrar modal después de redirigir
+    this.cerrarModal()
   }
 
   redirectToRegistro(): void {
     this.router.navigate(["/public/registro"])
-    this.cerrarModal() // Cerrar modal después de redirigir
+    this.cerrarModal()
   }
 
-  // Método para manejar errores de imagen
   onImageError(event: Event): void {
     const target = event.target as HTMLImageElement
     if (target) {
